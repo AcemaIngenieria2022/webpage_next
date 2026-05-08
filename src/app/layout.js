@@ -2,7 +2,7 @@
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import Navbar from '@/components/layout/Navbar/Navbar';
 import Footer from '@/components/layout/Footer/Footer';
-import WhatsAppButton from '@/components/Shared/WhatsAppButton/WhatsAppButton';
+import WhatsAppButton from '@/components/shared/WhatsAppButton/WhatsAppButton';
 import "./globals.css";
  
 const geistSans = Geist({
@@ -34,10 +34,12 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />      {/* ← AGREGAR: Navbar aparece arriba */}
-        {children}      {/* ← Contenido de cada página */}
-        <Footer />      {/* ← AGREGAR: Footer aparece abajo */}
-        <WhatsAppButton /> {/* ← Botón de WhatsApp pegajoso */}
+        <Navbar />
+        <div className="universal-layout-container">
+          {children}
+        </div>
+        <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );

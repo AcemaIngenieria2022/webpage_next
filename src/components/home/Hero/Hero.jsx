@@ -4,64 +4,101 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Hero.module.css";
 
-/**
- * Solo imagen base (Next se encarga del resto)
- */
+/* =========================
+   IMÁGENES
+========================= */
+
 const HERO_IMAGES = [
   {
     src: "/images/Hero/img1-hero.webp",
+    srcMobile: "/images/Hero/movile-img1.webp",
     alt: "Proyecto ACEMA 1",
   },
   {
     src: "/images/Hero/img2-hero.webp",
+    srcMobile: "/images/Hero/movile-img2.webp",
     alt: "Proyecto ACEMA 2",
   },
   {
     src: "/images/Hero/img3-hero.webp",
+    srcMobile: "/images/Hero/movile-img3.webp",
     alt: "Proyecto ACEMA 3",
   },
 ];
 
 const AUTOPLAY_DELAY = 6000;
 
+/* =========================
+   COMPONENTE PRINCIPAL
+========================= */
+
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (HERO_IMAGES.length <= 1) return;
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+
+    checkMobile();
+    setMounted(true);
+
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || HERO_IMAGES.length <= 1) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % HERO_IMAGES.length);
     }, AUTOPLAY_DELAY);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [mounted]);
+
+  if (!mounted) {
+    return (
+      <section className={styles.hero}>
+        <div className={styles.heroSlider} />
+        <div className={styles.heroOverlay} />
+        <div className={styles.heroContent} />
+      </section>
+    );
+  }
 
   return (
     <section className={styles.hero}>
-      <HeroSlider currentIndex={currentIndex} />
+      <HeroSlider currentIndex={currentIndex} isMobile={isMobile} />
+
       <div className={styles.heroOverlay} />
+
       <HeroContent />
     </section>
   );
 }
 
 /* =========================
-   Slider
+   SLIDER
 ========================= */
 
-function HeroSlider({ currentIndex }) {
+function HeroSlider({ currentIndex, isMobile }) {
   return (
     <div className={styles.heroSlider}>
       {HERO_IMAGES.map((img, index) => (
         <div
-          key={img.src}
+          key={`${index}-${isMobile ? "mobile" : "desktop"}`}
           className={`${styles.imageWrapper} ${
             index === currentIndex ? styles.active : ""
           }`}
         >
           <Image
-            src={img.src}
+            src={isMobile && img.srcMobile ? img.srcMobile : img.src}
             alt={img.alt}
             fill
             className={styles.heroImage}
@@ -77,12 +114,14 @@ function HeroSlider({ currentIndex }) {
 }
 
 /* =========================
-   Content
+   CONTENIDO
 ========================= */
 
 function HeroContent() {
   const handleScroll = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById("about")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -98,6 +137,10 @@ function HeroContent() {
     </div>
   );
 }
+
+/* =========================
+   ICONO
+========================= */
 
 function ArrowIcon() {
   return (

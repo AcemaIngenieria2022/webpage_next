@@ -56,7 +56,7 @@ const Navbar = () => {
               src="/images/Logs/logo-acema.png" 
               alt="Logo ACEMA" 
               width={160} 
-              height={50} 
+              height={60} 
               className={styles.logoImage}
               priority 
             />

@@ -28,7 +28,7 @@
   right: 30px;
   width: 60px;
   height: 60px;
-  background-color: #28691e; /* Verde corporativo ACEMA */
+  background-color: #40a335; /* Verde corporativo ACEMA */
   color: white;
   border: none;
   border-radius: 50%;
@@ -43,9 +43,11 @@
 }
 
 .whatsappButton:hover {
-  background-color: #1a4a8d; /* Azul corporativo ACEMA al interactuar */
+  background-color: #f1f1f1; /* Azul corporativo ACEMA al interactuar */
   animation-play-state: paused; /* El latido se detiene al pasar el mouse */
   transform: scale(1.15);
+  color: #40a335; /* Cambia el color del icono al interactuar */
+  border: 2px solid #40a335; /* Agrega un borde verde al interactuar */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 

@@ -149,7 +149,7 @@
     right: -100%;
     width: 80%;
     height: 100vh;
-    background: rgba(243, 243, 243, 0.733);
+    background: rgba(243, 243, 243, 0.943);
     flex-direction: column;
     justify-content: center;
     transition: 0.4s ease-in-out;
@@ -164,6 +164,7 @@
   .navLink {
     font-size: 18px;
     width: 100%;
+    
     justify-content: center;
   }
 
@@ -187,5 +188,6 @@
 
   .dropdownMenu a {
     text-align: center;
+    margin: 8px;
   }
 }

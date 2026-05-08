@@ -8,3 +8,19 @@ html, body {
   padding: 0;
   overflow-x: hidden;
 }
+
+
+.universal-layout-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 56px 16px 0 16px; /* Aumenta el espacio superior */
+  min-height: 70vh;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .universal-layout-container {
+    padding: 40px 8px 0 8px; /* También aumenta en móvil/tablet */
+  }
+}

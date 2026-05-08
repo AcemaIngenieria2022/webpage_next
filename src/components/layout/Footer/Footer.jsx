@@ -16,16 +16,19 @@ const Footer = () => {
   return (
     <footer className={styles.footer} id="contacto">
       <div className={styles.footerContainer}>
+        
 
         {/* LOGO IZQUIERDA */}
         <div className={styles.footerBrand}>
-          <Image 
-            src="/images/Logs/logo-acema.png" 
-            alt="ACEMA Ingeniería" 
-            width={220} 
-            height={80} 
-            className={styles.footerLogo} 
-          />
+          <a href="">
+            <Image 
+              src="/images/Logs/logo-acema.png" 
+              alt="ACEMA Ingeniería" 
+              width={220} 
+              height={80} 
+              className={styles.footerLogo} 
+            />
+          </a>
         </div>
 
         {/* DATOS DE CONTACTO (CENTRO-IZQUIERDA) */}

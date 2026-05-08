@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.projectsSection {
+
+  padding: 100px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.projectsContainer {
+  max-width: 1200px;
+  width: 90%;
+}
+
+.projectsHeader {
+  color: #43a335; /* Verde corporativo ACEMA */
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 60px;
+  text-align: left; /* Alineado a la izquierda según la imagen */
+  letter-spacing: -1.5px;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+/* Estilo para el enlace que envuelve la card */
+.projectLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.projectCard {
+  position: relative;
+  background: #ffffff;
+  border-radius: 25px; /* Bordes redondeados pronunciados */
+  overflow: visible;
+  transition: transform 0.3s ease;
+  height: 350px; /* Altura base ajustada */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 220px; /* Altura de la imagen en la card */
+  border-radius: 25px 25px 0 0;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.projectImg {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Panel de información que se expande */
+.infoDetails {
+  position: absolute;
+  top: 220px; /* Inicia justo donde termina la imagen */
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 20px;
+  max-height: 130px; /* Se muestra inicialmente una parte o todo según el hover */
+  opacity: 1; /* Mantener opacidad para legibilidad */
+  border-radius: 0 0 25px 25px;
+  transition: all 0.4s ease;
+  z-index: 1;
+  box-sizing: border-box;
+  text-align: left; /* Alineación de texto a la izquierda */
+}
+
+
+
+/* --- Colores de Texto en la Card --- */
+.projectName, .projectLocation {
+  color: #1a4a8d; /* Azul corporativo oscuro de los textos */
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Hover conjunto */
+.infoDetails:hover .projectName,
+.infoDetails:hover .projectLocation {
+  color: #43a335;
+}
+
+
+ 
+
+.projectName {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.projectLocation {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+
+
+/* --- Efecto Hover Individual --- */
+.projectLink:hover .projectCard {
+  transform: translateY(-10px);
+  z-index: 10;
+  
+}
+
+ 
+
+
+.projectLink:hover .infoDetails {
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  /* Aquí puedes agregar un padding extra o expansión si lo deseas */
+}
+
+.projectLink:hover .projectImg {
+  transform: scale(1.1);
+}
+
+/* --- Móviles --- */
+@media (max-width: 768px) {
+  .projectsHeader {
+    font-size: 2.2rem;
+  }
+  
+  .projectCard {
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .infoDetails {
+    position: static;
+    border-radius: 0 0 25px 25px;
+  }
+}

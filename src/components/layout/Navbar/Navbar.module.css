@@ -1,0 +1,191 @@
+.navbar {
+  width: 100%;
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 80px;
+}
+
+.navMenu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+/* LINKS Y EFECTO HOVER */
+.navLink {
+  color: #215ba0;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  padding: 8px 0;
+}
+
+.navLink:hover {
+    color: #40a335;
+}
+
+.linkText {
+  position: relative;
+}
+
+.linkText::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: #40a335;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover .linkText::after {
+  width: 100%;
+}
+
+.arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.arrowRotate {
+  transform: rotate(180deg);
+}
+
+/* SUBMENÚ (ESCRITORIO) */
+.navDropdown {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  min-width: 200px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f0f0f0;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.dropdownMenu a {
+  padding: 3px 15px;
+  color: #215ba0;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.dropdownMenu a:hover {
+  
+  color: #40a335;
+}
+
+/* BOTÓN HAMBURGUESA */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: #215ba0;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+/* RESPONSIVE (MÓVIL) */
+@media (max-width: 1024px) {
+  .hamburger {
+    display: flex;
+  }
+
+  /* Animación X de hamburguesa */
+  .hamburgerOpen span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .hamburgerOpen span:nth-child(2) { opacity: 0; }
+  .hamburgerOpen span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  .navMenu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: rgba(243, 243, 243, 0.733);
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.4s ease-in-out;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
+
+  .active {
+    right: 0;
+  }
+
+  .navLink {
+    font-size: 18px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .linkText::after {
+    display: none; /* Quitamos línea en móvil */
+  }
+
+  /* SUBMENÚ EN MÓVIL (DESPLEGABLE HACIA ABAJO) */
+  .dropdownMenu {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    box-shadow: none;
+    background: #f8f9fb;
+    width: 100%;
+    margin-top: 5px;
+    animation: none;
+    border: none;
+  }
+
+  .dropdownMenu a {
+    text-align: center;
+  }
+}

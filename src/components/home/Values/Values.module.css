@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+
+.valuesSection {
+  background-color: #dbdbdb; /* Gris de fondo según tu referencia */
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif; /* Consistencia con el proyecto ACEMA */
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas solicitadas */
+  gap: 25px 40px; /* Espaciado horizontal y vertical */
+  max-width: 1000px;
+  width: 100%;
+}
+
+.valueItem {
+  background-color: #ffffff;
+  padding: 15px 30px;
+  border-radius: 50px; /* Forma de pastilla perfecta */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.valueItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.valueText {
+  color: #1a4a8d; /* Azul corporativo oscuro de ACEMA */
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-right: 15px;
+  line-height: 1.2;
+}
+
+.valueIcon {
+  color: #43a335; /* Verde corporativo ACEMA para el icono */
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+  .valuesSection {
+    padding: 60px 15px;
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr; /* Una sola columna en celulares */
+    gap: 15px;
+  }
+  
+  .valueItem {
+    padding: 12px 25px;
+  }
+  
+  .valueText {
+    font-size: 0.95rem;
+  }
+}

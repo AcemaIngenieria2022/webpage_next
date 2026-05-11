@@ -23,7 +23,8 @@ const Projects = () => {
       id: 3,
       name: "Granja solar",
       location: "Piedras 1 y 2 0,9 MW",
-      image: "/images/projects/img-piedras.webp",
+      // Ajustado según el nombre real de tu archivo en la carpeta public
+      image: "/images/projects/proyecto3.webp", 
       url: "/proyectos/piedras"
     }
   ];
@@ -41,17 +42,19 @@ const Projects = () => {
             <Link href={project.url} key={project.id} className={styles.projectLink}>
               <div className={styles.projectCard}>
                 
-                {/* Contenedor de la Imagen (Siempre visible) */}
+                {/* Contenedor de la Imagen */}
                 <div className={styles.imageContainer}>
                   <Image 
                     src={project.image} 
                     alt={`${project.name} - ${project.location}`}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className={styles.projectImg}
+                    priority={project.id === 1} // Prioriza la carga de la primera imagen
                   />
                 </div>
 
-                {/* Panel de información que aparece con el Hover */}
+                {/* Panel de información (Hover) */}
                 <div className={styles.infoDetails}>
                   <h3 className={styles.projectName}>{project.name}</h3>
                   <p className={styles.projectLocation}>{project.location}</p>

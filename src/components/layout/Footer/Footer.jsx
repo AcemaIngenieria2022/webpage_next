@@ -61,7 +61,7 @@ const Footer = () => {
             <div className={styles.contactIcon}>
               <FaBriefcase />
             </div>
-            <Link href="/trabajo" className={styles.workLink}>
+            <Link href="/contact" className={styles.workLink}>
               Trabaja con nosotros
             </Link>
           </div>

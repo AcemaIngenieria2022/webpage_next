@@ -8,7 +8,13 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main>
+    <main style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#f0f2f5',
+    }}>
       <ContactForm />
     </main>
   );

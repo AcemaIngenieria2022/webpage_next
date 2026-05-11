@@ -1,0 +1,251 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px 40px 20px; /* Espacio superior para el navbar */
+  min-height: calc(100vh - 80px);
+   font-family: Arial, sans-serif;
+  
+}
+
+@media (max-width: 1200px) {
+  .mainContainer {
+    justify-content: flex-start;
+    padding-top: 120px;
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 900px) {
+  .mainContainer {
+    justify-content: flex-start;
+    padding-top: 90px;
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 1200px) {
+  .mainContainer {
+    padding-top: 120px;
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 900px) {
+  .mainContainer {
+    padding-top: 90px;
+    min-height: 100vh;
+  }
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Cabecera Píldora */
+.pillHeader {
+  background-color: #215ba0;
+  color: white;
+  padding: 5px 50px;
+  border-radius: 40px 10px 40px 10px;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  z-index: 2;
+}
+
+/* Líneas verdes decorativas */
+.dividerLine {
+  width: 70%;
+  height: 2px;
+  background-color: #61b343; /* Color verde de la imagen */
+  margin: 0 auto;
+}
+
+/* Contenedor Flex para Formulario + InfoBox */
+.formContentWrapper {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  padding: 50px 0; /* Espacio para las líneas verdes */
+  align-items: flex-start;
+}
+
+.formCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  
+}
+
+.subtitle {
+  color: #215ba0;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.gridInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.inputField {
+  background-color: #ecf1f6;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 13.5px;
+  color: #215ba0;
+  outline: none;
+}
+
+.dropdownItem:hover {
+  color: #40a335;
+}
+
+.inputField::placeholder {
+  color: #215ba0;
+  opacity: 0.7;
+}
+
+/* Dropdown */
+.dropdownContainer {
+  position: relative;
+  width: fit-content;
+  z-index: 10;
+}
+
+.requestButtonSelect {
+  background-color: #ecf1f6;
+  border: none;
+  border-radius: 40px;
+  padding: 8px 18px;
+  font-size: 13.5px;
+  color: #215ba0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.activeBtn {
+
+  background-color: #215ba0;
+  color: white;
+}
+
+.icon {
+  font-size: 16px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: #f1f5f9;
+  border-radius: 10px;
+  padding: 10px 15px;
+  list-style: none;
+  min-width: 180px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownItem {
+  padding: 5px 0;
+  font-size: 12.5px;
+  color: #1a365d;
+  cursor: pointer;
+}
+
+/* Textarea */
+.textareaWrapper {
+  background-color: #ecf1f6;
+  border-radius: 12px;
+  padding: 15px 20px;
+}
+
+.textArea {
+  background-color: transparent;
+  border: none;
+  resize: none;
+  height: 40px;
+  width: 100%;
+  outline: none;
+  font-size: 13.5px;
+  color: #1a365d;
+}
+
+/* Info Box Lateral */
+.infoBoxSide {
+  background-color: #ebebeb;
+  border-radius: 15px;
+  width: 200px;
+  height: 280px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.infoBoxSide p {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: #1e293b;
+}
+
+/* Fila de Botón */
+.footerRow {
+  display: flex;
+  justify-content: flex-end; /* Alineado a la derecha */
+}
+
+.submitButton {
+  background-color: #215ba0;
+  color: white;
+  border: none;
+  padding: 10px 50px;
+  border-radius: 40px 10px 40px 10px;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Móvil */
+@media (max-width: 750px) {
+  .formContentWrapper {
+    flex-direction:column-reverse;
+    padding: 25px 0;
+  }
+  .gridInputs {
+    grid-template-columns: 1fr;
+  }
+  .infoBoxSide {
+    width: 100%;
+    order: -1;
+  }
+  .pillHeader {
+    font-size: 18px;
+    padding: 10px 30px;
+  }
+  .dividerLine {
+    width: 90%;
+  }
+}

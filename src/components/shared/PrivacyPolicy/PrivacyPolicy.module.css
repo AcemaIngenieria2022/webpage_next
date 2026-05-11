@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: #f4f7f9; /* Color de fondo suave de la imagen */
+  background-color: #f1f1f1; /* Color de fondo suave de la imagen */
   padding: 80px 20px;
   font-family: Arial, Helvetica, sans-serif;
   color: #215ba0;
@@ -23,7 +23,8 @@
   line-height: 1.2;
  
   display: inline-block;
-  border-bottom: 3.5px solid #40a335;
+  /* border-bottom: 3.5px solid #40a335; */
+   /* Línea verde debajo del título */
   padding-bottom: 5px;
 }
 

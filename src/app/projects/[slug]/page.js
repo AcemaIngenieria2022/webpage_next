@@ -1,7 +1,7 @@
-export async function generateStaticParams() {
-  return [
-    { slug: 'proyecto-1' },
-    { slug: 'proyecto-2' },
-    { slug: 'proyecto-3' },
-  ];
+export default function ProjectPage() {
+  return (
+    <div>
+      Proyecto
+    </div>
+  );
 }

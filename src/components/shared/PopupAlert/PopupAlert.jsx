@@ -17,7 +17,7 @@ const PopupAlert = ({ visible, status = 'success', message = '', onClose }) => {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.popup} role="alert" onClick={(event) => event.stopPropagation()}>
         <div className={`${styles.icon} ${status === 'success' ? styles.success : styles.error}`}> 
-          {status === 'success' ? '✔' : '⚠'}
+          {status === 'success' ? '✔' : ''}
         </div>
         <div className={styles.content}>
           <strong className={styles.title}>{status === 'success' ? '¡Listo!' : 'Atención'}</strong>

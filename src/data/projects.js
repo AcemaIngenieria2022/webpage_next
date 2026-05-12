@@ -1,15 +1,22 @@
 export const projectsData = [
-  // FINALIZADOS
-  { id: 1, title: 'Las Rubiela', status: 'finalizados', image: '/img/rubiela.jpg' },
-  { id: 2, title: 'San Pelayo', status: 'finalizados', image: '/img/pelayo.jpg' },
-  { id: 3, title: 'Inti I y II', status: 'finalizados', image: '/img/inti.jpg' },
-  { id: 4, title: 'Piedras I y II', status: 'finalizados', image: '/img/piedras.jpg' },
-  // EN DESARROLLO
-  { id: 10, title: 'Puerto Libertador', status: 'desarrollo', image: '/img/puerto.jpg' },
-  { id: 11, title: 'Lorica 1 - 8', status: 'desarrollo', image: '/img/lorica.jpg' },
-  { id: 12, title: 'San Onofre I, II y III', status: 'desarrollo', image: '/img/onofre.jpg' },
-  { id: 13, title: 'Tierra Alta I y II', status: 'desarrollo', image: '/img/tierra.jpg' },
-  { id: 14, title: 'Cementera', status: 'desarrollo', image: '/img/cementera.jpg' },
-  { id: 15, title: 'Laureles 1 - 4', status: 'desarrollo', image: '/img/laureles.jpg' },
-  { id: 16, title: 'Mirla I y II', status: 'desarrollo', image: '/img/mirla.jpg' },
+  // --- FINALIZADOS ---
+  { id: 1, title: 'La Rubiela', slug: 'la-rubiela', status: 'finalizados', image: '/images/projects/finished/Rubiela.webp' },
+  { id: 2, title: 'San Pelayo', slug: 'san-pelayo', status: 'finalizados', image: '/images/projects/finished/pelayo.webp' },
+  { id: 3, title: 'Inti I y II', slug: 'inti-i-y-ii', status: 'finalizados', image: '/images/projects/finished/inti.webp' },
+  { id: 4, title: 'Piedras I y II', slug: 'piedras-i-y-ii', status: 'finalizados', image: '/images/projects/finished/piedras.webp' },
+  { id: 5, title: 'Semillas I y II', slug: 'semillas-i-y-ii', status: 'finalizados', image: '/images/projects/finished/semillas.webp' },
+  { id: 6, title: 'Valledupar', slug: 'valledupar', status: 'finalizados', image: '/images/projects/finished/valledupar.webp' },
+  { id: 7, title: 'Salamina', slug: 'salamina', status: 'finalizados', image: '/images/projects/finished/salamina.webp' },
+  { id: 8, title: 'Urrá', slug: 'urra', status: 'finalizados', image: '/images/projects/finished/urra.webp' },
+  { id: 9, title: 'Sol y cielo', slug: 'sol-y-cielo', status: 'finalizados', image: '/images/projects/finished/solycielo.webp' },
+  { id: 10, title: 'Emperatriz I y II', slug: 'emperatriz-i-y-ii', status: 'finalizados', image: '/images/projects/finished/emperatriz.webp' },
+  { id: 11, title: 'Coralito y Golondrina', slug: 'coralito-y-golondrina', status: 'finalizados', image: '/images/projects/finished/coralito.webp' },
+
+
+
+  // --- EN DESARROLLO --- (Crea la carpeta 'developing' en public para estas)
+  { id: 12, title: 'Puerto Libertador', slug: 'puerto-libertador', status: 'desarrollo', image: '/images/projects/developing/puerto.webp' },
+  { id: 13, title: 'Lorica 1 - 8', slug: 'lorica-1-8', status: 'desarrollo', image: '/images/projects/developing/lorica.webp' },
+  { id: 14, title: 'San Onofre I, II y III', slug: 'san-onofre-i-ii-y-iii', status: 'desarrollo', image: '/images/projects/developing/onofre.webp' },
+  
 ];

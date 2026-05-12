@@ -104,8 +104,8 @@ function HeroSlider({ currentIndex, isMobile }) {
             className={styles.heroImage}
             priority={index === 0}
             loading={index === 0 ? "eager" : "lazy"}
-            quality={70}
-            sizes="100vw"
+            quality={75}
+            sizes="(max-width: 768px) 100vw, 100vw"
           />
         </div>
       ))}

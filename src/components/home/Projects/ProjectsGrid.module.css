@@ -2,59 +2,72 @@
 
 .container {
   width: 100%;
-  padding: 20px 0 60px 0;
+  padding: 40px 20px 50px 20px;
   font-family: 'Montserrat', sans-serif;
+  display: grid;
+  row-gap: 30px;
+  justify-items: center;
+    background-color: #f1f1f1; /* Color de fondo suave de la imagen */
 }
 
-/* Título dinámico "Finalizados" o "En desarrollo" */
+/* Título de la sección (Finalizados / En desarrollo) */
 .sectionTitle {
   color: #1a4a8d; /* Azul corporativo oscuro */
-  font-size: 2rem;
+  font-size: 1.6rem; /* Tamaño optimizado para ser compacto */
   font-weight: 700;
-  margin-bottom: 45px;
+  margin: 0;
   text-align: left;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
+  width: 100%;
+  max-width: 1140px;
 }
 
-/* Configuración de la Grilla */
+/* Configuración de la Grilla Compacta */
 .grid {
   display: grid;
-  /* Crea 3 columnas de igual tamaño */
-  grid-template-columns: repeat(3, 1fr); 
-  /* Espacio horizontal y vertical entre las cards */
-  gap: 35px; 
-  row-gap: 50px; 
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  justify-items: center;
+  gap: 22px;
+  row-gap: 30px;
   width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
-/* --- Ajustes Responsivos --- */
+.cardLink {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
 
-/* Tablets (iPad, laptops pequeños) */
-@media (max-width: 1100px) {
+/* --- Ajustes de Responsividad --- */
+
+/* Tablets y Laptops pequeños */
+@media (max-width: 1024px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+    gap: 20px;
   }
   
   .sectionTitle {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 }
 
-/* Móviles (Smartphones) */
-@media (max-width: 680px) {
+/* Móviles */
+@media (max-width: 640px) {
   .grid {
-    grid-template-columns: 1fr; /* Una sola columna */
-    gap: 30px;
+    grid-template-columns: 1fr; /* Una sola tarjeta por fila */
+    gap: 25px;
   }
 
   .sectionTitle {
-    font-size: 1.6rem;
-    text-align: center; /* Centramos el título en móviles para mejor estética */
-    margin-bottom: 30px;
+    font-size: 1.3rem;
+    text-align: center; /* Centrado en móvil para mejor equilibrio visual */
+    margin-bottom: 20px;
   }
   
   .container {
-    padding: 10px 0 40px 0;
+    padding: 10px 10px 30px 10px;
   }
 }

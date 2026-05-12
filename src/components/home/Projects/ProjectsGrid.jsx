@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Card from '@/components/shared/Card/Card';
 import styles from './ProjectsGrid.module.css';
 
@@ -17,11 +18,16 @@ const ProjectsGrid = ({ projects, activeFilter }) => {
       {/* Grilla responsiva */}
       <div className={styles.grid}>
         {filteredProjects.map((project) => (
-          <Card 
-            key={project.id} 
-            title={project.title} 
-            image={project.image} 
-          />
+          <Link
+            key={project.id}
+            href={`/projects/${project.slug}`}
+            className={styles.cardLink}
+          >
+            <Card 
+              title={project.title} 
+              image={project.image} 
+            />
+          </Link>
         ))}
       </div>
     </div>

@@ -29,7 +29,7 @@ const ProjectsToggle = ({ onFilterChange }) => {
             className={`${styles.navItem} ${activeFilter === 'desarrollo' ? styles.active : ''}`}
             onClick={() => handleFilter('desarrollo')}
           >
-            En desarrollado
+            En desarrollo
           </button>
         </nav>
       </div>

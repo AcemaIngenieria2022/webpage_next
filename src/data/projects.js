@@ -13,10 +13,13 @@ export const projectsData = [
   { id: 11, title: 'Coralito y Golondrina', slug: 'coralito-y-golondrina', status: 'finalizados', image: '/images/projects/finished/coralito.webp' },
 
 
-
-  // --- EN DESARROLLO --- (Crea la carpeta 'developing' en public para estas)
-  { id: 12, title: 'Puerto Libertador', slug: 'puerto-libertador', status: 'desarrollo', image: '/images/projects/developing/puerto.webp' },
+// --- EN DESARROLLO ---
+  { id: 12, title: 'Puerto Libertador', slug: 'puerto-libertador', status: 'desarrollo', image: '/images/projects/developing/libertador.webp' },
   { id: 13, title: 'Lorica 1 - 8', slug: 'lorica-1-8', status: 'desarrollo', image: '/images/projects/developing/lorica.webp' },
-  { id: 14, title: 'San Onofre I, II y III', slug: 'san-onofre-i-ii-y-iii', status: 'desarrollo', image: '/images/projects/developing/onofre.webp' },
-  
+  { id: 14, title: 'San Onofre I, II y III', slug: 'san-onofre-i-ii-y-iii', status: 'desarrollo', image: '/images/projects/developing/sanonofre.webp' },
+  { id: 15, title: 'Tierra Alta I y II', slug: 'tierra-alta-i-y-ii', status: 'desarrollo', image: '/images/projects/developing/tierraalta.webp' },
+  { id: 16, title: 'Cementera', slug: 'cementera', status: 'desarrollo', image: '/images/projects/developing/cementera.webp' },
+  { id: 17, title: 'Laureles 1 - 4', slug: 'laureles-1-4', status: 'desarrollo', image: '/images/projects/developing/laureles.webp' },
+  { id: 18, title: 'Mirla I y II', slug: 'mirla-i-y-ii', status: 'desarrollo', image: '/images/projects/developing/mirla.webp' },
 ];
+  

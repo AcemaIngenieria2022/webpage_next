@@ -1,34 +1,33 @@
-export const metadata = {
-  title: 'Proyectos - ACEMA Ingeniería',
-  description: 'Proyectos destacados de ingeniería solar e infraestructura.',
-};
+"use client";
+
+import { useState } from 'react';
+import ProjectsToggle from '@/components/shared/Toggle/ProjectsToggle';
+import ProjectsGrid from '@/components/home/Projects/ProjectsGrid';
+import { projectsData } from '@/data/projects';
 
 export default function ProjectsPage() {
+  // Estado para manejar el filtro seleccionado
+  const [filter, setFilter] = useState('finalizados');
+
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+  };
+
   return (
-    <main className="min-h-screen px-6 py-20 bg-slate-50 text-slate-900">
-      <section className="mx-auto max-w-6xl">
-        <h1 className="text-4xl font-bold mb-4">Proyectos</h1>
-        <p className="text-lg leading-8 mb-8">
-          Explora nuestros casos de éxito en energía solar, centros de transformación y servicio eléctrico.
-        </p>
-        <div className="grid gap-8 md:grid-cols-3">
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold mb-2">Granja solar industrial</h2>
-            <p className="text-slate-600">Instalación de alta capacidad para producción sostenible de energía.</p>
-          </article>
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold mb-2">Centro de transformación</h2>
-            <p className="text-slate-600">Diseño y ejecución de subestaciones eléctricas seguras y eficientes.</p>
-          </article>
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold mb-2">Servicios eléctricos</h2>
-            <p className="text-slate-600">Mantenimiento, pruebas y puesta en marcha de redes eléctricas.</p>
-          </article>
-        </div>
+    <main className="min-h-screen bg-[#f1f3f6]">
+      {/* Cabecera con el selector de proyectos */}
+      <ProjectsToggle 
+        onFilterChange={handleFilterChange} 
+        currentFilter={filter} 
+      />
+      
+      <section className="mx-auto max-w-7xl px-6 py-12">
+        {/* Grilla que muestra los proyectos según el filtro */}
+        <ProjectsGrid 
+          projects={projectsData} 
+          activeFilter={filter} 
+        />
       </section>
     </main>
   );
 }
-
-
-

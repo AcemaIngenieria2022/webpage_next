@@ -9,8 +9,36 @@ html, body {
   overflow-x: hidden;
 }
 
+ 
+
 @media (max-width: 900px) {
   .universal-layout-container {
-    padding: 40px 8px 0 8px; /* También aumenta en móvil/tablet */
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 80px; /* Mantener espacio para navbar en móvil */
+  }
+}
+
+/* Estilos globales para páginas */
+.page-main {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.page-section {
+  margin: 0 auto;
+  max-width: 1280px; /* Equivalente a max-w-7xl */
+  padding: 3rem 1.5rem; /* Equivalente a py-12 px-6 */
+}
+
+.projects-grid {
+  display: grid;
+  gap: 2rem; /* Equivalente a gap-8 */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr); /* md:grid-cols-3 */
   }
 }

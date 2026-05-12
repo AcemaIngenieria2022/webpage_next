@@ -10,18 +10,18 @@ import styles from "./Hero.module.css";
 
 const HERO_IMAGES = [
   {
-    src: "/images/Hero/img1-hero.webp",
-    srcMobile: "/images/Hero/movile-img1.webp",
+    src: "/images/hero/img1-hero.webp",
+    srcMobile: "/images/hero/movile-img1.webp",
     alt: "Proyecto ACEMA 1",
   },
   {
-    src: "/images/Hero/img2-hero.webp",
-    srcMobile: "/images/Hero/movile-img2.webp",
+    src: "/images/hero/img2-hero.webp",
+    srcMobile: "/images/hero/movile-img2.webp",
     alt: "Proyecto ACEMA 2",
   },
   {
-    src: "/images/Hero/img3-hero.webp",
-    srcMobile: "/images/Hero/movile-img3.webp",
+    src: "/images/hero/img3-hero.webp",
+    srcMobile: "/images/hero/movile-img3.webp",
     alt: "Proyecto ACEMA 3",
   },
 ];

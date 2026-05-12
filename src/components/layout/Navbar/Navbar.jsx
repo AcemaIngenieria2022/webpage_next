@@ -53,7 +53,7 @@ const Navbar = () => {
         <Link href="/">
           <div className={styles.navbarLogo}>
             <Image 
-              src="/images/Logs/logo-acema.png" 
+              src="/images/logs/logo-acema.png" 
               alt="Logo ACEMA" 
               width={160} 
               height={60} 

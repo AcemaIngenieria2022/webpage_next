@@ -22,7 +22,7 @@ const Footer = () => {
         <div className={styles.footerBrand}>
           <a href="">
             <Image 
-              src="/images/Logs/logo-acema.png" 
+              src="/images/logs/logo-acema.png" 
               alt="ACEMA Ingeniería" 
               width={220} 
               height={80} 
@@ -31,7 +31,7 @@ const Footer = () => {
           </a>
         </div>
 
-        {/* DATOS DE CONTACTO (CENTRO-IZQUIERDA) */}
+        {/* DATOS DE CONTACTO (CENTRO-IZQUIERDA) */}      
         <div className={styles.footerContact}>
           <div className={styles.contactItem}>
             <div className={styles.contactIcon}>

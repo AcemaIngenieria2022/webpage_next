@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} appBody`}>
         <Navbar />
         <div className="universal-layout-container">
           {children}

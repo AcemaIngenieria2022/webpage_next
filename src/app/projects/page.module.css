@@ -1,0 +1,11 @@
+.pageWrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f3f5f7;
+  padding: 3rem 1.5rem;
+}
+
+.content {
+  margin: 0 auto;
+  max-width: 80rem;
+}

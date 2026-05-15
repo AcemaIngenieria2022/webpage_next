@@ -1,16 +1,17 @@
 .projectCard {
   position: relative;
-  background: #ffffff;
-  border-radius: 20px; /* Un poco menos redondeado para verse más técnico */
+  background: white;
+  border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
   min-height: 300px;
-  max-width: 340px;
   width: 100%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  user-select: none;
 }
 
 .imageContainer {
@@ -28,9 +29,9 @@
 
 /* Panel de información más compacto */
 .infoDetails {
-  padding: 15px; /* Reducimos el padding de 25px a 15px */
-  background-color: #ffffff;
-  text-align: center; /* Centrado para que se vea más organizado como en tu imagen */
+  padding: 15px;
+  background-color: white;
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,24 +39,25 @@
 }
 
 .projectName {
-  color: #1a4a8d;
-  font-size: 1.1rem; /* Reducimos ligeramente el tamaño de fuente */
+  color: #215ba0;
+  font-size: 1.1rem;
   font-weight: 700;
-  margin: 0; /* Quitamos márgenes extras */
+  margin: 0;
   line-height: 1.2;
+  transition: color 0.3s ease;
 }
 
 .projectLocation {
-  display: none; /* Si quieres que sea IDÉNTICO a tu imagen, ocultamos esto */
+  display: none;
 }
 
 /* Hover más sutil */
 .projectCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  
-
+  transform: translateY(-8px);
+  box-shadow: 0 2px 15px #e0e0e0;
+  color: #40a335;
 }
+
 .projectCard:hover .projectName {
-  color: #43a335; /* Verde ACEMA al hacer hover */
+  color: var(--accent);
 }

@@ -1,0 +1,53 @@
+export const blogPosts = [
+  {
+    slug: 'alta-media-baja-tension',
+    title: '¿Qué es la alta, media y baja tensión?',
+    image: '/images/projects/finished/Rubiela.webp',
+    variant: 'featured',
+    href: '/blog/alta-media-baja-tension',
+  },
+  {
+    slug: 'la-rubiela',
+    title: 'Granja solar',
+    subtitle: 'La Rubiela 0,9 MW',
+    image: '/images/projects/finished/valledupar.webp',
+    variant: 'compact',
+    href: '/projects/la-rubiela',
+  },
+  {
+    slug: 'inti-i-y-ii',
+    title: 'Granja Inti I',
+    subtitle: '9,9 MW',
+    image: '/images/projects/finished/piedras.webp',
+    variant: 'compact',
+    href: '/projects/inti-i-y-ii',
+  },
+  {
+    slug: 'san-pelayo',
+    title: 'Granja solar San Pelayo 0,99 MW ',
+    image: '/images/projects/finished/pelayo.webp',
+    variant: 'regular',
+    href: '/projects/san-pelayo',
+  },
+  {
+    slug: 'acema-alegria-ninos',
+    title: 'Acema ingeniería comparte alegría con los niños...',
+    image: '/images/projects/finished/solycielo.webp',
+    variant: 'regular',
+    href: '/blog/acema-alegria-ninos',
+  },
+  {
+    slug: 'semillas-i-y-ii',
+    title: 'Granja solar Semillas I 0,9 MW',
+    image: '/images/projects/finished/semillas.webp',
+    variant: 'regular',
+    href: '/projects/semillas-i-y-ii',
+  },
+  {
+    slug: 'urra',
+    title: 'Granja solar Urrá 19,9 MW',
+    image: '/images/projects/finished/urra.webp',
+    variant: 'regular',
+    href: '/projects/urra',
+  },
+];

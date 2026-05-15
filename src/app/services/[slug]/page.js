@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import styles from './page.module.css';
 
 export async function generateStaticParams() {
   return [
@@ -29,13 +30,13 @@ export default function PostPage({ params }) {
 
   if (!post) {
     return (
-      <main className="min-h-screen px-6 py-20 bg-slate-50 text-slate-900">
-        <section className="mx-auto max-w-4xl rounded-3xl border border-red-200 bg-white p-10 shadow-sm">
-          <h1 className="text-4xl font-bold text-red-600 mb-4">Artículo no encontrado</h1>
-          <p className="text-lg leading-8 mb-6">
+      <main className={styles.page}>
+        <section className={styles.errorCard}>
+          <h1 className={`${styles.title} ${styles.errorTitle}`}>Artículo no encontrado</h1>
+          <p className={styles.text}>
             El artículo solicitado no existe o el slug es incorrecto.
           </p>
-          <Link href="/blog" className="text-blue-600 hover:text-blue-800">
+          <Link href="/blog" className={styles.link}>
             Volver al blog
           </Link>
         </section>
@@ -44,16 +45,16 @@ export default function PostPage({ params }) {
   }
 
   return (
-    <main className="min-h-screen px-6 py-20 bg-slate-50 text-slate-900">
-      <section className="mx-auto max-w-6xl">
-        <div className="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-          <p className="text-lg leading-8 text-slate-600 mb-8">{post.description}</p>
-          <div className="prose prose-slate max-w-none">
+    <main className={styles.page}>
+      <section className={styles.postSection}>
+        <div className={styles.postCard}>
+          <h1 className={styles.title}>{post.title}</h1>
+          <p className={`${styles.text} ${styles.description}`}>{post.description}</p>
+          <div className={styles.postContent}>
             <p>{post.content}</p>
           </div>
-          <div className="mt-10">
-            <Link href="/blog" className="text-blue-600 hover:text-blue-800">
+          <div>
+            <Link href="/blog" className={styles.link}>
               ← Volver al blog
             </Link>
           </div>

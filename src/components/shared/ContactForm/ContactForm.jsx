@@ -178,7 +178,6 @@ const ContactForm = () => {
              <a href="/data-processing" target="_blank" rel="noopener noreferrer">
                 <span className={styles.policyText}>Políticas de privacidad</span>
               </a>
-              
               <label className={styles.checkboxLabel}>
                 <input
                   type="checkbox"

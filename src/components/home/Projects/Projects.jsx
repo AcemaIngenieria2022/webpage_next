@@ -9,14 +9,14 @@ const Projects = () => {
       id: 1,
       name: "Granja solar",
       location: "La Rubiela 0,9 MW",
-      image: "/images/projects/img-rubiela.webp",
+      image: "/images/projects/featured/img-rubiela.webp",
       url: "/proyectos/la-rubiela" 
     },
     {
       id: 2,
       name: "Granja solar",
       location: "San Pelayo 0,99 MW",
-      image: "/images/projects/img-pelayo.webp",
+      image: "/images/projects/featured/img-pelayo.webp",
       url: "/proyectos/san-pelayo"
     },
     {
@@ -24,7 +24,7 @@ const Projects = () => {
       name: "Granja solar",
       location: "Piedras 1 y 2 0,9 MW",
       // Ajustado según el nombre real de tu archivo en la carpeta public
-      image: "/images/projects/proyecto3.webp", 
+      image: "/images/projects/featured/proyecto3.webp", 
       url: "/proyectos/piedras"
     }
   ];

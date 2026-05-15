@@ -1,0 +1,73 @@
+.page {
+  min-height: 100vh;
+  padding: 5rem 1.5rem;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.section {
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+.errorSection,
+.postSection {
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+.errorCard,
+.postCard {
+  border-radius: 1.5rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.errorCard {
+  border-color: #fecdd3;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.errorTitle {
+  color: #dc2626;
+}
+
+.text {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  color: #334155;
+}
+
+.description {
+  margin-bottom: 2rem;
+  color: #475569;
+}
+
+.link {
+  display: inline-block;
+  color: #2563eb;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #1d4ed8;
+}
+
+.postContent {
+  max-width: none;
+}
+
+.postContent p {
+  margin: 0 0 1.25rem;
+  line-height: 1.8;
+  color: #334155;
+}

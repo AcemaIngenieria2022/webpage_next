@@ -11,6 +11,7 @@ export const projectsData = [
   { id: 9, title: 'Sol y cielo', slug: 'sol-y-cielo', status: 'finalizados', image: '/images/projects/finished/solycielo.webp' },
   { id: 10, title: 'Emperatriz I y II', slug: 'emperatriz-i-y-ii', status: 'finalizados', image: '/images/projects/finished/emperatriz.webp' },
   { id: 11, title: 'Coralito y Golondrina', slug: 'coralito-y-golondrina', status: 'finalizados', image: '/images/projects/finished/coralito.webp' },
+  
 
 
 // --- EN DESARROLLO ---

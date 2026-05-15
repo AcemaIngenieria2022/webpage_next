@@ -110,8 +110,10 @@
   cursor: pointer;
 }
 
-
-.activeBtn { background-color: #2b5d95; color: white; }
+.activeBtn {
+  background-color: #2b5d95;
+  color: white;
+}
 
 .icon {
   font-size: 16px;
@@ -133,7 +135,7 @@
   padding: 10px 18px;
   list-style: none;
   min-width: 200px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .dropdownItem {
@@ -192,6 +194,7 @@
   margin-bottom: 4px;
 }
 
+
 .checkboxLabel {
   display: flex;
   align-items: center;
@@ -218,14 +221,13 @@
 }
 
 .activeBtn {
-
   background-color: #215ba0;
   color: white;
 }
 
-
-
-.hiddenCheckbox { display: none; }
+.hiddenCheckbox {
+  display: none;
+}
 
 .customCheck {
   width: 16px;
@@ -234,7 +236,9 @@
   border-radius: 3px;
 }
 
-.hiddenCheckbox:checked + .customCheck { background-color: #40a335; }
+.hiddenCheckbox:checked + .customCheck {
+  background-color: #40a335;
+}
 
 .submitButton {
   background-color: #215ba0;
@@ -254,11 +258,27 @@
   font-weight: 700;
 }
 
+ 
+
 /* Responsivo para móviles */
 @media (max-width: 700px) {
-  .formWrapper { max-width: 100%; }
-  .formCard { padding: 35px 20px 25px 20px; }
-  .gridInputs { grid-template-columns: 1fr; }
-  .footerRow { flex-direction: column; gap: 15px; align-items: flex-start; }
-  .submitButton { width: 100%; }
+  .formWrapper {
+    max-width: 100%;
+  }
+  .formCard {
+    padding: 35px 20px 25px 20px;
+  }
+  .gridInputs {
+    grid-template-columns: 1fr;
+  }
+  .footerRow {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  .submitButton {
+    width: 100%;
+  }
+
+  
 }

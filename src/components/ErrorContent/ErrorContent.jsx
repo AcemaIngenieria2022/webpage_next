@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import styles from "./ErrorContent.module.css";
 
 export default function ErrorContent({ azulAcema = "#1a365d", verdeAcema = "#76bc43" }) {
   const [isClient, setIsClient] = useState(false);
@@ -13,20 +14,20 @@ export default function ErrorContent({ azulAcema = "#1a365d", verdeAcema = "#76b
   if (!isClient) return null;
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-[85vh] px-2">
+    <div className={styles.container}>
       
       {/* CONTENEDOR DE LA ILUSTRACIÓN: Ahora mucho más agresivo en tamaño */}
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1, type: "spring" }}
-        className="relative w-full max-w-[1400px]" 
+        className={styles.illustrationWrapper}
       >
         <svg 
           viewBox="50 0 500 300"  /* Ajustado para eliminar aire a los lados */
           fill="none" 
           xmlns="http://www.w3.org/2000/svg" 
-          className="w-full h-auto drop-shadow-2xl"
+          className={styles.graphic}
         >
           {/* SOL */}
           <circle cx="300" cy="70" r="65" fill="#FFD25A" />
@@ -58,19 +59,21 @@ export default function ErrorContent({ azulAcema = "#1a365d", verdeAcema = "#76b
       </motion.div>
 
       {/* 404 TITÁNICO: Ajustado para pantallas de laptop */}
-      <div className="relative text-center -mt-20 md:-mt-32">
+      <div className={styles.textBlock}>
         <h1
-          className="text-[25vw] md:text-[22rem] lg:text-[28rem] font-black leading-none tracking-tighter"
+          className={styles.mainText}
           style={{ color: azulAcema }}
         >
           404
         </h1>
-        
-        <div className="absolute inset-0 pointer-events-none -z-10 select-none">
-          <div className="absolute inset-0 text-[25vw] md:text-[22rem] lg:text-[28rem] font-black leading-none tracking-tighter opacity-25"
-               style={{ color: "#ff00ff", transform: "translate(12px, 8px)" }}>404</div>
-          <div className="absolute inset-0 text-[25vw] md:text-[22rem] lg:text-[28rem] font-black leading-none tracking-tighter opacity-25"
-               style={{ color: "#00ffff", transform: "translate(-12px, -8px)" }}>404</div>
+
+        <div className={styles.overlayText}>
+          <div className={styles.overlayLayer} style={{ color: "#ff00ff", transform: "translate(12px, 8px)" }}>
+            404
+          </div>
+          <div className={styles.overlayLayer} style={{ color: "#00ffff", transform: "translate(-12px, -8px)" }}>
+            404
+          </div>
         </div>
       </div>
     </div>

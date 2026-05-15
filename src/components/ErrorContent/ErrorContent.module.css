@@ -1,10 +1,72 @@
-.wrapper {
+.container {
   width: 100%;
-  min-height: calc(100vh - 80px);
+  min-height: 85vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 0 0.5rem;
+}
+
+.illustrationWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.graphic {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 80px rgba(0, 0, 0, 0.15));
+}
+
+.textBlock {
+  position: relative;
+  text-align: center;
+  margin-top: -5rem;
+}
+
+.mainText {
+  margin: 0;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+  font-size: 25vw;
+}
+
+.overlayText {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -10;
+  user-select: none;
+}
+
+.overlayLayer {
+  position: absolute;
+  inset: 0;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+  opacity: 0.25;
+}
+
+@media (min-width: 768px) {
+  .mainText,
+  .overlayLayer {
+    font-size: 22rem;
+  }
+
+  .textBlock {
+    margin-top: -8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mainText,
+  .overlayLayer {
+    font-size: 28rem;
+  }
 }
 
 /* Card más ligera y moderna */

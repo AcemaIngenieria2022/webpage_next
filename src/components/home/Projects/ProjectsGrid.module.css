@@ -7,13 +7,14 @@
   display: grid;
   row-gap: 30px;
   justify-items: center;
-    background-color: #f1f1f1; /* Color de fondo suave de la imagen */
+  background-color: #f3f5f7;
+  color: var(--text);
 }
 
 /* Título de la sección (Finalizados / En desarrollo) */
 .sectionTitle {
-  color: #1a4a8d; /* Azul corporativo oscuro */
-  font-size: 1.6rem; /* Tamaño optimizado para ser compacto */
+  color: var(--accent-alt);
+  font-size: 1.6rem;
   font-weight: 700;
   margin: 0;
   text-align: left;
@@ -26,7 +27,8 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(260px, 1fr));
-  justify-items: center;
+  justify-items: stretch;
+  align-items: stretch;
   gap: 22px;
   row-gap: 30px;
   width: 100%;
@@ -37,7 +39,16 @@
 .cardLink {
   display: block;
   width: 100%;
+  height: 100%;
   text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.cardLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 20px;
 }
 
 /* --- Ajustes de Responsividad --- */

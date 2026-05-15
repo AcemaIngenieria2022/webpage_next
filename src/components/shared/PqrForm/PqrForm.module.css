@@ -258,9 +258,11 @@
   }
   .pillHeader {
     font-size: 18px;
-    padding: 10px 30px;
-  }
+    
   .dividerLine {
     width: 90%;
   }
-}
+  .formContentWrapper {
+    gap: 20px;
+  }
+  }}

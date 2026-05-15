@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from './ProjectsToggle.module.css';
 
-const ProjectsToggle = ({ onFilterChange }) => {
+const ProjectsToggle = ({ onFilterChange, className = '' }) => {
   const [activeFilter, setActiveFilter] = useState('finalizados');
 
   const handleFilter = (filter) => {
@@ -12,7 +12,7 @@ const ProjectsToggle = ({ onFilterChange }) => {
   };
 
   return (
-    <div className={styles.toggleContainer} id="proyectos-seccion">
+    <div className={`${styles.toggleContainer} ${className}`} id="proyectos-seccion">
       <div className={styles.contentWrapper}>
         <h2 className={styles.title}>Proyectos</h2>
         

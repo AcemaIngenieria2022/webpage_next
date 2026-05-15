@@ -1,9 +1,30 @@
+import styles from "./page.module.css";
+import BlogCard from '@/components/blog/BlogCard/BlogCard';
+import { blogPosts } from '@/data/blog-posts';
+
 export default function Blog() {
+  const featured = blogPosts.find((post) => post.variant === 'featured');
+  const sideCards = blogPosts.filter((post) => post.variant === 'compact');
+  const regularCards = blogPosts.filter((post) => post.variant === 'regular');
+
   return (
-    <main className="pt-20">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8">Blog</h1>
-        <p className="text-lg text-gray-600">Contenido del blog próximamente...</p>
+    <main className={styles.main}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Destacados</h1>
+        
+        <div className={styles.topGrid}>
+          {featured && <BlogCard key={featured.slug} {...featured} />}
+          <div className={styles.sideCards}>
+            {sideCards.map((post) => (
+              <BlogCard key={post.slug} {...post} />
+            ))}
+          </div>
+        </div>
+        <div className={styles.cardsGrid}>
+          {regularCards.map((post) => (
+            <BlogCard key={post.slug} {...post} />
+          ))}
+        </div>
       </div>
     </main>
   );

@@ -1,10 +1,13 @@
-  
 import Image from 'next/image';
 import styles from './Card.module.css';
 
-const Card = ({ title, image }) => {
+const Card = ({ title, image, variant = 'grid' }) => {
+  // Combinamos la clase base con la variante dinámica
+  // Esto generará clases como "projectCard grid" o "projectCard horizontal"
+  const cardClassName = `${styles.projectCard} ${styles[variant]}`;
+
   return (
-    <div className={styles.projectCard}>
+    <div className={cardClassName}>
       <div className={styles.imageContainer}>
         <Image
           src={image}
@@ -13,7 +16,6 @@ const Card = ({ title, image }) => {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 33vw"
           className={styles.projectImg}
           loading="lazy"
-          priority={false}
         />
       </div>
       <div className={styles.infoDetails}>
@@ -22,4 +24,7 @@ const Card = ({ title, image }) => {
     </div>
   );
 };
+
 export default Card;
+
+

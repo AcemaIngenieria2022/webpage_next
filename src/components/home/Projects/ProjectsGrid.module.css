@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.container {
+  width: 100%;
+  padding: 40px 20px 50px 20px;
+  font-family: 'Montserrat', sans-serif;
+  display: grid;
+  row-gap: 30px;
+  justify-items: center;
+    background-color: #f1f1f1; /* Color de fondo suave de la imagen */
+}
+
+/* Título de la sección (Finalizados / En desarrollo) */
+.sectionTitle {
+  color: #1a4a8d; /* Azul corporativo oscuro */
+  font-size: 1.6rem; /* Tamaño optimizado para ser compacto */
+  font-weight: 700;
+  margin: 0;
+  text-align: left;
+  letter-spacing: -0.5px;
+  width: 100%;
+  max-width: 1140px;
+}
+
+/* Configuración de la Grilla Compacta */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  justify-items: center;
+  gap: 22px;
+  row-gap: 30px;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.cardLink {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
+/* --- Ajustes de Responsividad --- */
+
+/* Tablets y Laptops pequeños */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.4rem;
+  }
+}
+
+/* Móviles */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr; /* Una sola tarjeta por fila */
+    gap: 25px;
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
+    text-align: center; /* Centrado en móvil para mejor equilibrio visual */
+    margin-bottom: 20px;
+  }
+  
+  .container {
+    padding: 10px 10px 30px 10px;
+  }
+}

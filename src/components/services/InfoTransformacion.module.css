@@ -1,0 +1,105 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.introText {
+  margin-bottom: 55px;
+  color: #2b5f9e;
+  line-height: 1.55;
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr; /* Un ajuste ligero en la proporción */
+  gap: 40px;
+  align-items: start;
+}
+
+.title {
+  color: #003870;
+  font-size: 1.5rem; /* Bajamos de 2rem a 1.5rem */
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 25px;
+}
+
+.list {
+  list-style: none !important;
+  padding: 0;
+  margin: 0;
+}
+
+.list li {
+  margin-bottom: 28px;
+  position: relative;
+  padding-left: 28px;
+  line-height: 1.35;
+  font-size: 1.02rem;
+}
+
+/* Punto azul */
+.list li::before {
+  content: "•";
+  color: #003870;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  top: -2px;
+}
+
+/* Texto en negrita */
+.list li strong {
+  color: #003870;
+  font-weight: 800;
+}
+
+/* Texto descriptivo */
+.listDescription {
+  color: #215ba0;
+  font-weight: 500;
+}
+
+.componentsCard {
+  background-color: #ffffff;
+  padding: 30px 25px; /* Menos espacio arriba/abajo para que sea más corta */
+  border-radius: 35px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.cardTitle {
+  color: #003870;
+  font-size: 1.3rem; /* Bajamos de 1.9rem a 1.3rem */
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.cardList {
+  list-style: none !important;
+  padding: 0;
+  margin: 0;
+}
+
+.cardList li {
+  margin-bottom: 12px; /* Un valor intermedio para que no se peguen pero no estiren la card */
+  color: #215ba0;
+  font-size: 0.95rem;
+  padding-left: 20px;
+  position: relative;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.cardList li::before {
+  content: "•";
+  color: #003870;
+  font-size: 1.3rem;
+  position: absolute;
+  left: 0;
+  top: -2px;
+}

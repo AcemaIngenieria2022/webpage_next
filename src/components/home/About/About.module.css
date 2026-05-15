@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.aboutSection {
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 450px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.aboutContainer {
+  display: flex;
+  max-width: 1200px;
+  width: 90%;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Text Styling */
+.aboutContent {
+  flex: 1;
+}
+
+.aboutTitle {
+  color: #43a335; /* Verde corporativo ACEMA */
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: -2px; /* Ajuste para look moderno */
+  line-height: 1;
+}
+
+.aboutBody p {
+  color: #555555;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin-bottom: 25px;
+  max-width: 550px;
+  text-align: justify;
+}
+
+/* Video Styling */
+.aboutVideoSide {
+  flex: 1.2;
+  width: 100%;
+}
+
+.videoWrapper {
+  overflow: hidden;
+  padding-bottom: 56.25%; /* Ratio 16:9 perfecto */
+  position: relative;
+  height: 0;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+.videoWrapper iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .aboutContainer {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .aboutTitle {
+    font-size: 3.5rem;
+  }
+
+  .aboutBody p {
+    margin: 0 auto 25px auto;
+  }
+
+  .aboutVideoSide {
+    max-width: 600px;
+  }
+}

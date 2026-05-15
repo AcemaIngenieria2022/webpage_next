@@ -1,0 +1,46 @@
+/* --- SECCIÓN DEL BANNER (Tus estilos originales) --- */
+.hero {
+  position: relative;
+  width: 100%;
+  margin-top: 80px; /* Ajuste para el Navbar */
+  line-height: 0;   /* Elimina espacio extra debajo de la imagen */
+}
+
+.heroImage {
+  width: 100%;
+  height: auto;     /* Mantiene la proporción original de la pieza gráfica */
+  display: block;
+}
+
+/* --- SECCIÓN DE CARDS (La unificación para corregir el diseño) --- */
+
+.cardsSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* Espaciado interno: 80px arriba/abajo para que no se pegue al banner */
+  padding: 80px 20px; 
+  background-color: #f8fafc; /* Color de fondo suave para resaltar las cards blancas */
+}
+
+.cardsGrid {
+  display: grid;
+  /* Creamos columnas de máximo 340px (como tu diseño original) */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 340px));
+  /* Espacio de 40px entre tarjetas como en image_bdc819.jpg */
+  gap: 2px; 
+  width: 100%;
+  max-width: 1200px;
+  justify-content: center; /* Centra las tarjetas si hay menos de 3 */
+}
+
+/* Ajuste opcional para móviles */
+@media (max-width: 768px) {
+  .cardsSection {
+    padding: 40px 15px;
+  }
+  
+  .hero {
+    margin-top: 60px; /* Ajuste si tu Navbar es más pequeño en móvil */
+  }
+}

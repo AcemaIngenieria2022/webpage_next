@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+.projectCard {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px; /* Un poco menos redondeado para verse más técnico */
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+   /* modifiqué aqui de la original de Santi */
+  min-height: 290px;
+  /* aqui estaba en 340 de Santi*/
+  max-width: 300px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 180px; /* Altura más compacta para la imagen */
+  overflow: hidden;
+}
+
+.projectImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Panel de información más compacto */
+.infoDetails {
+  /* modifiqué aqui de la original de Santi */
+  padding: 35px 22px; /* Reducimos el padding de 25px a 15px */
+  background-color: #ffffff;
+  text-align: center; /* Centrado para que se vea más organizado como en tu imagen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.projectName {
+  color: #1a4a8d;
+  font-family: 'Montserrat', sans-serif; /* Asegúrate de que esta línea esté para que tome la fuente */
+  font-size: 1.25rem; /* Reducimos ligeramente el tamaño de fuente */
+  font-weight: 700;
+  margin: 0; /* Quitamos márgenes extras */
+  line-height: 1.2;
+  
+  
+}
+
+.projectLocation {
+  display: none; /* Si quieres que sea IDÉNTICO a tu imagen, ocultamos esto */
+}
+
+/* Hover más sutil */
+.projectCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  
+
+}
+.projectCard:hover .projectName {
+  color: #43a335; /* Verde ACEMA al hacer hover */
+}

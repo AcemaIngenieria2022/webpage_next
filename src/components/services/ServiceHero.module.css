@@ -1,46 +1,80 @@
-/* --- SECCIÓN DEL BANNER (Tus estilos originales) --- */
+/* --- SECCIÓN DEL BANNER (Corregida al comportamiento original elástico) --- */
 .hero {
   position: relative;
   width: 100%;
-  margin-top: 80px; /* Ajuste para el Navbar */
-  line-height: 0;   /* Elimina espacio extra debajo de la imagen */
+  margin-top: 80px; 
+  line-height: 0;   
+  overflow: hidden;
 }
 
 .heroImage {
   width: 100%;
-  height: auto;     /* Mantiene la proporción original de la pieza gráfica */
+  height: auto;     /* Mantiene la proporción matemática exacta de la imagen */
   display: block;
 }
 
-/* --- SECCIÓN DE CARDS (La unificación para corregir el diseño) --- */
-
+/* --- SECCIÓN DE CARDS GENERAL --- */
 .cardsSection {
   width: 100%;
   display: flex;
   justify-content: center;
-  /* Espaciado interno: 80px arriba/abajo para que no se pegue al banner */
   padding: 80px 20px; 
-  background-color: #f8fafc; /* Color de fondo suave para resaltar las cards blancas */
+  background-color: #f8fafc; 
 }
 
+/* Comportamiento base (Para 3 tarjetas o menos - Granjas) */
 .cardsGrid {
   display: grid;
-  /* Creamos columnas de máximo 340px (como tu diseño original) */
   grid-template-columns: repeat(auto-fit, minmax(300px, 340px));
-  /* Espacio de 40px entre tarjetas como en image_bdc819.jpg */
-  gap: 2px; 
+  gap: 40px; 
   width: 100%;
   max-width: 1200px;
-  justify-content: center; /* Centra las tarjetas si hay menos de 3 */
+  justify-content: center; 
 }
 
-/* Ajuste opcional para móviles */
+/* ==================================================================
+   COMPORTAMIENTO EXCLUSIVO CUANDO COMPONENTES TRAIGAN 4 TARJETAS
+   ================================================================== */
+.cardsGrid[data-count="4"] {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
+  gap: 25px; 
+  max-width: 1280px; 
+}
+
+/* =========================================
+   RESPONSIVE CONTROLADO Y SEGURO (CON FILTRO PARA MÓVIL)
+   ========================================= */
+
+@media (max-width: 1100px) {
+  .cardsGrid,
+  .cardsGrid[data-count="4"] {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+  }
+}
+
 @media (max-width: 768px) {
   .cardsSection {
     padding: 40px 15px;
   }
   
   .hero {
-    margin-top: 60px; /* Ajuste si tu Navbar es más pequeño en móvil */
+    margin-top: 60px; /* Ajuste para el Navbar móvil */
+  }
+
+  /* ELIMINAMOS EL MIN-HEIGHT Y COVER PARA QUITAR EL ZOOM INCORRECTO */
+  .heroImage {
+    width: 100%;
+    height: auto; 
+    object-fit: contain; /* Asegura que la pieza se encoja entera sin recortar textos */
+  }
+  
+  /* Forzamos a que tanto el de 3 como el de 4 vayan a 1 columna vertical perfecta */
+  .cardsGrid,
+  .cardsGrid[data-count="4"] {
+    grid-template-columns: 1fr !important;
+    max-width: 300px; /* Tamaño máximo de tu Card.module.css */
+    margin: 0 auto;
+    gap: 25px; 
   }
 }

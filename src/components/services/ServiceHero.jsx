@@ -17,7 +17,8 @@ const ServiceHero = ({ backgroundImage, altText, subServices = [] }) => {
       {/* SECCIÓN UNIFICADA DE TARJETAS */}
       {subServices.length > 0 && (
         <section className={styles.cardsSection}>
-          <div className={styles.cardsGrid}>
+          {/* Añadimos data-count dinámico basado en la cantidad de elementos */}
+          <div className={styles.cardsGrid} data-count={subServices.length}>
             {subServices.map((item, index) => (
               <Card 
                 key={index}

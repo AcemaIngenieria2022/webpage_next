@@ -46,6 +46,12 @@ const Navbar = () => {
     }
   };
 
+  // Función utilitaria para limpiar todo el menú al seleccionar un servicio
+  const closeAllMenus = () => {
+    setIsOpen(false);
+    setShowDropdown(false);
+  };
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContainer}>
@@ -64,7 +70,7 @@ const Navbar = () => {
         </Link>
 
         <div className={`${styles.navMenu} ${isOpen ? styles.active : ''}`}>
-          <Link href="/" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/" className={styles.navLink} onClick={closeAllMenus}>
             <span className={styles.linkText}>Inicio</span>
           </Link>
 
@@ -80,46 +86,42 @@ const Navbar = () => {
               <span className={`${styles.arrow} ${showDropdown ? styles.arrowRotate : ''}`}>▾</span>
             </div>
 
-              
-                
-            {/*      showDropDown modificado del original que tengo con Santi */}
-            
-            
-                        {/* DENTRO DEL DROPDOWN EN TU NAVBAR */}
+            {/* DENTRO DEL DROPDOWN EN TU NAVBAR */}
             {showDropdown && (
               <div className={styles.dropdownMenu}>
-                {/* Este va a la página principal de servicios (Granjas) */}
-                <Link href="/services" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>
+                
+                {/* REPARADO: Ahora apunta a su slug oficial dinámico */}
+                <Link href="/services/construccion-granjas" className={styles.dropdownItem} onClick={closeAllMenus}>
                   Construcción de granjas
                 </Link>
                 
-                {/* Este ENTRA a la ruta dinámica [slug] */}
-                <Link href="/services/centros-transformacion" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>
+                {/* Entra a la ruta dinámica [slug] */}
+                <Link href="/services/centros-transformacion" className={styles.dropdownItem} onClick={closeAllMenus}>
                   Centros de transformación
                 </Link>
                 
-                {/* Este también entraría a la ruta dinámica */}
-                <Link href="/services/servicios-electricos" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>
+                {/* Entra a la ruta dinámica [slug] */}
+                <Link href="/services/servicios-electricos" className={styles.dropdownItem} onClick={closeAllMenus}>
                   Servicios eléctricos
                 </Link>
               </div>
             )}
           </div>
 
-          <Link href="/projects" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/projects" className={styles.navLink} onClick={closeAllMenus}>
             <span className={styles.linkText}>Proyectos</span>
           </Link>
-          <Link href="/contact" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/contact" className={styles.navLink} onClick={closeAllMenus}>
             <span className={styles.linkText}>Contáctanos</span>
           </Link>
-          <Link href="/blog" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/blog" className={styles.navLink} onClick={closeAllMenus}>
             <span className={styles.linkText}>Blog</span>
           </Link>
            
-          <Link href="/pqrs" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/pqrs" className={styles.navLink} onClick={closeAllMenus}>
             <span className={styles.linkText}>PQRS</span>
           </Link>
-          <Link href="/data-processing" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/data-processing" className={styles.navLink} onClick={closeAllMenus}>
             <span className={styles.linkText}>Tratamiento de datos</span>
           </Link>
 

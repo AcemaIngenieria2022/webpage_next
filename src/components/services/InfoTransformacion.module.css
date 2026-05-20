@@ -103,3 +103,23 @@
   left: 0;
   top: -2px;
 }
+
+/* ==================================================================
+   BLOQUE RESPONSIVE AGREGADO (Para solucionar el error en celulares)
+   ================================================================== */
+@media (max-width: 968px) {
+  .contentGrid {
+    /* Rompe las dos columnas y las pone una encima de otra verticalmente */
+    grid-template-columns: 1fr; 
+    gap: 30px;
+  }
+  
+  .container {
+    padding: 40px 15px; /* Reducimos paddings laterales para ganar espacio */
+  }
+
+  .introText {
+    margin-bottom: 35px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,132 @@
+.carouselContainer {
+  width: 100%;
+  background-color: #e5e9f0; /* Fondo gris azulado de la franja */
+  padding: 80px 0;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mySwiper {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  /* Espacio lateral para que las flechas tengan donde vivir sin tapar las fotos */
+  padding: 0 70px !important; 
+  overflow: visible !important; 
+}
+
+.slide {
+  display: flex;
+  justify-content: center;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.carouselImg {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.imageWrapper:hover .carouselImg {
+  transform: scale(1.05);
+}
+
+/* =========================================
+   FLECHAS: Círculos Azules de ACEMA
+   ========================================= */
+
+/* Estilo del contenedor circular */
+:global(.swiper-button-next),
+:global(.swiper-button-prev) {
+  width: 50px !important;
+  height: 50px !important;
+  background-color: #215ba0 !important; /* Azul sólido */
+  border-radius: 50% !important;
+  color: #ffffff !important; /* Color de la flecha */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  
+  /* Reset de estilos internos de Swiper que causan transparencia */
+  background-image: none !important; 
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* Centrado vertical exacto */
+  top: 50% !important;
+  margin-top: 0 !important; 
+  transform: translateY(-50%) !important;
+  z-index: 50 !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Estilo del ícono interno (la flecha blanca) */
+:global(.swiper-button-next::after),
+:global(.swiper-button-prev::after) {
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+}
+
+/* Posicionamiento Lateral fuera de las imágenes */
+:global(.swiper-button-prev) {
+  left: 10px !important;
+}
+
+:global(.swiper-button-next) {
+  right: 10px !important;
+}
+
+/* Efecto Hover */
+:global(.swiper-button-next:hover),
+:global(.swiper-button-prev:hover) {
+  background-color: #003870 !important; /* Azul más oscuro al pasar el mouse */
+  transform: translateY(-50%) scale(1.1) !important;
+}
+
+/* =========================================
+   PAGINACIÓN
+   ========================================= */
+:global(.swiper-pagination) {
+  bottom: 20px !important;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  background-color: #215ba0 !important;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+  .carouselContainer {
+    padding: 50px 0;
+  }
+
+  .mySwiper {
+    padding: 0 50px !important; /* Ajuste de espacio en móvil */
+  }
+
+  .imageWrapper {
+    height: 250px;
+  }
+
+  :global(.swiper-button-next),
+  :global(.swiper-button-prev) {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  :global(.swiper-button-next::after),
+  :global(.swiper-button-prev::after) {
+    font-size: 14px !important;
+  }
+}

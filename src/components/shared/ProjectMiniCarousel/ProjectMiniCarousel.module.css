@@ -1,0 +1,90 @@
+.carouselContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e9ecf0;
+  padding: 24px 20px;
+  border-radius: 4px;
+  gap: 16px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+  margin-top: 80px;
+}
+
+.navButton {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background-color: #1d539f; /* Azul idéntico a los botones laterales */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  padding: 0;
+}
+
+.navButton:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.navButton:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.arrowIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.trackViewport {
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.track {
+  display: flex;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  width: 100%;
+}
+
+.slide {
+  flex: 0 0 33.33333%; /* Tres columnas exactas */
+  padding: 0 10px; /* Separación (gap simulado) entre tarjetas */
+  box-sizing: border-box;
+}
+
+.imageCard {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* Relación de aspecto 16:9 clásica de la foto */
+  border-radius: 20px; /* Bordes redondeados idénticos */
+  overflow: hidden;
+  background-color: #d1d5db;
+}
+
+.carouselImage {
+  object-fit: cover;
+}
+
+/* Adaptación responsiva básica */
+@media (max-width: 768px) {
+  .slide {
+    flex: 0 0 100%; /* Una sola imagen en móvil para mantener usabilidad */
+  }
+  
+  .carouselContainer {
+    padding: 16px 10px;
+  }
+}

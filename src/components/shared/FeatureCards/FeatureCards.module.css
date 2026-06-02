@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+:root {
+  --accent-color: #215ba0;
+  --accent-hover: #40a335;
+}
+
+.featureCard {
+  background: transparent;
+  border-radius: 16px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  margin: 100px 0; /* espacio igual arriba y abajo */
+}
+
+@media (max-width: 900px) {
+  .featureCard {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+.featureImageBox {
+  position: relative;
+  width: 220px;
+  height: 140px;
+  border-radius: 14px 14px 0 0;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  
+}
+
+.featureImage {
+  object-fit: cover;
+}
+
+.featureBottom {
+  background: #ffffff;
+  width: 220px;
+  border-radius: 0 0 14px 14px;
+  padding: 16px 12px;
+  margin-top: 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.featureTitle {
+  color: var(--accent-color);
+  font-weight: 800;
+  font-size: 16px;
+  text-align: center;
+  
+}
+
+.featureCard a {
+  text-decoration: none; /* asegurar sin líneas */
+  color: inherit;
+}
+
+.featureBottom a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: color 0.18s ease;
+}
+
+/* Title hover class for Card title (passed as titleClassName) */
+.hoverTitle {
+  transition: color 0.18s ease;
+}
+
+/* Apply hover color when the feature card is hovered */
+.featureCard:hover :global(.projectName),
+.featureCard:hover .hoverTitle {
+  color: var(--accent-hover) !important;
+}
+
+
+ 

@@ -1,17 +1,16 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './Card.module.css';
 
-const Card = ({ title, image, variant = 'grid' }) => {
-  // Combinamos la clase base con la variante dinámica
-  // Esto generará clases como "projectCard grid" o "projectCard horizontal"
+const Card = ({ title, image, variant = 'grid', href, titleClassName }) => {
   const cardClassName = `${styles.projectCard} ${styles[variant]}`;
 
-  return (
-    <div className={cardClassName}>
+  const inner = (
+    <>
       <div className={styles.imageContainer}>
         <Image
           src={image}
-          alt={title}
+          alt={title || ''}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 33vw"
           className={styles.projectImg}
@@ -19,10 +18,20 @@ const Card = ({ title, image, variant = 'grid' }) => {
         />
       </div>
       <div className={styles.infoDetails}>
-        <h3 className={styles.projectName}>{title}</h3>
+        <h3 className={`${styles.projectName} ${titleClassName || ''}`.trim()}>{title}</h3>
       </div>
-    </div>
+    </>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={cardClassName}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return <div className={cardClassName}>{inner}</div>;
 };
 
 export default Card;

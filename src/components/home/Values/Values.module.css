@@ -55,6 +55,22 @@
   justify-content: center;
 }
 
+.valueItem {
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.valueItem:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.valueIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Responsivo para móviles */
 @media (max-width: 768px) {
   .valuesSection {

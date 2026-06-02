@@ -1,5 +1,9 @@
  
-import styles from './page.module.css';
+ 
+import Link from 'next/link';
+import Image from 'next/image';
+import styles from './service.module.css';
+import { services } from '@/data/services';
 
 export const metadata = {
   title: 'Servicios - ACEMA Ingeniería',
@@ -8,26 +12,29 @@ export const metadata = {
 
 export default function ServicesPage() {
   return (
-    <main className={styles.main}>
-      <section className={styles.section}>
-        <h1 className={styles.title}>Servicios</h1>
-        <p className={styles.description} style={{ maxWidth: '600px', margin: '0 auto 2rem' }}>
-          Conoce nuestras soluciones integrales: construcción, mantenimiento y consultoría en energías renovables.
-        </p>
-        <div className={styles.grid}>
-          <article className={styles.card}>
-            <h2 className={styles.cardTitle}>Construcción de granjas solares</h2>
-            <p className={styles.cardDescription}>Proyecto completo desde diseño hasta la puesta en marcha.</p>
-          </article>
-          <article className={styles.card}>
-            <h2 className={styles.cardTitle}>Centros de transformación</h2>
-            <p className={styles.cardDescription}>Ingeniería dedicada a subestaciones y redes de alta tensión.</p>
-          </article>
-          <article className={styles.card}>
-            <h2 className={styles.cardTitle}>Servicios eléctricos</h2>
-            <p className={styles.cardDescription}>Mantenimiento preventivo, correctivo y pruebas eléctricas.</p>
-          </article>
-        </div>
+    <main className={styles.servicesPage}>
+      <div className={styles.bannerBox}>
+        <Image src="/images/projects/banner/contruccion-granjas.webp" alt="Servicios" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} priority />
+        <Image src="/images/services/banner/contruccion-movil.png" alt="Servicios" fill className={styles.bannerImgMobile} sizes="100vw" quality={70} priority />
+        <div className={styles.bannerOverlay}></div>
+      </div>
+
+      <section className={styles.servicesContainer}>
+        {services.map((s) => (
+          <Link key={s.slug} href={`/services/${s.slug}`} className={styles.card}>
+            <div className={styles.cardContent}>
+              <div className={styles.cardImageBox}>
+                <Image src={s.image} alt={s.title} fill className={styles.serviceImg} />
+              </div>
+              <div className={styles.cardTextWrapper}>
+                <div>
+                  <h3 className={styles.cardTitle}>{s.title}</h3>
+                  <p className={styles.cardDescription}>{s.description}</p>
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
       </section>
     </main>
   );

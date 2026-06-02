@@ -44,7 +44,22 @@ const PqrForm = () => {
     setPopup((prev) => ({ ...prev, visible: false }));
   };
 
-  const handleSubmit = (event) => {
+  const [buttonAnimating, setButtonAnimating] = useState(false);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (popup.visible) {
+      setButtonAnimating(true);
+      const t = setTimeout(() => {
+        setButtonAnimating(false);
+        setIsSubmitting(false);
+      }, 600);
+      return () => clearTimeout(t);
+    }
+  }, [popup.visible]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (
@@ -63,32 +78,40 @@ const PqrForm = () => {
       return;
     }
 
-    setPopup({
-      visible: true,
-      status: 'success',
-      message: 'PQR enviado correctamente. Gracias por tu mensaje.',
-    });
+    try {
+      setIsSubmitting(true);
+      const response = await fetch('/api/pqrs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
 
-    setFormData({
-      name: '',
-      idNumber: '',
-      email: '',
-      phone: '',
-      requestType: '',
-      description: '',
-    });
+      const data = await response.json();
+
+      if (!response.ok || data.success === false) {
+        throw new Error(data.error || 'Fallo del servidor');
+      }
+
+      setPopup({
+        visible: true,
+        status: 'success',
+        message: `Tu PQRS ha sido radicado con éxito. Número asignado: ${data.radicado}. Se envió una copia de confirmación a tu correo.`,
+      });
+
+      setFormData({ name: '', idNumber: '', email: '', phone: '', requestType: '', description: '' });
+    } catch (error) {
+      setPopup({
+        visible: true,
+        status: 'error',
+        message: 'No pudimos registrar tu PQRS. Inténtalo de nuevo más tarde.',
+      });
+    }
   };
 
   return (
     <div className={styles.mainContainer}>
       <div className={styles.formWrapper}>
-        
-        {/* Encabezado Píldora */}
-        <div className={styles.pillHeader}>
-          Preguntas, quejas y reclamos
-        </div>
-
-        {/* Línea decorativa verde SUPERIOR */}
+        <div className={styles.pillHeader}>Preguntas, quejas y reclamos</div>
         <div className={styles.dividerLine}></div>
 
         <div className={styles.formContentWrapper}>
@@ -105,7 +128,7 @@ const PqrForm = () => {
                 className={styles.inputField}
               />
               <input
-                type="tel"
+                type="text"
                 name="idNumber"
                 value={formData.idNumber}
                 onChange={handleChange}
@@ -137,7 +160,6 @@ const PqrForm = () => {
               />
             </div>
 
-            {/* Select Personalizado */}
             <div className={styles.dropdownContainer} ref={dropdownRef}>
               <button 
                 type="button" 
@@ -166,11 +188,8 @@ const PqrForm = () => {
               )}
             </div>
 
-            {/* Textarea */}
             <div className={styles.textareaWrapper}>
-              <label htmlFor="description" className={styles.textareaLabel}>
-                Descripción detallada
-              </label>
+              <label htmlFor="description" className={styles.textareaLabel}>Descripción detallada</label>
               <textarea
                 id="description"
                 className={styles.textArea}
@@ -181,25 +200,32 @@ const PqrForm = () => {
               />
             </div>
 
-            {/* Botón Enviar (Alineado a la derecha debajo de la caja de texto) */}
             <div className={styles.footerRow}>
-              <button type="submit" className={styles.submitButton}>
-                Enviar
+              <button
+                type="submit"
+                className={`${styles.submitButton} ${(popup.visible || isSubmitting) ? styles.submitButtonDisabled : ''} ${buttonAnimating ? styles.animateBlock : ''}`}
+                disabled={popup.visible || isSubmitting}
+              >
+                {(isSubmitting) ? (
+                  <>
+                    <span className={styles.spinner} aria-hidden="true"></span>
+                    Enviando...
+                  </>
+                ) : (
+                  'Enviar'
+                )}
               </button>
             </div>
           </form>
           <PopupAlert visible={popup.visible} status={popup.status} message={popup.message} onClose={closePopup} />
 
-          {/* Cuadro de Información Lateral */}
           <div className={styles.infoBoxSide}>
-            <p>
-              Nuestra atención al cliente está disponible de: <br />
-              <strong>lunes a viernes, de 7:00 a.m. a 5:00 p.m.</strong>
+            <p className={styles.infoText}>
+              Nuestra atención al cliente está disponible de: <strong>lunes a viernes, de 7:00 a.m. a 5:00 p.m.</strong>
             </p>
           </div>
         </div>
 
-        {/* Línea decorativa verde INFERIOR */}
         <div className={styles.dividerLine}></div>
       </div>
     </div>

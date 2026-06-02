@@ -127,6 +127,20 @@
   transform: scale(1.1);
 }
 
+.projectCard {
+  overflow: hidden;
+  will-change: transform;
+}
+
+.projectImg {
+  object-fit: cover;
+}
+
+.projectLink {
+  text-decoration: none;
+  display: block;
+}
+
 /* --- Móviles --- */
 @media (max-width: 768px) {
   .projectsHeader {

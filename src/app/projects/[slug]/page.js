@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 }
 
 /**
- * Generar metadatos dinámicos para SEO
+ * Generar metadatos dinámicos para SEO y Open Graph basado en el proyecto actual
  */
 export async function generateMetadata({ params }) {
   const { slug } = await params;

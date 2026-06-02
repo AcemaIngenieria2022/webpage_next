@@ -3,12 +3,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const timeoutRef = useRef(null);
+
+  // Función para determinar si un link es activo
+  const isActive = (path) => {
+    if (path === '/' && pathname === '/') return true;
+    if (path !== '/' && pathname.startsWith(path)) return true;
+    return false;
+  };
 
   // Cerrar menús al cambiar el tamaño de la pantalla
   useEffect(() => {
@@ -64,7 +73,7 @@ const Navbar = () => {
         </Link>
 
         <div className={`${styles.navMenu} ${isOpen ? styles.active : ''}`}>
-          <Link href="/" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/" className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Inicio</span>
           </Link>
 
@@ -75,40 +84,40 @@ const Navbar = () => {
             onMouseLeave={handleMouseLeave}
             onClick={handleDropdownClick}
           >
-            <div className={styles.navLink}>
+            <div className={`${styles.navLink} ${isActive('/services') ? styles.active : ''}`}>
               <span className={styles.linkText}>Servicios</span>
               <span className={`${styles.arrow} ${showDropdown ? styles.arrowRotate : ''}`}>▾</span>
             </div>
 
             {showDropdown && (
               <div className={styles.dropdownMenu}>
-                <Link href="/services" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>
+                <Link href="/services/construccion-de-granjas" className={styles.dropdownItem} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
                   Construcción de granjas
                 </Link>
-                <Link href="/services" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>
+                <Link href="/services/centros-de-transformacion" className={styles.dropdownItem} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
                   Centros de transformación
                 </Link>
-                <Link href="/services" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>
-                  Servicio eléctricos
+                <Link href="/services/servicios-electricos" className={styles.dropdownItem} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
+                  Servicios eléctricos
                 </Link>
               </div>
             )}
           </div>
 
-          <Link href="/projects" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/projects" className={`${styles.navLink} ${isActive('/projects') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Proyectos</span>
           </Link>
-          <Link href="/contact" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/contact" className={`${styles.navLink} ${isActive('/contact') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Contáctanos</span>
           </Link>
-          <Link href="/blog" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/blog" className={`${styles.navLink} ${isActive('/blog') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Blog</span>
           </Link>
            
-          <Link href="/pqrs" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/pqrs" className={`${styles.navLink} ${isActive('/pqrs') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>PQRS</span>
           </Link>
-          <Link href="/data-processing" className={styles.navLink} onClick={() => setIsOpen(false)}>
+          <Link href="/data-processing" className={`${styles.navLink} ${isActive('/data-processing') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Tratamiento de datos</span>
           </Link>
 

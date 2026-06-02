@@ -15,8 +15,9 @@
 .sectionTitle {
   color: var(--accent-alt);
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0;
+  color: #215ba0;
   text-align: left;
   letter-spacing: -0.5px;
   width: 100%;
@@ -50,7 +51,14 @@
   outline-offset: 2px;
   border-radius: 20px;
 }
+.cardLink {
+  display: block;
+  text-decoration: none;
+}
 
+.cardLink > div {
+  will-change: transform;
+}
 /* --- Ajustes de Responsividad --- */
 
 /* Tablets y Laptops pequeños */

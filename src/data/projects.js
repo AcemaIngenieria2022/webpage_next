@@ -12,8 +12,7 @@ export const projectsData = [
   { id: 10, title: 'Emperatriz I y II', slug: 'emperatriz-i-y-ii', status: 'finalizados', image: '/images/projects/finished/emperatriz.webp' },
   { id: 11, title: 'Coralito y Golondrina', slug: 'coralito-y-golondrina', status: 'finalizados', image: '/images/projects/finished/coralito.webp' },
   
-
-
+  
 // --- EN DESARROLLO ---
   { id: 12, title: 'Puerto Libertador', slug: 'puerto-libertador', status: 'desarrollo', image: '/images/projects/developing/libertador.webp' },
   { id: 13, title: 'Lorica 1 - 8', slug: 'lorica-1-8', status: 'desarrollo', image: '/images/projects/developing/lorica.webp' },

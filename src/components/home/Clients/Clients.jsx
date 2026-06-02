@@ -12,6 +12,7 @@ const Clients = () => {
     { name: 'POWER', logo: '/images/clients/power.webp' },
     { name: 'ELECTRIC', logo: '/images/clients/electric.webp' },
     { name: 'SIEMENS', logo: '/images/clients/siemens.webp' },
+    { name: 'SOL', logo: '/images/clients/sol.webp' },
   ];
 
   // Duplicamos la lista para asegurar un loop infinito sin saltos visuales

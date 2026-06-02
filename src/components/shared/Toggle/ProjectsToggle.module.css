@@ -1,6 +1,6 @@
 .toggleContainer {
   width: 100%;
-  margin-top: 80px; /* Desplaza el toggle debajo del navbar fijo */
+  margin-top: 80px; /* Desplaza el toggle debajo del navbar fijo en desktop */
   background-color: #d9e3eb; /* Azul claro suave del fondo */
   padding: 25px 0;
   display: flex;
@@ -60,6 +60,37 @@
   color: #40a335;
 }
 
+.navItem {
+  background: none;
+  border: none;
+  color: #215ba0;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.navItem span {
+  position: relative;
+  z-index: 2;
+}
+
+.activeBackground {
+  position: absolute;
+  inset: 0;
+  background: rgba(64, 163, 53, 0.12);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.active {
+  color: #40a335;
+}
+
 /* Responsivo para móviles */
 @media (max-width: 768px) {
   .contentWrapper {
@@ -75,6 +106,8 @@
   .navLinks {
     gap: 20px;
   }
+  /* Eliminar espacio superior en móviles/tablets para pegar toggle al nav */
+  .toggleContainer { margin-top: 0; padding: 18px 0; }
   
 
 }

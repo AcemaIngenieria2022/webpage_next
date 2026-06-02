@@ -36,10 +36,16 @@
   gap: 6px;
   position: relative;
   padding: 8px 0;
+  transition: color 0.3s ease;
 }
 
 .navLink:hover {
     color: #40a335;
+}
+
+.navLink.active {
+  color: #40a335;
+  font-weight: 600;
 }
 
 .linkText {
@@ -109,8 +115,22 @@
 }
 
 .dropdownMenu a:hover {
-  
   color: #40a335;
+}
+
+.dropdownItem {
+  padding: 3px 15px !important;
+  color: #215ba0 !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.dropdownItem:hover {
+  color: #40a335 !important;
 }
 
 /* BOTÓN HAMBURGUESA */

@@ -1,5 +1,5 @@
 .main {
-  padding-top: 5rem;
+  padding-top: 5rem; /* Espacio en escritorio */
 }
 
 .container {
@@ -8,8 +8,7 @@
   padding: 3rem 1rem;
 }
 
-
-/* Use Montserrat consistent with site */
+/* Usar Montserrat consistente con el sitio */
 .container,
 .title,
 .description {
@@ -35,12 +34,46 @@
   display: grid;
   gap: 1.5rem;
   grid-template-columns: 1fr 1fr;
-  align-items: start;
+  align-items: center; 
 }
 
 .sideCards {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
+  justify-content: center; 
+  height: 100%;
+  width: 100%;
+}
+
+/* Estilos de alto delgado para escritorio */
+.sideCards > div {
+  width: 100% !important;
+  max-height: 145px; 
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.sideCards :global([class*="Card"]) {
+  width: 100% !important;
+  height: 145px !important; 
+  display: flex !important;
+  align-items: center;
+}
+
+.sideCards img {
+  height: 145px !important;
+  object-fit: cover;
+}
+
+.sideCards h2, 
+.sideCards h3 {
+  font-size: 1.25rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.sideCards p {
+  font-size: 0.9rem !important;
 }
 
 .cardsGrid {
@@ -50,40 +83,64 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
+/* --- SECCIÓN CORREGIDA PARA MÓVILES Y TABLETS (RESPONSIVE) --- */
 @media (max-width: 900px) {
+  .main {
+    padding-top: 3.5rem; /* REBAJADO: Reduce el espacio muerto con el Navbar */
+  }
+
   .container {
-    padding: 2rem 1rem;
+    padding: 1rem 1rem; /* REBAJADO: Menos espacio vertical interno */
   }
 
   .title {
     font-size: 2rem;
-  }
-
-  .description {
-    max-width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .topGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Pasa a una sola columna */
+    gap: 1.5rem;
   }
 
+  /* Asegura que las dos tarjetas "escondidas" se muestren una debajo de otra de manera fluida */
   .sideCards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Anulamos por completo el límite de altura de escritorio para que vuelvan a su tamaño móvil nativo */
+  .sideCards > div {
+    max-height: none !important;
+    overflow: visible;
+  }
+
+  .sideCards :global([class*="Card"]) {
+    width: 100% !important;
+    height: auto !important; /* Permite que la tarjeta se adapte verticalmente en móviles */
+    display: block !important; /* Si tu tarjeta móvil cambia de horizontal a vertical */
+  }
+
+  .sideCards img {
+    height: auto !important;
+    min-height: 200px; /* Altura sugerida para que luzca bien la imagen en móvil */
+    object-fit: cover;
   }
 
   .cardsGrid {
+    margin-top: 1.5rem;
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 600px) {
-  .topGrid {
-    gap: 1rem;
+  .main {
+    padding-top: 2.5rem; /* REBAJADO AÚN MÁS para teléfonos pequeños */
   }
-
-  .sideCards {
-    grid-template-columns: 1fr;
+  
+  .topGrid {
+    gap: 1.25rem;
   }
 }
 

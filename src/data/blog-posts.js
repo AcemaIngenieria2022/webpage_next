@@ -2,7 +2,7 @@ export const blogPosts = [
   {
     slug: 'alta-media-baja-tension',
     title: '¿Qué es la alta, media y baja tensión?',
-    image: '/images/projects/finished/Rubiela.webp',
+    image: '/images/blog/queesalta.webp',
     variant: 'featured',
     href: '/blog/alta-media-baja-tension',
   },
@@ -17,8 +17,8 @@ export const blogPosts = [
   {
     slug: 'inti-i-y-ii',
     title: 'Granja Inti I',
-    subtitle: '9,9 MW',
-    image: '/images/projects/finished/piedras.webp',
+    subtitle: '19,9 MW',
+    image: '/images/projects/finished/inti.webp',
     variant: 'compact',
     href: '/projects/inti-i-y-ii',
   },
@@ -32,7 +32,7 @@ export const blogPosts = [
   {
     slug: 'acema-alegria-ninos',
     title: 'Acema ingeniería comparte alegría con los niños...',
-    image: '/images/projects/finished/solycielo.webp',
+    image: '/images/blog/ninos.webp',
     variant: 'regular',
     href: '/blog/acema-alegria-ninos',
   },

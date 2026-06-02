@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "motion/react";
 import styles from "./Hero.module.css";
 
 /* =========================
@@ -84,37 +85,43 @@ export default function Hero() {
 }
 
 /* =========================
-   SLIDER
+   SLIDER (Animado con Framer Motion)
 ========================= */
 
 function HeroSlider({ currentIndex, isMobile }) {
+  const currentImg = HERO_IMAGES[currentIndex];
+
   return (
     <div className={styles.heroSlider}>
-      {HERO_IMAGES.map((img, index) => (
-        <div
-          key={`${index}-${isMobile ? "mobile" : "desktop"}`}
-          className={`${styles.imageWrapper} ${
-            index === currentIndex ? styles.active : ""
-          }`}
+      {/* AnimatePresence permite que la imagen que sale mantenga su animación 
+        de fade-out mientras entra la nueva.
+      */}
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          key={`${currentIndex}-${isMobile ? "mobile" : "desktop"}`}
+          className={styles.imageWrapper}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
         >
           <Image
-            src={isMobile && img.srcMobile ? img.srcMobile : img.src}
-            alt={img.alt}
+            src={isMobile && currentImg.srcMobile ? currentImg.srcMobile : currentImg.src}
+            alt={currentImg.alt}
             fill
             className={styles.heroImage}
-            priority={index === 0}
-            loading={index === 0 ? "eager" : "lazy"}
+            priority
             quality={75}
             sizes="(max-width: 768px) 100vw, 100vw"
           />
-        </div>
-      ))}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
 
 /* =========================
-   CONTENIDO
+   CONTENIDO (Con entrada animada y hover dinámico)
 ========================= */
 
 function HeroContent() {
@@ -125,16 +132,23 @@ function HeroContent() {
   };
 
   return (
-    <div className={styles.heroContent}>
-      <button
+    <motion.div 
+      className={styles.heroContent}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5, duration: 0.8 }}
+    >
+      <motion.button
         className={styles.scrollDown}
         type="button"
         aria-label="Ir a la sección About"
         onClick={handleScroll}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
       >
         <ArrowIcon />
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 }
 

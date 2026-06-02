@@ -226,6 +226,12 @@
   color: #1e293b;
 }
 
+.infoText {
+  margin: 0;
+  font-size: 14px;
+  color: #1e293b;
+}
+
 /* Fila de Botón */
 .footerRow {
   display: flex;
@@ -243,26 +249,87 @@
   cursor: pointer;
 }
 
+.submitButtonDisabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.animateBlock {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* Móvil */
 @media (max-width: 750px) {
   .formContentWrapper {
-    flex-direction:column-reverse;
-    padding: 25px 0;
+    flex-direction: column-reverse;
+    padding: 18px 0;
+    gap: 18px;
+    align-items: center; /* Centrar contenido en móvil */
+    justify-content: center;
   }
   .gridInputs {
     grid-template-columns: 1fr;
   }
   .infoBoxSide {
-    width: 100%;
+    width: calc(100% - 40px);
+    max-width: 560px;
     order: -1;
+    height: auto;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 12px;
+    background-color: #f6faf3;
   }
   .pillHeader {
     font-size: 18px;
-    
+  }
+
   .dividerLine {
     width: 90%;
   }
-  .formContentWrapper {
-    gap: 20px;
+  .formCard {
+    width: 100%;
+    max-width: 620px;
+    padding: 0 16px;
+    box-sizing: border-box;
   }
-  }}
+
+  .infoBoxSide p {
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .submitButton {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+
+}

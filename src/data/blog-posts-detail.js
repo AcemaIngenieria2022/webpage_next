@@ -14,7 +14,7 @@
 
 export const blogPostsDetailsData = {
   'alta-media-baja-tension': {
-    // title: '¿Qué es la alta, media y baja tensión?',
+    title: '¿Qué es la alta, media y baja tensión?',
     slug: 'alta-media-baja-tension',
     excerpt: 'Descubre los niveles de tensión eléctrica, sus diferencias y aplicaciones en Colombia.',
     tags: ['Educación', 'Energía Eléctrica', 'Tensión', 'Redes Eléctricas'],

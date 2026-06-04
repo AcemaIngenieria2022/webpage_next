@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styles from '../service.module.css';
 import Card from '@/components/shared/Card/Card';
 import FeatureCards from '@/components/shared/FeatureCards/FeatureCards';
+import serviciosElectricosFeatures from '@/data/servicios-electricos-features';
 
 export const metadata = {
   title: 'Servicios eléctricos - ACEMA Ingeniería',
@@ -10,6 +11,8 @@ export const metadata = {
 };
 
 export default function ServiciosElectricosPage() {
+  const features = serviciosElectricosFeatures.map((f) => ({ ...f, href: `/services/${f.slug}` }));
+
   return (
     <main className={styles.servicePage}>
       <div className={styles.bannerBox}>
@@ -22,14 +25,7 @@ export default function ServiciosElectricosPage() {
       {/* Features cards (usar Card con animaciones similares a /projects) */}
       <section className={styles.featuresSection}>
         <div className={styles.featuresRow}>
-          <FeatureCards
-            features={[
-              { title: 'EPC subestaciones y puntos de conexión', image: '/images/services/cards/estaciones.webp', href: '#' },
-              { title: 'Diseño, construcción y ensamble de tableros', image: '/images/services/cards/ppc.webp', href: '#' },
-              { title: 'Configuración y pruebas de protección eléctricas', image: '/images/services/cards/estaciones.webp', href: '#' },
-              { title: 'Sistema SCADA para subestaciones', image: '/images/services/cards/scada.webp', href: '#' },
-            ]}
-          />
+          <FeatureCards features={features} />
         </div>
       </section>
     </main>

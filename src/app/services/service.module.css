@@ -350,6 +350,105 @@
   box-sizing: border-box;
 }
 
+/* Compact info box variant with reduced bottom spacing (used on EPC page) */
+.infoBoxCompact {
+  padding-bottom: 12px;
+}
+
+.infoBoxCompact .infoList li {
+  margin-bottom: 0.4rem;
+}
+
+/* Benefits cards grid and card styles */
+.benefitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* Wrapper to make benefit area span full content width and center it */
+.benefitFullWidth {
+  max-width: 1100px;
+  margin: 0 auto 18px;
+  padding: 0 20px;
+}
+
+.benefitCard {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 16px;
+  box-shadow: 0 8px 20px rgba(11, 44, 80, 0.06);
+  color: #215ba0;
+}
+
+.benefitCard h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.benefitCard p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Center the last benefit card content (Acompañamiento experto) */
+.benefitCard:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.benefitCard:last-child h4 {
+  margin-bottom: 8px;
+}
+
+/* benefitLast for explicitly centered last card (when rendered separately) */
+.benefitLast {
+  width: 60%;
+  max-width: 640px;
+}
+
+@media (max-width: 900px) {
+  .benefitLast {
+    width: 100%;
+  }
+}
+
+.integramosTitle {
+  text-align: center;
+  color: #215ba0;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 6px 0 12px;
+}
+
+/* Plain centered container for 'Integramos' without background */
+.integramosPlain {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.integramosPlain .infoList {
+  display: inline-block;
+  text-align: center; /* center the list items as requested */
+  margin: 0;
+  padding-left: 0;
+}
+
+@media (max-width: 900px) {
+  .benefitGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .infoTitle {
   color: #215ba0;
   font-weight: 800;

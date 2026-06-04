@@ -82,7 +82,7 @@ export const construccionFeatures = [
     title: "Sistemas SCADA y PPC solar",
     image: "/images/services/cards/ppc.webp",
     slug: "sistemas-scada-ppc",
-    description: "Sistemas de control y gestión para optimizar la operación y la integración de la generación solar.",
+    
     sections: [
       {
         heading: "Qué entregamos",
@@ -98,16 +98,7 @@ export const construccionFeatures = [
     title: "Estaciones meteorológicas",
     image: "/images/services/cards/estaciones.webp",
     slug: "estaciones-meteorologicas",
-    description: "Suministro e instalación de estaciones meteorológicas para evaluación y monitoreo de recursos solares.",
-    sections: [
-      {
-        heading: "Componentes",
-        content: [
-          "Sensores de radiación, temperatura y viento",
-          "Registro de datos y transmisión",
-          "Calibración y validación de datos"
-        ]
-      }
-    ]
+    // description removed per request
+    // sections removed per request: no "Componentes" block
   }
 ];

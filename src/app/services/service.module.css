@@ -89,10 +89,80 @@
   margin-bottom: 12px;
 }
 
+/* Estilos para páginas que deban parecerse al detalle de proyecto (La Rubiela) */
+.scadaPage .content h1 {
+  display: inline-block;
+  margin: 8px auto 18px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 36px;
+  color: #ffffff;
+  padding: 2px 44px;
+  border-radius: 60px 10px 60px 10px;
+  background: linear-gradient(180deg, #40a335 0%, #2f8a2b 100%);
+  box-shadow: 0 10px 25px rgba(11, 44, 80, 0.18);
+  -webkit-font-smoothing: antialiased;
+}
+
+.scadaPage .content {
+  max-width: 1100px;
+  text-align: center; /* center the inline-block title */
+}
+
+/* Responsive adjustments for the pill title */
+@media (max-width: 900px) {
+  .scadaPage .content h1 {
+    font-size: 28px;
+    padding: 10px 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .scadaPage .content h1 {
+    font-size: 22px;
+    padding: 8px 20px;
+    width: auto;
+  }
+}
+
+/* Title 'Incluye' for SCADA page - left aligned even if page centers content */
+.scadaIncludeTitle {
+  text-align: left;
+  color: #215ba0;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 18px 0 8px 0;
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+}
+
+@media (max-width: 900px) {
+  .scadaIncludeTitle {
+    font-size: 18px;
+    margin-left: 0;
+    padding: 0 12px;
+  }
+}
+
 .content p {
   color: #215ba0;
   font-size: 16px;
   line-height: 1.6;
+}
+
+/* Justify text for better readability in service pages */
+.content p,
+.content li {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Increase spacing between list items */
+.content ul li,
+.infoList li {
+  margin-bottom: 0.75rem;
 }
 
 .content ul {
@@ -223,7 +293,8 @@
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr; /* force row to match tallest column */
   gap: 36px;
   align-items: stretch;
   padding: 20px;
@@ -242,6 +313,19 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  height: 100%;
+  min-height: 0; /* allow flex children to scroll/shrink inside grid */
+}
+
+/* List spacing specifically for SCADA left column */
+.twoColumn .leftCol ul {
+  margin-top: 12px;
+  margin-left: 20px;
+}
+
+.twoColumn .leftCol ul li {
+  margin-bottom: 1.2rem; /* increased spacing for readability */
+  line-height: 1.8;
 }
 
 .leftCol h3 {
@@ -252,6 +336,8 @@
 .rightCol {
   display: flex;
   justify-content: center;
+  height: 100%;
+  min-height: 0;
 }
 
 .infoBox {
@@ -272,8 +358,19 @@
 
 .infoList {
   margin: 0;
-  padding-left: 18px;
+  padding-left: 0; /* remove default list padding to hide bullets */
+  list-style: none; /* hide bullets */
   color: #215ba0;
+}
+
+.infoList li {
+  margin-bottom: 0.9rem;
+}
+
+.infoHead {
+  font-weight: 800;
+  color: #215ba0;
+  margin-right: 8px;
 }
 
 .stagesGrid {
@@ -395,6 +492,21 @@
   color: #215ba0;
 }
 
+/* Right column plain content (no card background) */
+.rightColContent {
+  background: transparent;
+  box-shadow: none;
+  padding: 0; /* let content flow naturally */
+  width: 100%;
+}
+
+.componentsTitle {
+  color: #215ba0;
+  font-weight: 800;
+  font-size: 18px;
+  margin-top: 14px;
+}
+
 /* ==========================================================================
    7. MEDIA QUERIES (ESTABILIDAD RESPONSIVA)
    ========================================================================== */
@@ -414,6 +526,7 @@
   .twoColumn {
     grid-template-columns: 1fr;
     padding: 12px;
+    grid-auto-rows: auto; /* allow rows to size to their content on mobile */
   }
   .rightCol {
     order: -1;
@@ -421,6 +534,7 @@
   }
   .infoBox {
     width: 100%;
+    height: auto; /* don't force full height on mobile */
   }
 
   /* Adaptación de tarjetas horizontales en pantallas medianas */

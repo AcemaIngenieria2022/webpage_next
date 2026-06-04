@@ -8,7 +8,6 @@ import styles from "./Hero.module.css";
 /* =========================
    IMÁGENES
 ========================= */
-
 const HERO_IMAGES = [
   {
     src: "/images/hero/img1-hero.webp",
@@ -32,7 +31,6 @@ const AUTOPLAY_DELAY = 6000;
 /* =========================
    COMPONENTE PRINCIPAL
 ========================= */
-
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -47,10 +45,7 @@ export default function Hero() {
     setMounted(true);
 
     window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   useEffect(() => {
@@ -76,29 +71,23 @@ export default function Hero() {
   return (
     <section className={styles.hero}>
       <HeroSlider currentIndex={currentIndex} isMobile={isMobile} />
-
       <div className={styles.heroOverlay} />
-
       <HeroContent />
     </section>
   );
 }
 
 /* =========================
-   SLIDER (Animado con Framer Motion)
+   SLIDER (Framer Motion)
 ========================= */
-
 function HeroSlider({ currentIndex, isMobile }) {
   const currentImg = HERO_IMAGES[currentIndex];
 
   return (
     <div className={styles.heroSlider}>
-      {/* AnimatePresence permite que la imagen que sale mantenga su animación 
-        de fade-out mientras entra la nueva.
-      */}
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence>
         <motion.div
-          key={`${currentIndex}-${isMobile ? "mobile" : "desktop"}`}
+          key={currentIndex}
           className={styles.imageWrapper}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -112,7 +101,7 @@ function HeroSlider({ currentIndex, isMobile }) {
             className={styles.heroImage}
             priority
             quality={75}
-            sizes="(max-width: 768px) 100vw, 100vw"
+            sizes="100vw"
           />
         </motion.div>
       </AnimatePresence>
@@ -121,9 +110,8 @@ function HeroSlider({ currentIndex, isMobile }) {
 }
 
 /* =========================
-   CONTENIDO (Con entrada animada y hover dinámico)
+   CONTENIDO
 ========================= */
-
 function HeroContent() {
   const handleScroll = () => {
     document
@@ -155,7 +143,6 @@ function HeroContent() {
 /* =========================
    ICONO
 ========================= */
-
 function ArrowIcon() {
   return (
     <svg

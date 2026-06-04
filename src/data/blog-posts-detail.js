@@ -71,35 +71,19 @@ export const blogPostsDetailsData = {
   'acema-alegria-ninos': {
     title: 'ACEMA Ingeniería comparte alegría con los niños',
     slug: 'acema-alegria-ninos',
-    image: '/images/projects/finished/solycielo.webp',
+    image: '/images/blog/ninos.webp',
     excerpt: 'Nuestra responsabilidad social y compromiso con las comunidades.',
     author: 'ACEMA Ingeniería',
     date: '2024-02-10',
     tags: ['RSE', 'Comunidad', 'Responsabilidad Social'],
     content: `
-      <h2>Un Compromiso con las Comunidades</h2>
-      <p>
-        En ACEMA Ingeniería creemos que el éxito empresarial debe ir acompañado de responsabilidad social. 
-        Por eso, regularmente participamos en iniciativas que impacten positivamente en nuestras comunidades.
-      </p>
+      <p>En Acema Ingeniería creemos que la transformación energética también implica transformar sonrisas, entornos y corazones. Por eso, en el marco de nuestra gestión social y compromiso con las comunidades cercanas a nuestros proyectos, realizamos una jornada especial en la que compartimos 220 regalos con los niños de la comunidad vecina al Proyecto Piedras.</p>
 
-      <h2>Actividades de Impacto Social</h2>
-      <p>
-        Nuestro equipo se dedica a llevar sonrisas y oportunidades a los niños de las regiones donde operamos. 
-        Desde talleres educativos hasta jornadas de esparcimiento, buscamos contribuir al desarrollo integral de las futuras generaciones.
-      </p>
+      <p>Cada obsequio consistió en una calabaza llena de dulces personalizada con una tarjeta, entregada con cariño por parte de nuestro equipo. La actividad buscó fortalecer los lazos con las familias del sector, promover espacios de alegría y continuar fomentando una relación basada en la cercanía y el respeto mutuo.</p>
 
-      <h2>Valores de ACEMA</h2>
-      <ul>
-        <li>Compromiso con el desarrollo sostenible</li>
-        <li>Responsabilidad ambiental y social</li>
-        <li>Educación y capacitación comunitaria</li>
-        <li>Apoyo a programas de bienestar infantil</li>
-      </ul>
+      <p>Durante la jornada, nuestro personal compartió con los niños momentos de diversión, juegos y risas que reflejan el espíritu solidario de Acema: un equipo que no solo desarrolla ingeniería con calidad, sino que también trabaja con propósito humano. Este tipo de iniciativas hacen parte de nuestro compromiso por generar un impacto positivo más allá de lo técnico, acompañando el crecimiento sostenible de los territorios donde llevamos energía, innovación y oportunidades.</p>
 
-      <p>
-        Seguiremos trabajando para que la energía que distribuimos también ilumine oportunidades para todos.
-      </p>
+      <p>En Acema Ingeniería, cada proyecto cuenta una historia, y cada historia tiene el poder de iluminar una comunidad.</p>
     `,
   },
 };

@@ -2,6 +2,8 @@
   width: 100%;
   background-color: #ffffff;
   font-family: var(--font-montserrat), sans-serif;
+  /* Dejar espacio para el navbar fijo (aprox. 80px) */
+  padding-top: 88px;
 }
 
 /* Contenido Principal */
@@ -9,7 +11,7 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 60px 20px;
-  color: #2b2b2b;
+  color: #215ba0;
 }
 
 .header {
@@ -22,6 +24,26 @@
   color: #215ba0;
   margin: 0 0 20px;
   line-height: 1.2;
+  text-align: center;
+}
+
+/* Forzar color de todo el texto dentro del contenido a #215ba0 */
+.content,
+.content * {
+  color: #215ba0 !important;
+}
+
+/* Mantener encabezados de tablas con color legible (si se usan fondos oscuros) */
+.content table th {
+  color: #ffffff !important;
+}
+
+/* Justified paragraphs for better reading */
+.content p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  margin-bottom: 1rem;
 }
 
 /* Contenido */

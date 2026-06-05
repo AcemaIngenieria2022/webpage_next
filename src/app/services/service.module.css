@@ -428,6 +428,23 @@
   padding-left: 0;
 }
 
+/* Two-column list layout for wide cards */
+.offerListTwoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 22px;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+@media (max-width: 900px) {
+  .offerListTwoCol {
+    grid-template-columns: 1fr;
+    gap: 8px 0;
+  }
+}
+
 /* Make the features section span full viewport width on SCADA page */
 .scadaFeaturesFullWidth {
   position: relative;

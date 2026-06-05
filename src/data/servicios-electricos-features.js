@@ -43,10 +43,21 @@ export const serviciosElectricosFeatures = [
     image: '/images/services/cards/estaciones.webp',
     slug: 'configuracion-pruebas-proteccion-electricas',
     banner: '/images/services/banner/banner-estaciones/banner3.webp',
-    description: 'Servicio de configuración de relés, coordinación y pruebas de protección para subestaciones.',
+    description: '',
     content: [
       'Seteamos y verificamos relés de protección, curvas y coordinación de protecciones.',
       'Pruebas en sitio y simulaciones para garantizar selectividad y seguridad del sistema.'
+    ]
+    ,
+    offers: [
+      'Configuración de relés de protección de la marca ABB, SIEMENS, GE, SEL y SCHNEIDER.',
+      'Configuración de reconectadores de la marca EATON, NOJA, SCHNEIDER, SEL, ARTECHE u otras.',
+      'Pruebas de inyección secundaria y primaria con equipos Omicron y otros equipos de test.',
+      'Pruebas de inyección secuencial y verificación de curvas de protección.',
+      'Estudio y coordinación de protecciones.',
+      'Estudios de cortocircuito y flujo de carga.',
+      'Análisis de arco eléctrico y seguridad del sistema.',
+      'Integración de relés de protección a sistemas SCADA mediante IEC 61850, DNP3 y MODBUS.'
     ]
   },
   {

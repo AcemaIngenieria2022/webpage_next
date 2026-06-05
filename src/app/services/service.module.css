@@ -74,6 +74,41 @@
   letter-spacing: 0.5px;
 }
 
+/* Service page specific content container and title pill */
+.serviceContent {
+  max-width: 1100px;
+  margin: 18px auto 40px;
+  padding: 0 20px;
+}
+
+.serviceTitle {
+  display: block; /* make it centerable */
+  width: max-content;
+  margin: 6px auto 18px; /* center horizontally */
+  font-weight: 800;
+  font-size: 22px;
+  color: #ffffff;
+  padding: 8px 26px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #40a335 0%, #2f8a2b 100%);
+  box-shadow: 0 8px 20px rgba(47, 138, 43, 0.12);
+  text-align: center;
+}
+
+/* Prevent title pill from overflowing on small screens */
+.serviceTitle {
+  max-width: calc(100% - 32px);
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.serviceIntro {
+  color: #215ba0;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
 /* ==========================================================================
    3. CONTENIDO DE TEXTO (ESPACIOS REDUCIDOS)
    ========================================================================== */
@@ -104,9 +139,16 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* Prevent scada page title overflow on small screens */
+.scadaPage .content h1 {
+  max-width: calc(100% - 32px);
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 .scadaPage .content {
   max-width: 1100px;
-  text-align: center; /* center the inline-block title */
+  text-align: left; /* left-align the title to match design */
 }
 
 /* Responsive adjustments for the pill title */
@@ -278,8 +320,8 @@
   display: flex;
   gap: 24px;
   justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap; /* mantener en una sola línea en escritorio */
+  align-items: stretch;
+  flex-wrap: wrap; /* allow wrapping on smaller screens for responsiveness */
   max-width: 1100px;
   margin: 0 auto;
   padding: 10px 20px 30px;
@@ -293,7 +335,7 @@
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr; /* left column wider for text, right column narrower */
   grid-auto-rows: 1fr; /* force row to match tallest column */
   gap: 36px;
   align-items: stretch;
@@ -336,8 +378,13 @@
 .rightCol {
   display: flex;
   justify-content: center;
+  align-items: flex-start; /* prevent the right column card from stretching vertically */
   height: 100%;
   min-height: 0;
+}
+
+.rightCol .offerBox {
+  width: 420px; /* fixed card width on desktop for consistent look */
 }
 
 .infoBox {
@@ -348,6 +395,55 @@
   box-shadow: 0 10px 30px rgba(11, 44, 80, 0.06);
   height: 100%;
   box-sizing: border-box;
+}
+
+/* Right column white card used to list offered solutions */
+.offerBox {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 18px 22px; /* increased padding for clearer layout */
+  box-shadow: 0 10px 30px rgba(11, 44, 80, 0.06);
+  width: 100%;
+  box-sizing: border-box;
+  align-self: flex-start; /* avoid stretching to match left column height */
+}
+
+.offerBox h4 {
+  color: #215ba0;
+  font-weight: 800;
+  margin: 0 0 12px 0; /* increased gap under header for clarity */
+  font-size: 18px;
+}
+
+.offerList {
+  margin: 0;
+  padding-left: 0;
+  color: #215ba0;
+  list-style: none; /* remove default bullets */
+}
+
+.offerList li {
+  margin-bottom: 10px; /* more breathing room */
+  line-height: 1.6;
+  padding-left: 0;
+}
+
+/* Make the features section span full viewport width on SCADA page */
+.scadaFeaturesFullWidth {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  box-sizing: border-box;
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+.scadaFeaturesFullWidth .twoColumn {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 /* Compact info box variant with reduced bottom spacing (used on EPC page) */
@@ -634,6 +730,11 @@
   .infoBox {
     width: 100%;
     height: auto; /* don't force full height on mobile */
+  }
+
+  .rightCol .offerBox {
+    width: 100%;
+    padding: 14px 16px;
   }
 
   /* Adaptación de tarjetas horizontales en pantallas medianas */

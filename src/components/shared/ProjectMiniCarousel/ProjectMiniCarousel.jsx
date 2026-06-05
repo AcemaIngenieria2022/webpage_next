@@ -1,7 +1,6 @@
-'use client';
+ 'use client';
 
 import { useMemo, useState } from 'react';
-import Image from 'next/image';
 import styles from './ProjectMiniCarousel.module.css';
 
 const ProjectMiniCarousel = ({ images = [] }) => {
@@ -61,17 +60,15 @@ const ProjectMiniCarousel = ({ images = [] }) => {
             
             return (
               <div key={`${imageSrc}-${index}`} className={styles.slide}>
-                <div className={styles.imageCard}>
-                  <Image
-                    src={imageSrc}
-                    alt={imageAlt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className={styles.carouselImage}
-                    priority={index < visibleCount}
-                  />
+                  <div className={styles.imageCard}>
+                    <img
+                      src={imageSrc}
+                      alt={imageAlt}
+                      className={styles.carouselImage}
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    />
+                  </div>
                 </div>
-              </div>
             );
           })}
         </div>

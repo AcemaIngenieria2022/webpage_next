@@ -13,7 +13,8 @@
   flex-direction: column;
   align-items: center;
   width: 220px;
-  margin: 100px 0; /* espacio igual arriba y abajo */
+  margin: 20px 0; /* reduced vertical spacing for better mobile fit */
+  box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
@@ -25,12 +26,11 @@
 
 .featureImageBox {
   position: relative;
-  width: 220px;
+  width: 100%;
   height: 140px;
   border-radius: 14px 14px 0 0;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  
 }
 
 .featureImage {
@@ -39,7 +39,7 @@
 
 .featureBottom {
   background: #ffffff;
-  width: 220px;
+  width: 100%;
   border-radius: 0 0 14px 14px;
   padding: 16px 12px;
   margin-top: 0;
@@ -47,7 +47,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
 }
 
 .featureTitle {
@@ -55,7 +54,6 @@
   font-weight: 800;
   font-size: 16px;
   text-align: center;
-  
 }
 
 .featureCard a {
@@ -81,5 +79,18 @@
   color: var(--accent-hover) !important;
 }
 
+@media (max-width: 480px) {
+  .featureImageBox {
+    height: 120px;
+  }
 
- 
+  .featureTitle {
+    font-size: 15px;
+  }
+
+  .featureBottom {
+    padding: 12px 10px;
+  }
+}
+
+

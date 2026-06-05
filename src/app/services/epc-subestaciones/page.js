@@ -34,6 +34,14 @@ export default function EPCSubestacionesPage() {
           sizes="(max-width: 900px) 100vw, 1600px"
           quality={80}
         />
+        <Image
+          src={feature.bannerMobile || feature.banner || feature.image || '/images/services/banner/banner-estaciones/banner1.webp'}
+          alt={feature.title}
+          fill
+          className={styles.bannerImgMobile}
+          sizes="(max-width: 900px) 100vw, 1600px"
+          quality={80}
+        />
       </div>
 
       <div className={styles.content}>

@@ -21,10 +21,7 @@ export async function POST(request) {
       attachment
     } = body;
 
-    // ==========================================
-    // RATE LIMIT
-    // ==========================================
-
+    // Rate Limiting
     const ip =
       request.headers.get('x-forwarded-for') ||
       request.headers.get('x-real-ip') ||
@@ -42,10 +39,7 @@ export async function POST(request) {
       );
     }
 
-    // ==========================================
-    // VALIDACIÓN
-    // ==========================================
-
+    // Validación
     const validation = validateContactPayload({
       name,
       phone,
@@ -66,10 +60,7 @@ export async function POST(request) {
       );
     }
 
-    // ==========================================
-    // VALIDACIÓN DE ADJUNTO
-    // ==========================================
-
+    // Validar adjunto
     if (requestType === 'Trabaja con nosotros') {
       const attachmentValidation = isValidAttachment(attachment);
 
@@ -85,10 +76,7 @@ export async function POST(request) {
       }
     }
 
-    // ==========================================
-    // GUARDAR LEAD EN NEON
-    // ==========================================
-
+    // Guardar lead
     const lead = await saveContactLead({
       name,
       phone,
@@ -100,58 +88,49 @@ export async function POST(request) {
 
     console.log('Lead guardado:', lead.id);
 
-    // ==========================================
-    // ENVIAR CORREO (IMPORTANTE PARA VERCEL)
-    // ==========================================
+    // IMPORTANTE:
+    // Esperar el envío del correo antes de responder
+    const mailResult = await sendDepartmentEmail({
+      name,
+      phone,
+      email,
+      company,
+      requestType,
+      message,
+      attachment
+    });
 
-    let emailResult = null;
+    console.log('Resultado correo:', mailResult);
 
-    try {
-      emailResult = await sendDepartmentEmail({
-        name,
-        phone,
-        email,
-        company,
-        requestType,
-        message,
-        attachment
-      });
+    if (!mailResult?.ok) {
+      console.error('Error enviando correo:', mailResult);
 
-      console.log('Resultado envío correo:', emailResult);
-
-      if (!emailResult?.ok) {
-        console.error(
-          'Correo no enviado correctamente:',
-          emailResult
-        );
-      }
-    } catch (emailError) {
-      console.error(
-        'Error enviando correo:',
-        emailError
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'El formulario fue guardado pero el correo no pudo enviarse.',
+          details: mailResult
+        },
+        { status: 500 }
       );
     }
-
-    // ==========================================
-    // RESPUESTA
-    // ==========================================
 
     return NextResponse.json(
       {
         success: true,
         leadId: lead.id,
-        emailSent: emailResult?.ok || false,
         message: 'Solicitud enviada correctamente.'
       },
       { status: 200 }
     );
+
   } catch (error) {
     console.error('Error en /api/contact:', error);
 
     return NextResponse.json(
       {
         success: false,
-        error: 'Error interno del servidor.'
+        error: error?.message || 'Error interno del servidor.'
       },
       { status: 500 }
     );

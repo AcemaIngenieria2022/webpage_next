@@ -62,12 +62,30 @@ async function sendMailWithFallback(mailOptions) {
 
   for (const transporterInstance of transporters) {
     try {
-      return await transporterInstance.sendMail(mailOptions);
+
+      console.log(
+        `Intentando envío SMTP ${transporterInstance.options.host}:${transporterInstance.options.port}`
+      );
+
+      const info = await transporterInstance.sendMail(mailOptions);
+
+      console.log('Correo enviado correctamente:', info.messageId);
+
+      return info;
+
     } catch (error) {
+
+      console.error('SMTP ERROR:', {
+        code: error.code,
+        command: error.command,
+        response: error.response,
+        message: error.message
+      });
+
       lastError = error;
-      console.warn(`[MAIL FALLBACK] Falló envío en host ${transporterInstance.options.host}:${transporterInstance.options.port} - Código:`, error && error.code);
     }
   }
+
   throw lastError;
 }
 

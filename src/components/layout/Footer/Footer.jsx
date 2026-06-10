@@ -71,10 +71,10 @@ const Footer = () => {
         <div className={styles.footerSocial}>
           <p className={styles.socialLabel}>Síguenos:</p>
           <div className={styles.socialIcons}>
-            <a href="#" className={styles.socialLink} aria-label="Instagram">
+            <a href="https://www.instagram.com/acema_ingenieria/" className={styles.socialLink} aria-label="Instagram">
               <FaInstagram />
             </a>
-            <a href="#" className={styles.socialLink} aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/acema-ingenier%C3%ADa/posts/?feedView=all" className={styles.socialLink} aria-label="LinkedIn">
               <FaLinkedin />
             </a>
           </div>

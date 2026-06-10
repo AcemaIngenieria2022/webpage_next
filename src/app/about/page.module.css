@@ -1,0 +1,332 @@
+.page {
+  background: #efefef;
+  min-height: 100vh;
+  font-family: var(
+    --font-montserrat,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif
+  );
+  color: #666;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  position: relative;
+  margin-top: 80px; /* Dejar espacio para el navbar fijo sólo en /about */
+  width: 100%;
+  height: 45vh;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.heroContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: #fff;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* =========================
+   NOSOTROS
+========================= */
+
+.aboutSection {
+  width: 100%;
+  background: #fff;
+  padding: 70px 0;
+}
+
+.aboutInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 70px;
+  align-items: start;
+}
+
+.aboutText h2 {
+  color: #2fa63a;
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 20px;
+}
+
+.aboutText p {
+  margin-bottom: 16px;
+  line-height: 1.8;
+  color: #777;
+  text-align: justify;
+}
+
+/* =========================
+   MISIÓN Y VISIÓN
+========================= */
+
+.misionVision {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  position: relative;
+}
+
+.misionVision::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 25px;
+  width: 2px;
+  height: 150px;
+  background: #d9f0db;
+  transform: translateX(-50%);
+}
+
+.card {
+  text-align: center;
+}
+
+.card h3 {
+  width: 170px;
+  margin: 0 auto 20px;
+  padding: 8px 20px;
+  background: linear-gradient(180deg, #3db83a, #2fa63a);
+  color: #fff;
+  border-radius: 45px 5px 45px 5px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.card p {
+  color: #777;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+/* =========================
+   VALORES
+========================= */
+
+.valuesSection {
+  background: #efefef;
+  padding: 70px 40px 100px;
+  text-align: center;
+}
+
+.valuesTitle {
+  display: inline-block;
+  margin-bottom: 60px;
+  padding: 8px 50px;
+  background: linear-gradient(180deg, #3db83a, #2fa63a);
+  color: white;
+  border-radius: 45px 5px 45px 5px;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.valuesGrid {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.valuesTop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.valuesBottom {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+.valuesBottom > div {
+  max-width: 320px;
+}
+
+.valuesGrid h4 {
+  color: #555;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.valuesGrid p {
+  color: #777;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 992px) {
+  .aboutInner {
+    padding: 0 30px;
+  }
+
+  .aboutGrid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .aboutText {
+    text-align: center;
+  }
+
+  .aboutText p {
+    text-align: center;
+  }
+
+  .aboutText h2 {
+    font-size: 2.5rem;
+  }
+
+  .misionVision {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .misionVision::after {
+    display: none;
+  }
+
+  .card {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .valuesTop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .valuesBottom {
+    gap: 40px;
+  }
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media (max-width: 768px) {
+  .hero {
+    height: 280px;
+    min-height: auto;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .aboutSection {
+    padding: 50px 0;
+  }
+
+  .aboutInner {
+    padding: 0 20px;
+  }
+
+  .aboutText h2 {
+    font-size: 2rem;
+  }
+
+  .card h3 {
+    width: 150px;
+    font-size: 1rem;
+  }
+
+  .card p,
+  .aboutText p {
+    text-align: center;
+  }
+
+  .valuesSection {
+    padding: 60px 20px 80px;
+  }
+
+  .valuesTitle {
+    font-size: 1.5rem;
+    padding: 8px 35px;
+    margin-bottom: 40px;
+  }
+
+  .valuesTop {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .valuesBottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+  }
+
+  .valuesBottom > div {
+    max-width: 100%;
+  }
+}
+
+/* =========================
+   MÓVILES PEQUEÑOS
+========================= */
+
+@media (max-width: 480px) {
+  .hero {
+    height: 220px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .aboutText h2 {
+    font-size: 1.7rem;
+  }
+
+  .card h3 {
+    width: 140px;
+    padding: 8px 14px;
+  }
+
+  .valuesTitle {
+    font-size: 1.3rem;
+    padding: 8px 30px;
+  }
+
+  .valuesGrid p,
+  .aboutText p,
+  .card p {
+    font-size: 0.9rem;
+  }
+}

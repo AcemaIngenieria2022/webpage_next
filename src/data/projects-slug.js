@@ -21,7 +21,7 @@ export const projectsDetailsData = {
     description:
       "En Montería (Córdoba) se levanta La Rubiela, una granja solar de 1,25MWp que impulsa la transición energética y el desarrollo sostenible en la región. Este proyecto fortalece la generación distribuida y la independencia energética de las comunidades.\n\nAcema Ingeniería participó en la construcción e interconexión, asegurando calidad, seguridad y eficiencia en cada etapa. La Rubiela es hoy una fuente constante de energía limpia y un ejemplo del aporte de la ingeniería colombiana al desarrollo sostenible",
     heroImage: "/images/projects/finished/Rubiela.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación:",
@@ -50,7 +50,7 @@ export const projectsDetailsData = {
     description:
       "La Granja Solar San Pelayo representa el avance de la energía renovable en Córdoba, donde distintos proyectos fotovoltaicos impulsan la generación distribuida y fortalecen la sostenibilidad regional.\n\nEn este proyecto, Acema aportó ingeniería detallada y la elaboración de especificaciones técnicas, además del suministro y ensamblaje de tableros, centros de transformación, protecciones y otros equipos. Asimismo, realizó el montaje y las pruebas especializadas (inyecciones, VLF y SAT), y se encargó de la puesta en servicio e interconexión, cumpliendo con los requisitos establecidos por el operador.",
  
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación:",
@@ -78,7 +78,7 @@ export const projectsDetailsData = {
     description:
       "En La Apartada (Córdoba) se inauguró la granja solar INTI I y II, un proyecto fotovoltaico que refuerza la transición energética en la región y aporta capacidad al Sistema Interconectado Nacional.\n\nEl proyecto abarca un área de 20 hectáreas, con obras civiles, montaje de estructuras, instalación de módulos, inversores, tableros y un centro de transformación para inyección segura de energía. Su puesta en marcha incluyó pruebas de aceptación, configuración de protecciones y coordinación con el operador de red las cuales Acema se hizo cargo, brindando un impecable servicio eléctrico.",
     heroImage: "/images/projects/finished/inti.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
  
      textfooter: "El proyecto abarca un área de 20 hectáreas, con obras civiles, montaje de estructuras, instalación de módulos, inversores, tableros y un centro de transformación para inyección segura de energía. Su puesta en marcha incluyó pruebas de aceptación, configuración de protecciones y coordinación con el operador de red.",
     gallery: ["/images/projects/finished/inti.webp"],
@@ -93,7 +93,7 @@ export const projectsDetailsData = {
     description:
       "Las granjas solares Piedra I y II, con una capacidad conjunta de 2,75MWp, desarrolladas y construidas para Erco Energía, ya se encuentran energizadas, consolidándose como proyectos de alto impacto dentro del modelo de generación distribuida en Colombia. \n\n Acema Ingeniería estuvo a cargo del desarrollo integral del proyecto, desde la ingeniería y construcción hasta la energización y puesta en servicio.",
     heroImage: "/images/projects/finished/piedras.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación:",
@@ -120,7 +120,7 @@ export const projectsDetailsData = {
     description:
       "En Acema Ingeniería seguimos impulsando la transición energética del país con la construcción de varias granjas solares para Suncolombia. Entre ellas se destacan Semillas I y II, con una capacidad conjunta de 2,5MWp y una generación estimada de 3,65GWh/año",
     heroImage: "/images/projects/finished/semillas.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación:",
@@ -147,7 +147,7 @@ export const projectsDetailsData = {
     description:
       "En Acema Ingeniería seguimos impulsando la transición energética del país con la construcción de varias granjas solares, entre ellas se destaca Valledupar, un GD realizada con el fin de poder aportar a un futuro más sostenible.",
     heroImage: "/images/projects/finished/valledupar.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación:",
@@ -174,7 +174,7 @@ export const projectsDetailsData = {
     description:
       "En el Parque Solar Salamina de 19,9 MW, Acema Ingeniería participó en el desarrollo de infraestructura clave para la operación del proyecto. La compañía realizó el diseño e instalación de la subestación tipo pórtico en media tensión de 34,5 kV, incluyendo iluminación, apantallamiento, cuarto de control y estación meteorológica. \n\n Adicionalmente, ejecutó el diseño e instalación del sistema SCADA, mediante el suministro en modalidad EPC del sistema SCADA y PPC, permitiendo el monitoreo y control eficiente de la planta. Con estas soluciones, Acema Ingeniería contribuye al desarrollo de proyectos solares que impulsan una energía más limpia y sostenible. ",
     heroImage: "/images/projects/finished/salamina.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
   },
 
   urra: {
@@ -184,7 +184,7 @@ export const projectsDetailsData = {
     description:
       "En la Granja Solar Urrá de 19,9 MW, Acema Ingeniería participó en actividades clave para la puesta en operación y conexión del proyecto al sistema eléctrico. \n\nDentro del alcance, se realizaron pruebas eléctricas y de automatización, el suministro en modalidad EPC del retrofit del tren de celdas en la hidroeléctrica Urrá para el punto de conexión del parque, así como el comisionamiento y puesta en servicio de la granja solar. Adicionalmente, se ejecutó el alcance eléctrico del proyecto y la conexión del parque solar. \n\n El proyecto cuenta con una capacidad instalada de 1,4364 MWp y contribuye a la reducción aproximada de 9.279,86 toneladas de CO₂, aportando al desarrollo de una matriz energética más limpia y sostenible",
     heroImage: "/images/projects/finished/urra.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
      
     gallery: ["/images/projects/finished/urra.webp"],
     location: "Urrá, Córdoba",
@@ -198,7 +198,7 @@ export const projectsDetailsData = {
     description:
       "En el Parque Solar Sol y Cielo de 9,9 MW, Acema Ingeniería participó en el desarrollo de actividades clave para la infraestructura eléctrica y la puesta en operación del proyecto. \n\nDentro del alcance, la compañía realizó el suministro, montaje y puesta en servicio de la ampliación de la subestación, así como el comisionamiento de la interfaz entre la granja solar y el operador de red, permitiendo su operación comercial. \n\nAdicionalmente, se llevaron a cabo pruebas a los centros de transformación y el montaje del centro de control, contribuyendo al correcto funcionamiento y monitoreo del parque solar. Con estas soluciones, Acema Ingeniería continúa aportando al desarrollo de proyectos que fortalecen la generación de energía solar en el país.",
     heroImage: "/images/projects/bannerproject/sol.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación:",
@@ -225,7 +225,7 @@ export const projectsDetailsData = {
     description:
       "En Acema Ingeniería seguimos impulsando la transición energética del país mediante la construcción de diversas granjas solares, entre las que destacan Emperatriz I y II, centrales diseñadas para conectar y beneficiar a las comunidades.",
     heroImage: "/images/projects/finished/emperatriz.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación:",
@@ -252,7 +252,7 @@ export const projectsDetailsData = {
     description:
       "En Acema Ingeniería seguimos impulsando la transición energética del país mediante la construcción de granjas solares como Coralito y Golondrina, proyectos diseñados para fortalecer el desarrollo local y acercar una energía más limpia a las comunidades y hogares.",
     heroImage: "/images/projects/finished/coralito.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación:",
@@ -280,7 +280,7 @@ export const projectsDetailsData = {
     description:
       "En Acema ingeniería ejecutamos impulsiando la transición energética del país mediante la construcción de diversas granjas solares distribuidas para conectar y beneficiarse a nivel local.",
     heroImage: "/images/projects/developing/libertador.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación",
@@ -307,7 +307,7 @@ export const projectsDetailsData = {
     description:
       "En Acema ingeniería ejecutamos impulsiando la transición energética del país mediante la construcción de diversas granjas solares distribuidas para conectar y beneficiarse a nivel local.",
     heroImage: "/images/projects/developing/lorica.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación",
@@ -334,7 +334,7 @@ export const projectsDetailsData = {
     description:
       "En Acema ingeniería ejecutamos impulsiando la transición energética del país mediante la construcción de diversas granjas solares distribuidas para conectar y beneficiarse a nivel local.",
     heroImage: "/images/projects/developing/sanonofre.webp",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación",

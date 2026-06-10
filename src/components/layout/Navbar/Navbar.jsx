@@ -77,6 +77,10 @@ const Navbar = () => {
             <span className={styles.linkText}>Inicio</span>
           </Link>
 
+          <Link href="/about" className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
+            <span className={styles.linkText}>Nosotros</span>
+          </Link>
+
           {/* CONTENEDOR DEL DROPDOWN */}
           <div 
             className={styles.navDropdown}

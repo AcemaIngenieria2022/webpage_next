@@ -1,159 +1,47 @@
 import { NextResponse } from 'next/server';
 import { saveContactLead } from '@/lib/contactService';
 import { sendDepartmentEmail } from '@/lib/mailer';
-import {
-  validateContactPayload,
-  checkRateLimit,
-  isValidAttachment
-} from '@/lib/inputUtils';
+import { validateContactPayload, sanitizeForEmail, checkRateLimit } from '@/lib/inputUtils';
 
 export async function POST(request) {
   try {
     const body = await request.json();
+    const { name, phone, email, company, requestType, message } = body;
 
-    const {
-      name,
-      phone,
-      email,
-      company,
-      requestType,
-      message,
-      attachment
-    } = body;
-
-    // ==========================================
-    // RATE LIMIT
-    // ==========================================
-
-    const ip =
-      request.headers.get('x-forwarded-for') ||
-      request.headers.get('x-real-ip') ||
-      'unknown';
-
-    const rateLimit = checkRateLimit(ip);
-
-    if (!rateLimit.allowed) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Demasiadas solicitudes. Intenta nuevamente más tarde.'
-        },
-        { status: 429 }
-      );
+    // Rate limiting simple por IP
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const rl = checkRateLimit(ip);
+    if (!rl.allowed) {
+      return NextResponse.json({ success: false, error: 'Demasiadas solicitudes. Intenta más tarde.' }, { status: 429 });
     }
 
-    // ==========================================
-    // VALIDACIÓN
-    // ==========================================
-
-    const validation = validateContactPayload({
-      name,
-      phone,
-      email,
-      company,
-      requestType,
-      message
-    });
-
+    const validation = validateContactPayload({ name, phone, email, company, requestType, message });
     if (!validation.ok) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Validación fallida.',
-          details: validation.errors
-        },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, error: 'Validación fallida.', details: validation.errors }, { status: 400 });
     }
 
-    // ==========================================
-    // VALIDACIÓN DE ADJUNTO
-    // ==========================================
-
+    // Validate optional attachment if applying for job
+    const attachment = body.attachment;
     if (requestType === 'Trabaja con nosotros') {
-      const attachmentValidation = isValidAttachment(attachment);
-
-      if (!attachmentValidation.ok) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'Adjunto inválido.',
-            details: attachmentValidation.error
-          },
-          { status: 400 }
-        );
+      const { isValidAttachment } = await import('@/lib/inputUtils');
+      const check = isValidAttachment(attachment);
+      if (!check.ok) {
+        return NextResponse.json({ success: false, error: 'Adjunto inválido.', details: check.error }, { status: 400 });
       }
     }
 
-    // ==========================================
-    // GUARDAR LEAD EN NEON
-    // ==========================================
+    await saveContactLead({ name, phone, email, company, requestType, message });
 
-    const lead = await saveContactLead({
-      name,
-      phone,
-      email,
-      company,
-      requestType,
-      message
-    });
+    // Envío asíncrono no bloqueante (el mailer se encargará de sanitizar antes de insertar en HTML)
+    sendDepartmentEmail({ name, phone, email, company, requestType, message, attachment })
+      .then(res => {
+        if (!res || !res.ok) console.warn('sendDepartmentEmail terminó con errores', res);
+      })
+      .catch(err => console.error('Error asíncrono en sendDepartmentEmail:', err));
 
-    console.log('Lead guardado:', lead.id);
-
-    // ==========================================
-    // ENVIAR CORREO (IMPORTANTE PARA VERCEL)
-    // ==========================================
-
-    let emailResult = null;
-
-    try {
-      emailResult = await sendDepartmentEmail({
-        name,
-        phone,
-        email,
-        company,
-        requestType,
-        message,
-        attachment
-      });
-
-      console.log('Resultado envío correo:', emailResult);
-
-      if (!emailResult?.ok) {
-        console.error(
-          'Correo no enviado correctamente:',
-          emailResult
-        );
-      }
-    } catch (emailError) {
-      console.error(
-        'Error enviando correo:',
-        emailError
-      );
-    }
-
-    // ==========================================
-    // RESPUESTA
-    // ==========================================
-
-    return NextResponse.json(
-      {
-        success: true,
-        leadId: lead.id,
-        emailSent: emailResult?.ok || false,
-        message: 'Solicitud enviada correctamente.'
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true, message: 'Procesado con éxito.' }, { status: 200 });
   } catch (error) {
-    console.error('Error en /api/contact:', error);
-
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Error interno del servidor.'
-      },
-      { status: 500 }
-    );
+    console.error('Error en Endpoint [/api/contact]:', error);
+    return NextResponse.json({ success: false, error: 'Error interno del servidor.' }, { status: 500 });
   }
 }

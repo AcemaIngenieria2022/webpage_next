@@ -1,17 +1,13 @@
 import mysql from 'mysql2/promise';
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '3306'),
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+export const pool = mysql.createPool({
+  host: process.env.DATABASE_HOST, // En Hostinger suele ser 'localhost' o la IP asignada
+  user: process.env.DATABASE_USER, // u269079254_root
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME, // u269079254_acema
   waitForConnections: true,
-  connectionLimit: 10,       // Equivalente a 'max: 10' en pg
+  connectionLimit: 10,
   queueLimit: 0,
-  idleTimeout: 30000,        // Tiempo en milisegundos para cerrar conexiones inactivas
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0
 });
-
-// Forzamos la exportación directa para evitar que Turbopack la envuelva mal
-export { pool };
-export default pool;

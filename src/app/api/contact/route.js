@@ -1,47 +1,129 @@
 import { NextResponse } from 'next/server';
 import { saveContactLead } from '@/lib/contactService';
 import { sendDepartmentEmail } from '@/lib/mailer';
-import { validateContactPayload, sanitizeForEmail, checkRateLimit } from '@/lib/inputUtils';
+import {
+  validateContactPayload,
+  checkRateLimit,
+  isValidAttachment
+} from '@/lib/inputUtils';
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, phone, email, company, requestType, message } = body;
 
-    // Rate limiting simple por IP
-    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
-    const rl = checkRateLimit(ip);
-    if (!rl.allowed) {
-      return NextResponse.json({ success: false, error: 'Demasiadas solicitudes. Intenta más tarde.' }, { status: 429 });
+    const {
+      name,
+      phone,
+      email,
+      company,
+      requestType,
+      message,
+      attachment
+    } = body;
+
+    // Rate Limiting
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
+
+    const rateLimit = checkRateLimit(ip);
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Demasiadas solicitudes. Intenta nuevamente más tarde.'
+        },
+        { status: 429 }
+      );
     }
 
-    const validation = validateContactPayload({ name, phone, email, company, requestType, message });
+    // Validación de datos
+    const validation = validateContactPayload({
+      name,
+      phone,
+      email,
+      company,
+      requestType,
+      message
+    });
+
     if (!validation.ok) {
-      return NextResponse.json({ success: false, error: 'Validación fallida.', details: validation.errors }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Validación fallida.',
+          details: validation.errors
+        },
+        { status: 400 }
+      );
     }
 
-    // Validate optional attachment if applying for job
-    const attachment = body.attachment;
+    // Validación de adjunto para hoja de vida
     if (requestType === 'Trabaja con nosotros') {
-      const { isValidAttachment } = await import('@/lib/inputUtils');
-      const check = isValidAttachment(attachment);
-      if (!check.ok) {
-        return NextResponse.json({ success: false, error: 'Adjunto inválido.', details: check.error }, { status: 400 });
+      const attachmentValidation = isValidAttachment(attachment);
+
+      if (!attachmentValidation.ok) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Adjunto inválido.',
+            details: attachmentValidation.error
+          },
+          { status: 400 }
+        );
       }
     }
 
-    await saveContactLead({ name, phone, email, company, requestType, message });
+    // Guardar en PostgreSQL (Neon)
+    const lead = await saveContactLead({
+      name,
+      phone,
+      email,
+      company,
+      requestType,
+      message
+    });
 
-    // Envío asíncrono no bloqueante (el mailer se encargará de sanitizar antes de insertar en HTML)
-    sendDepartmentEmail({ name, phone, email, company, requestType, message, attachment })
-      .then(res => {
-        if (!res || !res.ok) console.warn('sendDepartmentEmail terminó con errores', res);
+    console.log('Lead guardado:', lead.id);
+
+    // Enviar correo sin bloquear la respuesta
+    sendDepartmentEmail({
+      name,
+      phone,
+      email,
+      company,
+      requestType,
+      message,
+      attachment
+    })
+      .then((result) => {
+        if (!result?.ok) {
+          console.warn('Error enviando correo:', result);
+        }
       })
-      .catch(err => console.error('Error asíncrono en sendDepartmentEmail:', err));
+      .catch((error) => {
+        console.error('Error en sendDepartmentEmail:', error);
+      });
 
-    return NextResponse.json({ success: true, message: 'Procesado con éxito.' }, { status: 200 });
+    return NextResponse.json(
+      {
+        success: true,
+        leadId: lead.id,
+        message: 'Solicitud enviada correctamente.'
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Error en Endpoint [/api/contact]:', error);
-    return NextResponse.json({ success: false, error: 'Error interno del servidor.' }, { status: 500 });
+    console.error('Error en /api/contact:', error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Error interno del servidor.'
+      },
+      { status: 500 }
+    );
   }
 }

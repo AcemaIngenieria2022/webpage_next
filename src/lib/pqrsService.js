@@ -11,9 +11,9 @@ export async function savePqrsLead({ radicado, name, idNumber, email, phone, req
     const [result] = await pool.query(query, values);
     return { id: result.insertId };
   } catch (error) {
-    // Si el error reaparece por duplicidad de índice único, lo propagamos limpiamente
+    // Código de error para clave única duplicada en MySQL
     if (error.code === 'ER_DUP_ENTRY') {
-      console.error(`[MySQL Custom Error] Radicado duplicado detectado: ${radicado}`);
+      console.error(`[MySQL Error] El radicado duplicado localmente: ${radicado}`);
     }
     throw error;
   }

@@ -38,7 +38,7 @@ export default async function FeaturePage({ params }) {
           <p className={styles.lead}>{feature.description}</p>
           {/* Custom two-column content for SCADA/PPC page */}
           {slug === 'sistemas-scada-ppc' && (
-            <div className={styles.twoColumn} style={{ marginTop: 18 }}>
+            <div className={`${styles.twoColumn} ${styles.twoColumnEqual}`} style={{ marginTop: 18 }}>
               <div className={styles.leftCol}>
                 <p>
                   En Acema Ingeniería desarrollamos la ingeniería, dimensionamiento, suministro, configuración,
@@ -102,7 +102,7 @@ export default async function FeaturePage({ params }) {
 
           {/* Custom content for Estaciones meteorológicas */}
           {isEstaciones && (
-            <div className={styles.twoColumn} style={{ marginTop: 18 }}>
+            <div className={`${styles.twoColumn} ${styles.twoColumnEqual}`} style={{ marginTop: 18 }}>
               <div className={styles.leftCol}>
                 <div className={styles.infoBox}>
                   <h4 className={styles.infoTitle}>Estaciones meteorológicas</h4>

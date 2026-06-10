@@ -28,7 +28,7 @@ export default function CentrosPage() {
         </div>
         <h2 className={styles.benefitsTitle}>Beneficios de los centros de transformación para granjas solares</h2>
 
-        <div className={styles.twoColumn}>
+        <div className={`${styles.twoColumn} ${styles.twoColumnEqual}`}>
           <div className={styles.leftCol}>
             <ul>
               <li><strong>Integración total:</strong> concentramos en un solo sistema la protección, el control y la supervisión del parque solar.</li>

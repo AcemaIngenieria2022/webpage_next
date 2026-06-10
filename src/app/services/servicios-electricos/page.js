@@ -25,7 +25,7 @@ export default function ServiciosElectricosPage() {
       {/* Features cards (usar Card con animaciones similares a /projects) */}
       <section className={styles.featuresSection}>
         <div className={styles.featuresRow}>
-          <FeatureCards features={features} />
+          <FeatureCards features={features} variant="grid" />
         </div>
       </section>
     </main>

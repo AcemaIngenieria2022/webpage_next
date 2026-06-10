@@ -113,9 +113,9 @@
    3. CONTENIDO DE TEXTO (ESPACIOS REDUCIDOS)
    ========================================================================== */
 .content {
-  max-width: 900px;
-  margin: 15px auto; /* REDUCIDO: Acerca el bloque al banner superior */
-  padding: 0 20px 15px; /* REDUCIDO: Quita el espacio muerto inferior de 80px */
+  max-width: 980px;
+  margin: 30px auto; /* más espacio vertical alrededor del contenido */
+  padding: 0 28px 34px; /* más padding horizontal y inferior para respiración */
 }
 
 .content h1 {
@@ -315,16 +315,28 @@
   justify-items: center; /* CENTRADO CRÍTICO: Centra las mini-cards si la fila no se llena */
 }
 
-/* Layout en línea para mostrar exactamente 4 cards centradas en una fila */
+/* Layout en línea para mostrar 4 cards en una sola fila en desktop */
 .featuresRow {
-  display: flex;
-  gap: 24px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(260px, 1fr)); /* 4 columnas, una fila */
+  gap: 22px;
+  justify-items: stretch;
   align-items: stretch;
-  flex-wrap: wrap; /* allow wrapping on smaller screens for responsiveness */
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 10px 20px 30px;
+}
+
+@media (max-width: 1024px) {
+  .featuresRow {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
+  }
+}
+
+@media (max-width: 640px) {
+  .featuresRow {
+    grid-template-columns: 1fr; /* 1 columna en móvil */
+  }
 }
 
 
@@ -340,6 +352,11 @@
   gap: 36px;
   align-items: stretch;
   padding: 20px;
+}
+
+/* Equal two-column layout (50% / 50%) */
+.twoColumnEqual {
+  grid-template-columns: 1fr 1fr !important;
 }
 
 .benefitsTitle {

@@ -11,9 +11,12 @@
   overflow: visible;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 220px;
-  margin: 20px 0; /* reduced vertical spacing for better mobile fit */
+  align-items: stretch;
+  width: 100%;
+  max-width: none; /* occupy full grid cell width */
+  flex: 1 1 auto;
+  height: 100%; /* ensure wrapper fills grid cell */
+  margin: 0; /* let parent grid control spacing */
   box-sizing: border-box;
 }
 
@@ -27,7 +30,7 @@
 .featureImageBox {
   position: relative;
   width: 100%;
-  height: 140px;
+  height: clamp(120px, 14vw, 160px); /* responsive height */
   border-radius: 14px 14px 0 0;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
@@ -41,24 +44,63 @@
   background: #ffffff;
   width: 100%;
   border-radius: 0 0 14px 14px;
-  padding: 16px 12px;
+  padding: 8px 10px; /* menos padding para que el botón tenga menos espacio */
   margin-top: 0;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center; /* vertical centering */
+  justify-content: center; /* horizontal centering */
+  height: clamp(48px, 7vw, 72px); /* altura ligeramente menor */
 }
 
 .featureTitle {
   color: var(--accent-color);
   font-weight: 800;
-  font-size: 16px;
+  font-size: clamp(14px, 1.2vw, 16px);
   text-align: center;
+}
+
+/* Ensure title is vertically centered within the white bottom area */
+.featureBottom .featureTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Ensure the inner project Card fills the wrapper and spaces image and bottom area consistently */
+.featureCard :global(.projectCard) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* push image to top and bottom area to bottom */
+}
+
+/* Make sure the infoDetails area centers its content vertically */
+.featureCard :global(.infoDetails) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+}
+
+/* Reset title margins for predictable centering */
+.featureCard .featureTitle,
+.featureCard :global(.projectName) {
+  margin: 0;
+  padding: 0;
 }
 
 .featureCard a {
   text-decoration: none; /* asegurar sin líneas */
   color: inherit;
+}
+
+/* Ensure the Card link fills the whole card for consistent click area */
+.featureCard :global(a) {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .featureBottom a {

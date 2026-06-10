@@ -6,7 +6,7 @@ import Card from '@/components/shared/Card/Card';
 import styles from './FeatureCards.module.css';
 
 
-const FeatureCards = ({ features = [] }) => {
+const FeatureCards = ({ features = [], variant = 'slim' }) => {
   return (
     <AnimatePresence mode="wait">
       {features.map((f, i) => (
@@ -21,7 +21,7 @@ const FeatureCards = ({ features = [] }) => {
           className={styles.featureCard}
           style={{ display: 'flex', justifyContent: 'center' }}
         >
-          <Card title={f.title} image={f.image} variant="slim" href={f.href} titleClassName={styles.hoverTitle} />
+          <Card title={f.title} image={f.image} variant={variant} href={f.href} titleClassName={styles.hoverTitle} />
         </motion.div>
       ))}
     </AnimatePresence>

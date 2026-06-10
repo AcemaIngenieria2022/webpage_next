@@ -33,6 +33,20 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* Preload probable LCP hero images (desktop/mobile) */}
+        <link rel="preload" as="image" href="/images/hero/img1-hero.webp" media="(min-width: 1025px)" />
+        <link rel="preload" as="image" href="/images/hero/movile-img1.webp" media="(max-width: 1024px)" />
+        {/* Critical inline CSS for hero to reduce render-blocking */}
+        <style>{`
+          .hero{position:relative;width:100%;height:calc(100vh - 80px);min-height:70vh;overflow:hidden;background-color:#000}
+          .heroSlider,.imageWrapper{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:1}
+          .heroOverlay{position:absolute;inset:0;background:rgba(0,0,0,0.3);z-index:2;pointer-events:none}
+          .heroImage{object-fit:cover;object-position:center}
+        `}</style>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} appBody`}>
         <Navbar />
         <div className="universal-layout-container">

@@ -21,7 +21,10 @@ export async function POST(request) {
       attachment
     } = body;
 
-    // Rate Limiting
+    // ==========================================
+    // RATE LIMIT
+    // ==========================================
+
     const ip =
       request.headers.get('x-forwarded-for') ||
       request.headers.get('x-real-ip') ||
@@ -39,7 +42,10 @@ export async function POST(request) {
       );
     }
 
-    // Validación de datos
+    // ==========================================
+    // VALIDACIÓN
+    // ==========================================
+
     const validation = validateContactPayload({
       name,
       phone,
@@ -60,7 +66,10 @@ export async function POST(request) {
       );
     }
 
-    // Validación de adjunto para hoja de vida
+    // ==========================================
+    // VALIDACIÓN DE ADJUNTO
+    // ==========================================
+
     if (requestType === 'Trabaja con nosotros') {
       const attachmentValidation = isValidAttachment(attachment);
 
@@ -76,7 +85,10 @@ export async function POST(request) {
       }
     }
 
-    // Guardar en PostgreSQL (Neon)
+    // ==========================================
+    // GUARDAR LEAD EN NEON
+    // ==========================================
+
     const lead = await saveContactLead({
       name,
       phone,
@@ -88,29 +100,47 @@ export async function POST(request) {
 
     console.log('Lead guardado:', lead.id);
 
-    // Enviar correo sin bloquear la respuesta
-    sendDepartmentEmail({
-      name,
-      phone,
-      email,
-      company,
-      requestType,
-      message,
-      attachment
-    })
-      .then((result) => {
-        if (!result?.ok) {
-          console.warn('Error enviando correo:', result);
-        }
-      })
-      .catch((error) => {
-        console.error('Error en sendDepartmentEmail:', error);
+    // ==========================================
+    // ENVIAR CORREO (IMPORTANTE PARA VERCEL)
+    // ==========================================
+
+    let emailResult = null;
+
+    try {
+      emailResult = await sendDepartmentEmail({
+        name,
+        phone,
+        email,
+        company,
+        requestType,
+        message,
+        attachment
       });
+
+      console.log('Resultado envío correo:', emailResult);
+
+      if (!emailResult?.ok) {
+        console.error(
+          'Correo no enviado correctamente:',
+          emailResult
+        );
+      }
+    } catch (emailError) {
+      console.error(
+        'Error enviando correo:',
+        emailError
+      );
+    }
+
+    // ==========================================
+    // RESPUESTA
+    // ==========================================
 
     return NextResponse.json(
       {
         success: true,
         leadId: lead.id,
+        emailSent: emailResult?.ok || false,
         message: 'Solicitud enviada correctamente.'
       },
       { status: 200 }

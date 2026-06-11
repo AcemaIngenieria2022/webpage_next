@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './PqrForm.module.css';
 import PopupAlert from '../PopupAlert/PopupAlert';
 
@@ -16,8 +17,16 @@ const PqrForm = () => {
     description: '',
   });
   const dropdownRef = useRef(null);
+  const [isHoverable, setIsHoverable] = useState(false);
 
   const options = ["Petición", "Queja", "Reclamo", "Sugerencia"];
+
+  // Animaciones compartidas con ContactForm para el dropdown
+  const dropdownVariants = {
+    hidden: { opacity: 0, y: -15, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2, ease: "easeOut" } },
+    exit: { opacity: 0, y: -10, scale: 0.95, transition: { duration: 0.15, ease: "easeIn" } }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -27,6 +36,19 @@ const PqrForm = () => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const update = () => setIsHoverable(!!mq.matches);
+    update();
+    if (mq.addEventListener) mq.addEventListener('change', update);
+    else mq.addListener(update);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener('change', update);
+      else mq.removeListener(update);
+    };
   }, []);
 
   const handleChange = (event) => {
@@ -160,32 +182,52 @@ const PqrForm = () => {
               />
             </div>
 
-            <div className={styles.dropdownContainer} ref={dropdownRef}>
-              <button 
-                type="button" 
-                className={`${styles.requestButtonSelect} ${formData.requestType ? styles.activeBtn : ''}`}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {formData.requestType || 'Tipo de solicitud'} 
-                <span className={styles.icon}>{isOpen ? '−' : '+'}</span>
-              </button>
+            <div
+              className={styles.dropdownContainer}
+              ref={dropdownRef}
+              {...(isHoverable
+                ? { onMouseEnter: () => setIsOpen(true), onMouseLeave: () => setIsOpen(false) }
+                : {})}
+            >
+                <button
+                  type="button"
+                  className={`${styles.requestButtonSelect} ${formData.requestType ? styles.activeBtn : ''}`}
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  {formData.requestType || 'Tipo de solicitud'}
+                  <motion.span
+                    className={styles.icon}
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {isOpen ? '−' : '+'}
+                  </motion.span>
+                </button>
 
-              {isOpen && (
-                <ul className={styles.dropdownList}>
-                  {options.map((option, index) => (
-                    <li 
-                      key={index} 
-                      className={styles.dropdownItem}
-                      onClick={() => {
-                        setFormData((prev) => ({ ...prev, requestType: option }));
-                        setIsOpen(false);
-                      }}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.ul
+                      className={styles.dropdownList}
+                      variants={dropdownVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
                     >
-                      • {option}
-                    </li>
-                  ))}
-                </ul>
-              )}
+                      {options.map((option, index) => (
+                        <li
+                          key={index}
+                          className={styles.dropdownItem}
+                          onClick={() => {
+                            setFormData((prev) => ({ ...prev, requestType: option }));
+                            setIsOpen(false);
+                          }}
+                        >
+                          • {option}
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
             </div>
 
             <div className={styles.textareaWrapper}>

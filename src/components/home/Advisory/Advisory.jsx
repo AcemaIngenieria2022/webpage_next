@@ -7,8 +7,8 @@ const Advisory = () => {
     <section className={styles.advisorySection}>
       <div className={styles.advisoryCapsule}>
         <h2 className={styles.advisoryTitle}>
-          Solicite asesoría técnica 
-          <Link href="/contacto" className={styles.advisoryButton}>
+          Solicite asesoría técnica{' '}
+          <Link href="/contact" className={styles.advisoryButton} aria-label="Ir al formulario de contacto">
             aquí
           </Link>
         </h2>

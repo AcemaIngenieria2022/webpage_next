@@ -1,4 +1,6 @@
 import nodemailer from 'nodemailer';
+import path from 'path';
+import fs from 'fs';
 import { sanitizeForEmail } from './inputUtils';
 
 // ==========================================
@@ -27,6 +29,16 @@ const tlsOptions = {
   rejectUnauthorized: process.env.EMAIL_REJECT_UNAUTHORIZED === 'false' ? false : true,
   servername: process.env.EMAIL_SERVERNAME || host,
 };
+
+// Logo paths for embedding in emails (prefer WEBP when available)
+const logoPngPath = path.join(process.cwd(), 'public', 'images', 'logs', 'logo-acema.png');
+const logoWebpPath = path.join(process.cwd(), 'public', 'images', 'logs', 'logo-acema.webp');
+const logoWebpExists = fs.existsSync(logoWebpPath);
+
+// Reusable header logo HTML: prefer WEBP when available, otherwise PNG
+const headerLogoHtml = logoWebpExists
+  ? `<img src="cid:logo_acema_webp" alt="ACEMA" style="height:48px; display:block; margin:0 auto;" />`
+  : `<img src="cid:logo_acema_png" alt="ACEMA" style="height:48px; display:block; margin:0 auto;" />`;
 
 // ==========================================
 // 2. SISTEMA DE TRANSPORTE Y FALLBACKS
@@ -80,8 +92,9 @@ const emailStyles = `
   .wrapper { width: 100%; table-layout: fixed; background-color: #f4f7f9; padding-top: 40px; padding-bottom: 40px; }
   .container { max-width: 600px; background-color: #ffffff; border-radius: 8px; border-spacing: 0; margin: 0 auto; box-shadow: 0 4px 15px rgba(33,91,160,0.08); border: 1px solid #e2e8f0; overflow: hidden; }
   .header { background: #215ba0; background: linear-gradient(135deg, #215ba0 0%, #40a335 100%); padding: 35px 40px; text-align: center; }
-  .header-logo { color: #ffffff; font-size: 26px; font-weight: 800; letter-spacing: 1.5px; margin: 0; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
-  .header-subtitle { color: #ffffff; font-size: 13px; margin-top: 8px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.95; font-weight: 600; }
+  .header { background: #ffffff; padding: 28px 40px; text-align: center; border-bottom: 2px solid #215ba0; }
+  .header-logo { color: #215ba0; font-size: 26px; font-weight: 800; letter-spacing: 1.5px; margin: 0; text-transform: uppercase; }
+  .header-subtitle { color: #215ba0; font-size: 13px; margin-top: 8px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.95; font-weight: 600; }
   .content { padding: 40px; background-color: #ffffff; }
   .badge { display: inline-block; background-color: #e8f5e9; color: #40a335; padding: 6px 16px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 25px; border: 1px solid #c8e6c9; }
   .section-title { color: #215ba0; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
@@ -131,6 +144,17 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
       }
     }
 
+    const attachmentsWithLogo = [
+      ...attachments,
+      {
+        filename: 'logo-acema.png',
+        path: logoPngPath,
+        cid: 'logo_acema_png'
+      },
+      // attach webp when available for clients that support it
+      ...(logoWebpExists ? [{ filename: 'logo-acema.webp', path: logoWebpPath, cid: 'logo_acema_webp' }] : [])
+    ];
+
     const departmentPromise = sendMailWithFallback({
       from: `"Web Contacto ACEMA" <${process.env.EMAIL_USER}>`,
       to: targetEmail,
@@ -149,6 +173,7 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
               <table class="container">
                 <tr>
                   <td class="header">
+                    ${headerLogoHtml}
                     <h1 class="header-logo">ACEMA INGENIERÍA</h1>
                     <div class="header-subtitle">Notificación de Formulario Web</div>
                   </td>
@@ -211,7 +236,7 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
           </body>
         </html>
       `,
-      attachments,
+      attachments: attachmentsWithLogo,
     });
 
     const confirmationPromise = sendMailWithFallback({
@@ -231,6 +256,7 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
               <table class="container">
                 <tr>
                   <td class="header">
+                    ${headerLogoHtml}
                     <h1 class="header-logo">ACEMA INGENIERÍA</h1>
                     <div class="header-subtitle">Confirmación de Recepción</div>
                   </td>
@@ -264,6 +290,7 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
           </body>
         </html>
       `,
+      attachments: attachmentsWithLogo,
     });
 
     const settled = await Promise.allSettled([departmentPromise, confirmationPromise]);
@@ -288,11 +315,21 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
   const results = { internal: null, confirmation: null, errors: [] };
   
   try {
+    const pqrsAttachments = [
+      {
+        filename: 'logo-acema.png',
+        path: logoPngPath,
+        cid: 'logo_acema_png'
+      },
+      ...(logoWebpExists ? [{ filename: 'logo-acema.webp', path: logoWebpPath, cid: 'logo_acema_webp' }] : [])
+    ];
+
     const internalPromise = sendMailWithFallback({
       from: `"Sistema PQRS ACEMA" <${process.env.EMAIL_USER}>`,
       to: targetEmail,
       replyTo: email,
       subject: `[${requestType.toUpperCase()}] Radicado N° ${radicado}`,
+      attachments: pqrsAttachments,
       html: `
         <!DOCTYPE html>
         <html>
@@ -306,6 +343,10 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
               <table class="container">
                 <tr>
                   <td class="header">
+                    <picture>
+                      ${logoWebpExists ? '<source srcset="cid:logo_acema_webp" type="image/webp" />' : ''}
+                      <img src="cid:logo_acema_png" alt="ACEMA" style="height:48px; display:block; margin:0 auto 8px;" />
+                    </picture>
                     <h1 class="header-logo">ACEMA INGENIERÍA</h1>
                     <div class="header-subtitle">Panel de Control General PQRS</div>
                   </td>
@@ -392,6 +433,10 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
               <table class="container">
                 <tr>
                   <td class="header">
+                    <picture>
+                      ${logoWebpExists ? '<source srcset="cid:logo_acema_webp" type="image/webp" />' : ''}
+                      <img src="cid:logo_acema_png" alt="ACEMA" style="height:48px; display:block; margin:0 auto 8px;" />
+                    </picture>
                     <h1 class="header-logo">ACEMA INGENIERÍA</h1>
                     <div class="header-subtitle">Confirmación de Recepción de Solicitud</div>
                   </td>
@@ -432,6 +477,7 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
           </body>
         </html>
       `,
+      attachments: pqrsAttachments,
     });
 
     const settled = await Promise.allSettled([internalPromise, confirmationPromise]);

@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+// Use native picture/img element to allow WEBP with PNG fallback for broader compatibility
 import Link from "next/link";
 import styles from "./Footer.module.css";
 
@@ -21,13 +21,10 @@ const Footer = () => {
         {/* LOGO IZQUIERDA */}
         <div className={styles.footerBrand}>
           <a href="">
-            <Image 
-              src="/images/logs/logo-acema.png" 
-              alt="ACEMA Ingeniería" 
-              width={220} 
-              height={80} 
-              className={styles.footerLogo} 
-            />
+            <picture>
+              <source srcSet="/images/logs/logo-acema.webp" type="image/webp" />
+              <img src="/images/logs/logo-acema.png" alt="ACEMA Ingeniería" width={220} height={80} className={styles.footerLogo} />
+            </picture>
           </a>
         </div>
 

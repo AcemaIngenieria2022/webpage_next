@@ -18,6 +18,7 @@ const ContactForm = () => {
     accepted: false,
   });
   const dropdownRef = useRef(null);
+  const [isHoverable, setIsHoverable] = useState(false);
 
   const options = ["Servicios solares", "Servicios eléctricos", "Trabaja con nosotros"];
   const [attachment, setAttachment] = useState(null);
@@ -32,6 +33,19 @@ const ContactForm = () => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const update = () => setIsHoverable(!!mq.matches);
+    update();
+    if (mq.addEventListener) mq.addEventListener('change', update);
+    else mq.addListener(update);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener('change', update);
+      else mq.removeListener(update);
+    };
   }, []);
 
   const handleChange = (event) => {
@@ -224,7 +238,13 @@ const ContactForm = () => {
             />
           </div>
 
-          <div className={styles.dropdownContainer} ref={dropdownRef}>
+          <div
+            className={styles.dropdownContainer}
+            ref={dropdownRef}
+            {...(isHoverable
+              ? { onMouseEnter: () => setIsOpen(true), onMouseLeave: () => setIsOpen(false) }
+              : {})}
+          >
             <button
               type="button"
               className={`${styles.requestButton} ${formData.requestType ? styles.activeBtn : ''}`}

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+// Use native picture/img so browser picks WEBP when available with PNG fallback
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
@@ -61,14 +61,10 @@ const Navbar = () => {
 
         <Link href="/">
           <div className={styles.navbarLogo}>
-            <Image 
-              src="/images/logs/logo-acema.png" 
-              alt="Logo ACEMA" 
-              width={160} 
-              height={60} 
-              className={styles.logoImage}
-              priority 
-            />
+            <picture>
+              <source srcSet="/images/logs/logo-acema.webp" type="image/webp" />
+              <img src="/images/logs/logo-acema.png" alt="Logo ACEMA" width={160} height={60} className={styles.logoImage} />
+            </picture>
           </div>
         </Link>
 

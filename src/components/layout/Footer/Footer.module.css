@@ -123,18 +123,79 @@
 
 /* --- MÓVILES --- */
 @media (max-width: 900px) {
+
   .footerContainer {
+
     flex-direction: column;
-    text-align: center;
+
+    /* Cambia centrado a inicio */
+    align-items: flex-start;
+
+    text-align: left;
+
     gap: 40px;
+
   }
+
+
+  .footerBrand {
+
+    width:100%;
+
+  }
+
+
+  .footerContact {
+
+    align-items:flex-start;
+
+    width:100%;
+
+  }
+
 
   .contactItem {
-    justify-content: center;
+
+    justify-content:flex-start;
+
+    text-align:left;
+
   }
 
-  .footerMap {
-    width: 100%;
-    max-width: 350px;
+
+  .footerSocial {
+
+    align-items:flex-start;
+
+    width:100%;
+
   }
+
+
+  .socialIcons {
+
+    justify-content:flex-start;
+
+  }
+
+
+  .footerMap {
+
+    width:100%;
+
+    max-width:350px;
+
+  }
+
+
+  .footerBottom {
+
+    justify-content:flex-start;
+
+    text-align:left;
+
+    padding-left:5%;
+
+  }
+
 }

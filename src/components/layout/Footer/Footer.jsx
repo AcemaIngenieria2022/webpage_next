@@ -17,15 +17,22 @@ const Footer = () => {
     <footer className={styles.footer} id="contacto">
       <div className={styles.footerContainer}>
         
-
-        {/* LOGO IZQUIERDA */}
+        {/* LOGO IZQUIERDA - OPTIMIZADO */}
         <div className={styles.footerBrand}>
-          <a href="">
+          <Link href="/">
             <picture>
               <source srcSet="/images/logs/logo-acema.webp" type="image/webp" />
-              <img src="/images/logs/logo-acema.png" alt="ACEMA Ingeniería" width={220} height={80} className={styles.footerLogo} />
+              <img 
+                src="/images/logs/logo-acema.png" 
+                alt="ACEMA Ingeniería" 
+                width={220} 
+                height={80} 
+                className={styles.footerLogo}
+                fetchPriority="high"  // ✅ Prioriza la carga
+                loading="eager"       // ✅ Carga inmediata
+              />
             </picture>
-          </a>
+          </Link>
         </div>
 
         {/* DATOS DE CONTACTO (CENTRO-IZQUIERDA) */}      
@@ -68,10 +75,22 @@ const Footer = () => {
         <div className={styles.footerSocial}>
           <p className={styles.socialLabel}>Síguenos:</p>
           <div className={styles.socialIcons}>
-            <a href="https://www.instagram.com/acema_ingenieria/" className={styles.socialLink} aria-label="Instagram">
+            <a 
+              href="https://www.instagram.com/acema_ingenieria/" 
+              className={styles.socialLink} 
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaInstagram />
             </a>
-            <a href="https://www.linkedin.com/company/acema-ingenier%C3%ADa/posts/?feedView=all" className={styles.socialLink} aria-label="LinkedIn">
+            <a 
+              href="https://www.linkedin.com/company/acema-ingenier%C3%ADa/posts/?feedView=all" 
+              className={styles.socialLink} 
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaLinkedin />
             </a>
           </div>

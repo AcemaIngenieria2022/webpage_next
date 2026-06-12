@@ -63,7 +63,15 @@ const Navbar = () => {
           <div className={styles.navbarLogo}>
             <picture>
               <source srcSet="/images/logs/logo-acema.webp" type="image/webp" />
-              <img src="/images/logs/logo-acema.png" alt="Logo ACEMA" width={160} height={60} className={styles.logoImage} />
+              <img 
+                src="/images/logs/logo-acema.png" 
+                alt="Logo ACEMA" 
+                width={160} 
+                height={60} 
+                className={styles.logoImage}
+                fetchPriority="high"  // ✅ CORREGIDO: 'P' mayúscula
+                loading="eager"
+              />
             </picture>
           </div>
         </Link>

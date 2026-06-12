@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+/* ❌ ELIMINADO: @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap'); */
 
 .container {
   width: 100%;
   padding: 40px 20px 50px 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif; /* ✅ Usa variable de next/font */
   display: grid;
   row-gap: 30px;
   justify-items: center;
@@ -22,6 +22,7 @@
   letter-spacing: -0.5px;
   width: 100%;
   max-width: 1140px;
+  font-family: var(--font-montserrat), sans-serif; /* ✅ Añadido */
 }
 
 /* Configuración de la Grilla Compacta */
@@ -51,6 +52,7 @@
   outline-offset: 2px;
   border-radius: 20px;
 }
+
 .cardLink {
   display: block;
   text-decoration: none;
@@ -59,6 +61,7 @@
 .cardLink > div {
   will-change: transform;
 }
+
 /* --- Ajustes de Responsividad --- */
 
 /* Tablets y Laptops pequeños */

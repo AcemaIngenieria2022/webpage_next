@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+/* ❌ ELIMINADO: @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap'); */
 
 .aboutSection {
   padding: 100px 0;
@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   min-height: 450px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif; /* ✅ Usa variable de next/font */
 }
 
 .aboutContainer {
@@ -29,6 +29,7 @@
   margin-bottom: 25px;
   letter-spacing: -2px; /* Ajuste para look moderno */
   line-height: 1;
+  font-family: var(--font-montserrat), sans-serif; /* ✅ Añadido */
 }
 
 .aboutBody p {
@@ -38,6 +39,7 @@
   margin-bottom: 25px;
   max-width: 550px;
   text-align: justify;
+  font-family: var(--font-montserrat), sans-serif; /* ✅ Añadido */
 }
 
 /* Video Styling */

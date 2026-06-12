@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+/* ❌ ELIMINADO: @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap'); */
 
 :root {
   --accent-color: #215ba0;
@@ -18,6 +18,7 @@
   height: 100%; /* ensure wrapper fills grid cell */
   margin: 0; /* let parent grid control spacing */
   box-sizing: border-box;
+  font-family: var(--font-montserrat), sans-serif; /* ✅ Añadido */
 }
 
 @media (max-width: 900px) {
@@ -58,6 +59,7 @@
   font-weight: 800;
   font-size: clamp(14px, 1.2vw, 16px);
   text-align: center;
+  font-family: var(--font-montserrat), sans-serif; /* ✅ Añadido */
 }
 
 /* Ensure title is vertically centered within the white bottom area */
@@ -134,5 +136,3 @@
     padding: 12px 10px;
   }
 }
-
-

@@ -1,11 +1,11 @@
-/* ❌ ELIMINADO: @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
 
 .advisorySection {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 40px 20px;
-  font-family: var(--font-montserrat), sans-serif; /* ✅ Usa variable de next/font */
+  font-family: 'Montserrat', sans-serif;
 }
 
 .advisoryCapsule {
@@ -31,7 +31,6 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  font-family: var(--font-montserrat), sans-serif; /* ✅ Añadido */
 }
 
 .advisoryButton {
@@ -44,7 +43,6 @@
   font-weight: 700;
   transition: all 0.3s ease;
   display: inline-block;
-  font-family: var(--font-montserrat), sans-serif; /* ✅ Añadido */
 }
 
 .advisoryButton:hover {

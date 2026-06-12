@@ -1,11 +1,12 @@
-/* ❌ ELIMINADO: @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 .projectsSection {
+
   padding: 100px 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  font-family: var(--font-montserrat), sans-serif; /* ✅ Usa variable de next/font */
+  font-family: 'Montserrat', sans-serif;
 }
 
 .projectsContainer {
@@ -20,7 +21,6 @@
   margin-bottom: 60px;
   text-align: left; /* Alineado a la izquierda según la imagen */
   letter-spacing: -1.5px;
-  font-family: var(--font-montserrat), sans-serif; /* ✅ Añadido */
 }
 
 .projectsGrid {
@@ -77,11 +77,12 @@
   text-align: left; /* Alineación de texto a la izquierda */
 }
 
+
+
 /* --- Colores de Texto en la Card --- */
-.projectName, 
-.projectLocation {
+.projectName, .projectLocation {
   color: #1a4a8d; /* Azul corporativo oscuro de los textos */
-  font-family: var(--font-montserrat), sans-serif; /* ✅ Usa variable */
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Hover conjunto */
@@ -89,6 +90,9 @@
 .infoDetails:hover .projectLocation {
   color: #43a335;
 }
+
+
+ 
 
 .projectName {
   font-size: 1.6rem;
@@ -102,11 +106,17 @@
   margin: 0;
 }
 
+
+
 /* --- Efecto Hover Individual --- */
 .projectLink:hover .projectCard {
   transform: translateY(-10px);
   z-index: 10;
+  
 }
+
+ 
+
 
 .projectLink:hover .infoDetails {
   box-shadow: 0 15px 30px rgba(0,0,0,0.1);

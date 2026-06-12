@@ -69,7 +69,7 @@ const Navbar = () => {
                 width={160} 
                 height={60} 
                 className={styles.logoImage}
-                fetchPriority="high"  // ✅ CORREGIDO: 'P' mayúscula
+                fetchpriority="high"
                 loading="eager"
               />
             </picture>

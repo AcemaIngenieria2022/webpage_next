@@ -1,11 +1,12 @@
  'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import styles from './ProjectMiniCarousel.module.css';
 
 const ProjectMiniCarousel = ({ images = [] }) => {
   const visibleCount = 3;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   const carouselImages = useMemo(() => {
     if (!images || images.length === 0) return [];
@@ -22,6 +23,10 @@ const ProjectMiniCarousel = ({ images = [] }) => {
   }, [images]);
 
   const maxIndex = Math.max(0, carouselImages.length - visibleCount);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -51,7 +56,7 @@ const ProjectMiniCarousel = ({ images = [] }) => {
 
       <div className={styles.trackViewport}>
         <div 
-          className={styles.track} 
+          className={`${styles.track} ${!mounted ? styles.noTransition : ''}`} 
           style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)` }}
         >
           {carouselImages.map((image, index) => {
@@ -65,6 +70,8 @@ const ProjectMiniCarousel = ({ images = [] }) => {
                       src={imageSrc}
                       alt={imageAlt}
                       className={styles.carouselImage}
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => { e.currentTarget.style.display = 'none'; }}
                     />
                   </div>

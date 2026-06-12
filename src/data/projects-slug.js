@@ -21,7 +21,7 @@ export const projectsDetailsData = {
     description:
       "En Montería (Córdoba) se levanta La Rubiela, una granja solar de 1,25MWp que impulsa la transición energética y el desarrollo sostenible en la región. Este proyecto fortalece la generación distribuida y la independencia energética de las comunidades.\n\nAcema Ingeniería participó en la construcción e interconexión, asegurando calidad, seguridad y eficiencia en cada etapa. La Rubiela es hoy una fuente constante de energía limpia y un ejemplo del aporte de la ingeniería colombiana al desarrollo sostenible",
     heroImage: "/images/projects/finished/Rubiela.webp",
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
+    videoUrl: "https://www.youtube.com/watch?v=wQfgcVw0FAU&feature=youtu.be",
     specs: [
       {
         label: "Ubicación:",
@@ -50,7 +50,7 @@ export const projectsDetailsData = {
     description:
       "La Granja Solar San Pelayo representa el avance de la energía renovable en Córdoba, donde distintos proyectos fotovoltaicos impulsan la generación distribuida y fortalecen la sostenibilidad regional.\n\nEn este proyecto, Acema aportó ingeniería detallada y la elaboración de especificaciones técnicas, además del suministro y ensamblaje de tableros, centros de transformación, protecciones y otros equipos. Asimismo, realizó el montaje y las pruebas especializadas (inyecciones, VLF y SAT), y se encargó de la puesta en servicio e interconexión, cumpliendo con los requisitos establecidos por el operador.",
  
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
+    videoUrl: "https://www.youtube.com/watch?v=1YIEjJ8IyFQ",
     specs: [
       {
         label: "Ubicación:",
@@ -78,7 +78,7 @@ export const projectsDetailsData = {
     description:
       "En La Apartada (Córdoba) se inauguró la granja solar INTI I y II, un proyecto fotovoltaico que refuerza la transición energética en la región y aporta capacidad al Sistema Interconectado Nacional.\n\nEl proyecto abarca un área de 20 hectáreas, con obras civiles, montaje de estructuras, instalación de módulos, inversores, tableros y un centro de transformación para inyección segura de energía. Su puesta en marcha incluyó pruebas de aceptación, configuración de protecciones y coordinación con el operador de red las cuales Acema se hizo cargo, brindando un impecable servicio eléctrico.",
     heroImage: "/images/projects/finished/inti.webp",
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
+    videoUrl: "https://www.youtube.com/watch?v=5eV4gI00wgU",
  
      textfooter: "El proyecto abarca un área de 20 hectáreas, con obras civiles, montaje de estructuras, instalación de módulos, inversores, tableros y un centro de transformación para inyección segura de energía. Su puesta en marcha incluyó pruebas de aceptación, configuración de protecciones y coordinación con el operador de red.",
     gallery: ["/images/projects/finished/inti.webp"],
@@ -93,7 +93,7 @@ export const projectsDetailsData = {
     description:
       "Las granjas solares Piedra I y II, con una capacidad conjunta de 2,75MWp, desarrolladas y construidas para Erco Energía, ya se encuentran energizadas, consolidándose como proyectos de alto impacto dentro del modelo de generación distribuida en Colombia. \n\n Acema Ingeniería estuvo a cargo del desarrollo integral del proyecto, desde la ingeniería y construcción hasta la energización y puesta en servicio.",
     heroImage: "/images/projects/finished/piedras.webp",
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
+    videoUrl: "https://www.youtube.com/watch?v=ZIl9fwrawJU",
     specs: [
       {
         label: "Ubicación:",
@@ -147,7 +147,7 @@ export const projectsDetailsData = {
     description:
       "En Acema Ingeniería seguimos impulsando la transición energética del país con la construcción de varias granjas solares, entre ellas se destaca Valledupar, un GD realizada con el fin de poder aportar a un futuro más sostenible.",
     heroImage: "/images/projects/finished/valledupar.webp",
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
+    videoUrl: "https://www.youtube.com/watch?v=inZovQXV3VQ",
     specs: [
       {
         label: "Ubicación:",

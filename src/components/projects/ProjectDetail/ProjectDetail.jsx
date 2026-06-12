@@ -1,8 +1,9 @@
-'use client';
+ 'use client';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion'; // 1. Importar Framer Motion
+import { useEffect, useRef, useState } from 'react';
 import ProjectsToggle from '@/components/shared/Toggle/ProjectsToggle';
 import ProjectMiniCarousel from '@/components/shared/ProjectMiniCarousel/ProjectMiniCarousel';
 import { getCarouselImagesBySlug } from '@/data/projects-carousel';
@@ -11,6 +12,174 @@ import styles from './ProjectDetail.module.css';
 export default function ProjectDetail({ project }) {
   const router = useRouter();
   const carouselImages = getCarouselImagesBySlug(project?.slug);
+  
+  // Normaliza distintas formas de URL de YouTube a la forma embebible
+  function toEmbedUrl(url) {
+    if (!url) return '';
+    try {
+      // Si ya es /embed/ devolvemos tal cual
+      if (url.includes('/embed/')) return url;
+
+      // Enlace tipo watch?v=VIDEOID
+      if (url.includes('youtube.com/watch')) {
+        const parts = url.split('v=');
+        const id = parts[1] ? parts[1].split('&')[0] : null;
+        if (id) return `https://www.youtube.com/embed/${id}`;
+      }
+
+      // Enlace corto youtu.be/VIDEOID
+      if (url.includes('youtu.be/')) {
+        const id = url.split('youtu.be/')[1].split('?')[0];
+        if (id) return `https://www.youtube.com/embed/${id}`;
+      }
+
+      return url;
+    } catch (e) {
+      return url;
+    }
+  }
+
+  const videoEmbedUrl = toEmbedUrl(project.videoUrl);
+  // Extrae el ID de YouTube para construir miniatura y enlace directo
+  function getYouTubeId(url) {
+    if (!url) return null;
+    try {
+      if (url.includes('/embed/')) return url.split('/embed/')[1].split('?')[0];
+      if (url.includes('youtube.com/watch')) {
+        const parts = url.split('v=');
+        return parts[1] ? parts[1].split('&')[0] : null;
+      }
+      if (url.includes('youtu.be/')) return url.split('youtu.be/')[1].split('?')[0];
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  const youtubeId = getYouTubeId(project.videoUrl || videoEmbedUrl);
+  const youtubeWatchUrl = youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : null;
+  const youtubeThumb = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
+
+  // YouTube IFrame API player handling to detect playback errors (owner restrictions)
+  const playerRef = useRef(null);
+  const playerInstanceRef = useRef(null);
+  const [playerError, setPlayerError] = useState(false);
+  const [playerLoading, setPlayerLoading] = useState(false);
+  const containerRef = useRef(null);
+  const [showFallbackModal, setShowFallbackModal] = useState(false);
+
+  useEffect(() => {
+    if (!youtubeId) return;
+    setPlayerError(false);
+    setPlayerLoading(true);
+
+    function mountPlayer() {
+      if (!window.YT || !window.YT.Player) {
+        setPlayerLoading(false);
+        return;
+      }
+
+      if (playerInstanceRef.current) return;
+
+      try {
+        playerInstanceRef.current = new window.YT.Player(`youtube-player-${youtubeId}`, {
+          videoId: youtubeId,
+          playerVars: { modestbranding: 1, rel: 0, playsinline: 1, controls: 1, enablejsapi: 1 },
+          events: {
+            onReady: (event) => {
+              setPlayerLoading(false);
+              // Try to set higher playback quality to reduce initial low-res playback
+              try {
+                // Preferred qualities in order
+                const prefs = ['hd1080', 'hd720', 'large', 'medium'];
+                for (const q of prefs) {
+                  try {
+                    if (typeof playerInstanceRef.current.setPlaybackQuality === 'function') {
+                      playerInstanceRef.current.setPlaybackQuality(q);
+                    }
+                  } catch (err) {
+                    // ignore and try next
+                  }
+                }
+              } catch (err) {
+                // noop
+              }
+            },
+            onError: (event) => {
+              // Codes 101 and 150 indicate embedding is not allowed by the owner
+              setPlayerError(true);
+              setPlayerLoading(false);
+              try { playerInstanceRef.current.destroy(); } catch (e) {}
+              playerInstanceRef.current = null;
+            },
+            onPlaybackQualityChange: (ev) => {
+              // optional: could log or react to quality changes
+              // console.log('quality changed', ev.data);
+            }
+          }
+        });
+      } catch (e) {
+        setPlayerError(true);
+        setPlayerLoading(false);
+      }
+    }
+
+    if (window.YT && window.YT.Player) {
+      mountPlayer();
+    } else {
+      // Load API
+      const existing = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
+      if (!existing) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.body.appendChild(tag);
+      }
+      // API will call this global when ready
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+        if (typeof prev === 'function') prev();
+        mountPlayer();
+      };
+    }
+
+    return () => {
+      try { if (playerInstanceRef.current) playerInstanceRef.current.destroy(); } catch (e) {}
+      playerInstanceRef.current = null;
+    };
+  }, [youtubeId]);
+
+  // Fullscreen handling: when entering fullscreen, remove transform hacks and request higher quality
+  useEffect(() => {
+    if (!youtubeId) return;
+
+    function onFsChange() {
+      const fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement;
+      const isFs = !!fsEl && containerRef.current && (containerRef.current === fsEl || containerRef.current.contains(fsEl));
+
+      if (isFs) {
+        document.body.classList.add('youtube-fullscreen');
+        // request higher quality when entering fullscreen
+        try {
+          if (playerInstanceRef.current && typeof playerInstanceRef.current.setPlaybackQuality === 'function') {
+            playerInstanceRef.current.setPlaybackQuality('hd1080');
+          }
+        } catch (e) {}
+      } else {
+        document.body.classList.remove('youtube-fullscreen');
+      }
+    }
+
+    document.addEventListener('fullscreenchange', onFsChange);
+    document.addEventListener('webkitfullscreenchange', onFsChange);
+    document.addEventListener('mozfullscreenchange', onFsChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', onFsChange);
+      document.removeEventListener('webkitfullscreenchange', onFsChange);
+      document.removeEventListener('mozfullscreenchange', onFsChange);
+      document.body.classList.remove('youtube-fullscreen');
+    };
+  }, [youtubeId]);
 
   if (!project) return null;
 
@@ -135,7 +304,47 @@ export default function ProjectDetail({ project }) {
             {/* Box del Video que entra fluidamente */}
             <motion.div className={styles.videoColumn} variants={itemVariants}>
               <div className={styles.videoBox}>
-                <iframe src={project.videoUrl} title="Video" allowFullScreen />
+                {youtubeId && !playerError ? (
+                  <div id={`youtube-player-${youtubeId}`} ref={playerRef} style={{ width: '100%', height: '100%' }} />
+                ) : videoEmbedUrl && !playerError ? (
+                  <iframe
+                    src={videoEmbedUrl}
+                    title="Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : null}
+
+                {/* Fallback: miniatura y enlace a YouTube cuando el embed está bloqueado por derechos */}
+                {youtubeThumb && youtubeWatchUrl ? (
+                  <div className={styles.videoFallback}>
+                    <button
+                      type="button"
+                      onClick={() => setShowFallbackModal(true)}
+                      className={styles.videoThumbButton}
+                      aria-label={`Abrir opciones de video para ${project.title}`}
+                    >
+                      <img src={youtubeThumb} alt={`Ver ${project.title} en YouTube`} className={styles.videoThumb} />
+                    </button>
+                    <p className={styles.videoFallbackText}>
+                      Este video puede estar bloqueado para reproducción embebida. Pulsa la miniatura para ver opciones.
+                    </p>
+
+                    {showFallbackModal ? (
+                      <div className={styles.fallbackModal} role="dialog" aria-modal="true">
+                        <div className={styles.fallbackModalContent}>
+                          <h3>Video no reproducible aquí</h3>
+                          <p>El propietario del video ha restringido la reproducción embebida. Puedes verlo en YouTube.</p>
+                          <div className={styles.fallbackModalActions}>
+                            <a href={youtubeWatchUrl} target="_blank" rel="noopener noreferrer" className={styles.primaryButton}>Ver en YouTube</a>
+                            <button type="button" onClick={() => { navigator.clipboard?.writeText(youtubeWatchUrl); }} className={styles.secondaryButton}>Copiar enlace</button>
+                            <button type="button" onClick={() => setShowFallbackModal(false)} className={styles.ghostButton}>Cerrar</button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             </motion.div>
           </section>

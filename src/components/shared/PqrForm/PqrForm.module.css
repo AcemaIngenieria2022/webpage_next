@@ -577,14 +577,6 @@
 
   font-size:16px;
 
-
-  /* Alineación del footer en móvil: apilar y alinear al inicio */
-  .footerRow {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
 }
 
 

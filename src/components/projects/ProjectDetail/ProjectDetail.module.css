@@ -20,7 +20,7 @@
 .heroSection {
   position: relative;
   width: 100%;
-  height: 500px; /* Ajustar según necesidad */
+  height: 500px;
   overflow: hidden;
 }
 
@@ -73,7 +73,7 @@
 .titleBadge {
   background-color: #43a047;
   padding: 5px 60px;
-   border-radius: 40px 5px 40px 5px;
+  border-radius: 40px 5px 40px 5px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
@@ -84,7 +84,6 @@
   font-weight: 800;
   white-space: nowrap;
 }
- 
 
 /* Grid de información */
 .mainGrid {
@@ -97,20 +96,24 @@
   font-family: var(--font-montserrat), sans-serif;
   text-align: justify;
 }
- 
 
+/* CORRECCIÓN: Contenedor rígido para aislar al reproductor */
 .videoBox {
   width: 100%;
   aspect-ratio: 16 / 9;
   background-color: #e0e0e0;
   border-radius: 4px;
   overflow: hidden;
+  position: relative;
+  /* Eliminamos will-change global de aquí para evitar que altere el modo fullscreen nativo */
 }
 
+/* Limpieza de estilos internos del iframe */
 .videoBox iframe {
   width: 100%;
   height: 100%;
   border: none;
+  display: block;
 }
 
 /* Especificaciones */
@@ -174,7 +177,6 @@
 }
 
 /* --- RESPONSIVIDAD --- */
-
 @media (max-width: 1024px) {
   .mainGrid {
     gap: 20px;
@@ -187,46 +189,44 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    height: 300px; /* Reducción de altura en móvil */
+    height: 300px;
   }
 
   .waveWrapper svg {
-    height: 60px; /* Wave más pequeño */
+    height: 60px;
   }
 
   .header {
-    margin-top: 20px; /* Menos espacio superior */
+    margin-top: 20px;
     padding: 0 10px;
   }
 
   .titleBadge {
     padding: 10px 25px;
-    border-radius: 25px 5px 25px 5px; /* Ajuste de radio para pantallas pequeñas */
+    border-radius: 25px 5px 25px 5px;
   }
 
   .titleBadge h1 {
     font-size: 1.25rem;
-    white-space: normal; /* Permite que el título baje si es largo */
+    white-space: normal;
     text-align: center;
   }
 
-  /* El video y el texto se apilan verticalmente */
   .mainGrid {
     grid-template-columns: 1fr;
     gap: 30px;
   }
 
   .descriptionColumn {
-    order: 1; /* Texto primero */
+    order: 1;
   }
 
   .videoColumn {
-    order: 2; /* Video después */
+    order: 2;
   }
 
-  /* Las especificaciones pasan a ser una lista vertical o de 2 columnas según prefieras */
   .specsGrid {
-    grid-template-columns: 1fr; /* Una sola columna en móviles pequeños */
+    grid-template-columns: 1fr;
     gap: 15px;
     margin: 30px 0;
   }
@@ -243,14 +243,13 @@
   }
 
   .ctaButton {
-    width: 100%; /* Botón de ancho completo en móviles */
+    width: 100%;
     max-width: 300px;
     padding: 12px 20px;
     font-size: 1rem;
   }
 }
 
-/* Ajuste para teléfonos muy pequeños */
 @media (max-width: 480px) {
   .toggleWrapper {
     padding-top: 40px;

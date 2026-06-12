@@ -10,6 +10,7 @@
   margin-left: calc(-50vw + 50%);
   box-sizing: border-box;
   margin-top: 80px;
+  overflow-anchor: none;
 }
 
 .navButton {
@@ -56,7 +57,12 @@
 .track {
   display: flex;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
   width: 100%;
+}
+
+.noTransition {
+  transition: none !important;
 }
 
 .slide {

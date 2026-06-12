@@ -15,10 +15,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
  
+// ✅ TODOS los pesos que tu app necesita
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
-  weight: ["200"],
+  weight: ["200", "400", "500", "600", "700"], // 👈 Agrega todos
+  display: "swap", // 👈 No bloquea renderizado
 });
  
 export const metadata = {
@@ -33,7 +35,7 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} h-full antialiased`}
     >
-      <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} appBody`}>
+      <body className="appBody"> {/* 👈 Simplificado, no necesitas repetir las variables */}
         <Navbar />
         <div className="universal-layout-container">
           {children}

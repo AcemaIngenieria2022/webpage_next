@@ -31,14 +31,14 @@ const tlsOptions = {
 };
 
 // Logo paths for embedding in emails (prefer WEBP when available)
-const logoPngPath = path.join(process.cwd(), 'public', 'images', 'logs', 'logo-acema.png');
+const logoPngPath = path.join(process.cwd(), 'public', 'images', 'logs', 'logo-acema.webp');
 const logoWebpPath = path.join(process.cwd(), 'public', 'images', 'logs', 'logo-acema.webp');
 const logoWebpExists = fs.existsSync(logoWebpPath);
 
 // Reusable header logo HTML: prefer WEBP when available, otherwise PNG
 const headerLogoHtml = logoWebpExists
   ? `<img src="cid:logo_acema_webp" alt="ACEMA" style="height:48px; display:block; margin:0 auto;" />`
-  : `<img src="cid:logo_acema_png" alt="ACEMA" style="height:48px; display:block; margin:0 auto;" />`;
+  : `<img src="cid:logo_acema_webp" alt="ACEMA" style="height:48px; display:block; margin:0 auto;" />`;
 
 // ==========================================
 // 2. SISTEMA DE TRANSPORTE Y FALLBACKS
@@ -147,9 +147,9 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
     const attachmentsWithLogo = [
       ...attachments,
       {
-        filename: 'logo-acema.png',
+        filename: 'logo-acema.webp',
         path: logoPngPath,
-        cid: 'logo_acema_png'
+        cid: 'logo_acema_webp'
       },
       // attach webp when available for clients that support it
       ...(logoWebpExists ? [{ filename: 'logo-acema.webp', path: logoWebpPath, cid: 'logo_acema_webp' }] : [])
@@ -174,7 +174,7 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
                 <tr>
                   <td class="header">
                     ${headerLogoHtml}
-                    <h1 class="header-logo">ACEMA INGENIERÍA</h1>
+                   
                     <div class="header-subtitle">Notificación de Formulario Web</div>
                   </td>
                 </tr>
@@ -257,7 +257,7 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
                 <tr>
                   <td class="header">
                     ${headerLogoHtml}
-                    <h1 class="header-logo">ACEMA INGENIERÍA</h1>
+                     
                     <div class="header-subtitle">Confirmación de Recepción</div>
                   </td>
                 </tr>
@@ -317,9 +317,9 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
   try {
     const pqrsAttachments = [
       {
-        filename: 'logo-acema.png',
+        filename: 'logo-acema.webp',
         path: logoPngPath,
-        cid: 'logo_acema_png'
+        cid: 'logo_acema_webp'
       },
       ...(logoWebpExists ? [{ filename: 'logo-acema.webp', path: logoWebpPath, cid: 'logo_acema_webp' }] : [])
     ];
@@ -345,10 +345,10 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
                   <td class="header">
                     <picture>
                       ${logoWebpExists ? '<source srcset="cid:logo_acema_webp" type="image/webp" />' : ''}
-                      <img src="cid:logo_acema_png" alt="ACEMA" style="height:48px; display:block; margin:0 auto 8px;" />
+                      <img src="cid:logo_acema_webp" alt="ACEMA" style="height:48px; display:block; margin:0 auto 8px;" />
                     </picture>
-                    <h1 class="header-logo">ACEMA INGENIERÍA</h1>
-                    <div class="header-subtitle">Panel de Control General PQRS</div>
+             
+                    <div class="header-subtitle">Notificación de Formulario Web-PQRS</div>
                   </td>
                 </tr>
                 <tr>
@@ -435,9 +435,9 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
                   <td class="header">
                     <picture>
                       ${logoWebpExists ? '<source srcset="cid:logo_acema_webp" type="image/webp" />' : ''}
-                      <img src="cid:logo_acema_png" alt="ACEMA" style="height:48px; display:block; margin:0 auto 8px;" />
+                      <img src="cid:logo_acema_webp" alt="ACEMA" style="height:48px; display:block; margin:0 auto 8px;" />
                     </picture>
-                    <h1 class="header-logo">ACEMA INGENIERÍA</h1>
+         
                     <div class="header-subtitle">Confirmación de Recepción de Solicitud</div>
                   </td>
                 </tr>

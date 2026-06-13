@@ -14,8 +14,8 @@ export default function NosotrosPage() {
           src="/images/about/banner.jpg"
           alt="ACEMA Ingeniería"
           fill
-          priority
           sizes="100vw"
+          quality={70}
           className={styles.heroImage}
         />
         <div className={styles.heroOverlay} />

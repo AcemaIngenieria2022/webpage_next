@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import styles from "./Projects.module.css";
+import placeholders from '@/data/project-image-placeholders';
 
 const Projects = () => {
   const projectList = [
@@ -13,6 +14,7 @@ const Projects = () => {
       name: "Granja solar",
       location: "La Rubiela 0,9 MW",
       image: "/images/projects/featured/img-rubiela.webp",
+      thumb: "/images/projects/featured/thumbs/img-rubiela-800.webp",
       url: "/projects/la-rubiela",
     },
     {
@@ -20,6 +22,7 @@ const Projects = () => {
       name: "Granja solar",
       location: "San Pelayo 0,99 MW",
       image: "/images/projects/featured/img-pelayo.webp",
+      thumb: "/images/projects/featured/thumbs/img-pelayo-800.webp",
       url: "/projects/san-pelayo",
     },
     {
@@ -27,13 +30,35 @@ const Projects = () => {
       name: "Granja solar",
       location: "Piedras 1 y 2 0,9 MW",
       image: "/images/projects/featured/proyecto3.webp",
+      thumb: "/images/projects/featured/thumbs/proyecto3-800.webp",
       url: "/projects/piedras-i-y-ii",
     },
   ];
 
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const nodes = containerRef.current.querySelectorAll(`.${styles.projectLink}`);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.isVisible);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    nodes.forEach((n) => io.observe(n));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section className={styles.projectsSection} id="projects">
-      <div className={styles.projectsContainer}>
+      <div className={styles.projectsContainer} ref={containerRef}>
         {/* Título de la sección con entrada sutil */}
         <motion.h2
           className={styles.projectsHeader}
@@ -47,39 +72,24 @@ const Projects = () => {
 
         <div className={styles.projectsGrid}>
           {projectList.map((project, index) => (
-            <motion.div
-              key={project.id} // Elemento raíz directo del map con su Key única
+            <div
+              key={project.id}
               className={styles.projectLink}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{
-                duration: 0.25,
-                delay: index * 0.08, // Mismo retraso escalonado exacto
-              }}
-              whileHover={{
-                y: -8, // Mismo comportamiento de elevación en Hover exacto
-              }}
+              style={{ transitionDelay: `${index * 30}ms` }}
             >
               <Link href={project.url} className="w-full h-full block" style={{ textDecoration: "none", color: "inherit" }}>
                 <div className={styles.projectCard}>
                   <div className={styles.imageContainer}>
-                    <motion.div
-                      whileHover={{ scale: 1.08 }}
-                      transition={{ duration: 0.4 }}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        position: "relative",
-                      }}
-                    >
+                    <motion.div whileHover={{ scale: 1.06 }} transition={{ duration: 0.28 }} style={{ width: "100%", height: "100%", position: "relative" }}>
                       <Image
-                        src={project.image}
+                        src={project.thumb || project.image}
                         alt={`${project.name} - ${project.location}`}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className={styles.projectImg}
-                        priority={project.id === 1}
+                        priority={project.id <= 2}
+                        placeholder={placeholders ? 'blur' : undefined}
+                        blurDataURL={placeholders ? placeholders[project.image.split('/').pop()] : undefined}
                       />
                     </motion.div>
                   </div>
@@ -99,7 +109,7 @@ const Projects = () => {
                   </motion.div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

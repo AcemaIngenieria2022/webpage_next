@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 .container {
   width: 100%;
   padding: 40px 20px 50px 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   display: grid;
   row-gap: 30px;
   justify-items: center;

@@ -4,16 +4,22 @@ export async function savePqrsLead(data) {
   let connection;
   try {
     connection = await pool.getConnection();
-    const query = `INSERT INTO pqrs_leads (radicado, name, idNumber, email, phone, requestType, description) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    const values = [data.radicado, data.name, data.idNumber, data.email, data.phone, data.requestType, data.description];
+    const query = `
+      INSERT INTO pqrs_leads 
+      (radicado, name, idNumber, email, phone, requestType, description) 
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+    const values = [
+      data.radicado, data.name, data.idNumber, 
+      data.email, data.phone, data.requestType, data.description
+    ];
     
     await connection.execute(query, values);
     return { success: true };
   } catch (error) {
-    // ESTO SALDRÁ EN LOS REGISTROS DE HOSTINGER
-    console.error('--- ERROR DETALLADO DE BASE DE DATOS ---', error.message);
-    throw error; // Lanzamos el error para que el endpoint pueda verlo
+    console.error('[DB SAVE ERROR]:', error);
+    throw new Error('Error al guardar en base de datos');
   } finally {
-    if (connection) connection.release();
+    if (connection) connection.release(); // CRÍTICO: Libera la conexión
   }
 }

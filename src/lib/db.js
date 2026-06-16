@@ -1,17 +1,20 @@
 import mysql from 'mysql2/promise';
 
-const pool = mysql.createPool({
+// Creamos el pool con configuraciones optimizadas para hosting compartido
+export const pool = mysql.createPool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT || 3306),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  // Estas configuraciones evitan bloqueos en hosting compartido
   waitForConnections: true,
-  connectionLimit: 5,
-  idleTimeout: 60000, 
+  connectionLimit: 5, // Límite bajo para no saturar Hostinger
   queueLimit: 0,
-  enableKeepAlive: true
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 10000
 });
 
-export { pool };
+// Log básico para diagnóstico en los registros de Hostinger
+pool.on('error', (err) => {
+  console.error('[MYSQL POOL ERROR]:', err.message);
+});

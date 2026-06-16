@@ -1,19 +1,20 @@
 import { pool } from '@/lib/db';
 
-export async function savePqrsLead(data) {
-  let connection;
+export async function savePqrsLead({ radicado, name, idNumber, email, phone, requestType, description }) {
+  const query = `
+    INSERT INTO pqrs_leads (radicado, name, id_number, email, phone, request_type, description)
+    VALUES (?, ?, ?, ?, ?, ?, ?);
+  `;
+  const values = [radicado, name, idNumber, email, phone, requestType, description];
+  
   try {
-    connection = await pool.getConnection();
-    const query = `INSERT INTO pqrs_leads (radicado, name, idNumber, email, phone, requestType, description) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    const values = [data.radicado, data.name, data.idNumber, data.email, data.phone, data.requestType, data.description];
-    
-    await connection.execute(query, values);
-    return { success: true };
+    const [result] = await pool.query(query, values);
+    return { id: result.insertId };
   } catch (error) {
-    // ESTO SALDRÁ EN LOS REGISTROS DE HOSTINGER
-    console.error('--- ERROR DETALLADO DE BASE DE DATOS ---', error.message);
-    throw error; // Lanzamos el error para que el endpoint pueda verlo
-  } finally {
-    if (connection) connection.release();
+    // Código de error para clave única duplicada en MySQL
+    if (error.code === 'ER_DUP_ENTRY') {
+      console.error(`[MySQL Error] El radicado duplicado localmente: ${radicado}`);
+    }
+    throw error;
   }
 }

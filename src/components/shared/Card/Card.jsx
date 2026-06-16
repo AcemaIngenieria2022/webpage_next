@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Card.module.css';
+import thumbs from '@/data/project-thumbs.json';
 
 const Card = ({ title, image, variant = 'grid', href, titleClassName }) => {
   const cardClassName = `${styles.projectCard} ${styles[variant]}`;
@@ -9,7 +10,7 @@ const Card = ({ title, image, variant = 'grid', href, titleClassName }) => {
     <>
       <div className={styles.imageContainer}>
         <Image
-          src={image}
+          src={thumbs[image] || image}
           alt={title || ''}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 33vw"

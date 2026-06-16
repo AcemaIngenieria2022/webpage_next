@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
 import styles from "./Hero.module.css";
+import thumbs from '@/data/project-thumbs.json';
 
 /* =========================
    IMÁGENES
@@ -32,45 +32,19 @@ const AUTOPLAY_DELAY = 6000;
    COMPONENTE PRINCIPAL
 ========================= */
 export default function Hero() {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 1024);
-    };
-
+    const checkMobile = () => setIsMobile(window.innerWidth <= 1024);
     checkMobile();
-    setMounted(true);
-
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  useEffect(() => {
-    if (!mounted || HERO_IMAGES.length <= 1) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, AUTOPLAY_DELAY);
-
-    return () => clearInterval(interval);
-  }, [mounted]);
-
-  if (!mounted) {
-    return (
-      <section className={styles.hero}>
-        <div className={styles.heroSlider} />
-        <div className={styles.heroOverlay} />
-        <div className={styles.heroContent} />
-      </section>
-    );
-  }
-
+  // Render single static image (no autoplay/animations) to reduce main-thread work
   return (
     <section className={styles.hero}>
-      <HeroSlider currentIndex={currentIndex} isMobile={isMobile} />
+      <HeroSlider isMobile={isMobile} />
       <div className={styles.heroOverlay} />
       <HeroContent />
     </section>
@@ -80,31 +54,24 @@ export default function Hero() {
 /* =========================
    SLIDER (Framer Motion)
 ========================= */
-function HeroSlider({ currentIndex, isMobile }) {
-  const currentImg = HERO_IMAGES[currentIndex];
+function HeroSlider({ isMobile }) {
+  const currentImg = HERO_IMAGES[0];
+  const src = isMobile && currentImg.srcMobile ? currentImg.srcMobile : currentImg.src;
+  const thumb = thumbs[src] || src;
 
   return (
     <div className={styles.heroSlider}>
-      <AnimatePresence>
-        <motion.div
-          key={currentIndex}
-          className={styles.imageWrapper}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-        >
-          <Image
-            src={isMobile && currentImg.srcMobile ? currentImg.srcMobile : currentImg.src}
-            alt={currentImg.alt}
-            fill
-            className={styles.heroImage}
-            priority
-            quality={75}
-            sizes="100vw"
-          />
-        </motion.div>
-      </AnimatePresence>
+      <div className={styles.imageWrapper}>
+        <Image
+          src={thumb}
+          alt={currentImg.alt}
+          fill
+          className={styles.heroImage}
+          priority
+          quality={75}
+          sizes="100vw"
+        />
+      </div>
     </div>
   );
 }
@@ -114,29 +81,20 @@ function HeroSlider({ currentIndex, isMobile }) {
 ========================= */
 function HeroContent() {
   const handleScroll = () => {
-    document
-      .getElementById("about")
-      ?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <motion.div 
-      className={styles.heroContent}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5, duration: 0.8 }}
-    >
-      <motion.button
+    <div className={styles.heroContent}>
+      <button
         className={styles.scrollDown}
         type="button"
         aria-label="Ir a la sección About"
         onClick={handleScroll}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
       >
         <ArrowIcon />
-      </motion.button>
-    </motion.div>
+      </button>
+    </div>
   );
 }
 

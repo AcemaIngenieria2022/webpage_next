@@ -33,26 +33,17 @@
   text-decoration: none;
   color: inherit;
   display: block;
-  opacity: 0;
-  transform: translateY(18px);
-  transition: transform 220ms cubic-bezier(.22,.9,.32,1), opacity 220ms ease;
-  will-change: transform, opacity;
 }
 
-.isVisible {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* image loader removed (no shimmer) */
 
 .projectCard {
   position: relative;
   background: #ffffff;
   border-radius: 25px; /* Bordes redondeados pronunciados */
   overflow: visible;
-  transition: transform 220ms cubic-bezier(.22,.9,.32,1);
   height: 350px; /* Altura base ajustada */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  will-change: transform;
 }
 
 .imageContainer {
@@ -66,7 +57,6 @@
 
 .projectImg {
   object-fit: cover;
-  transition: transform 180ms ease;
   backface-visibility: hidden;
 }
 
@@ -81,7 +71,6 @@
   max-height: 130px; /* Se muestra inicialmente una parte o todo según el hover */
   opacity: 1; /* Mantener opacidad para legibilidad */
   border-radius: 0 0 25px 25px;
-  transition: all 0.4s ease;
   z-index: 1;
   box-sizing: border-box;
   text-align: left; /* Alineación de texto a la izquierda */
@@ -120,9 +109,7 @@
 
 /* --- Efecto Hover Individual --- */
 .projectLink:hover .projectCard {
-  transform: translateY(-10px);
   z-index: 10;
-  
 }
 
  
@@ -134,7 +121,6 @@
 }
 
 .projectLink:hover .projectImg {
-  transform: scale(1.1);
 }
 
 .projectCard {

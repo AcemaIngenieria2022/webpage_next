@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './Clients.module.css';
+import thumbs from '@/data/project-thumbs.json';
 
 const Clients = () => {
   const clientList = [
@@ -25,9 +26,9 @@ const Clients = () => {
       <div className={styles.marquee}>
         <div className={styles.logosTrack}>
           {logos.map((client, index) => (
-            <div key={`${client.name}-${index}`} className={styles.logoItem}>
+              <div key={`${client.name}-${index}`} className={styles.logoItem}>
               <Image 
-                src={client.logo} 
+                src={thumbs[client.logo] || client.logo} 
                 alt={client.name}
                 width={180}   
                 height={80}   

@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect } from 'react';
 import styles from './ProjectMiniCarousel.module.css';
+import thumbs from '@/data/project-thumbs.json';
 
 const ProjectMiniCarousel = ({ images = [] }) => {
   const visibleCount = 3;
@@ -63,11 +64,12 @@ const ProjectMiniCarousel = ({ images = [] }) => {
             const imageSrc = typeof image === 'string' ? image : image?.src;
             const imageAlt = typeof image === 'string' ? `Proyecto imagen ${index + 1}` : image?.alt || `Proyecto imagen ${index + 1}`;
             
+            const srcToUse = thumbs[imageSrc] || imageSrc;
             return (
               <div key={`${imageSrc}-${index}`} className={styles.slide}>
                   <div className={styles.imageCard}>
                     <img
-                      src={imageSrc}
+                      src={srcToUse}
                       alt={imageAlt}
                       className={styles.carouselImage}
                       loading="lazy"

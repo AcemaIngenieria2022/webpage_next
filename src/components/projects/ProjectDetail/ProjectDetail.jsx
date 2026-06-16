@@ -1,6 +1,7 @@
  'use client';
 
 import Image from 'next/image';
+import thumbs from '@/data/project-thumbs.json';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion'; // 1. Importar Framer Motion
 import { useEffect, useRef, useState } from 'react';
@@ -241,14 +242,14 @@ export default function ProjectDetail({ project }) {
               className="w-full h-full"
               style={{ height: '100%', position: 'relative' }}
             >
-              <Image
-                src={project.heroImage}
-                alt={project.title}
-                fill
-                priority
-                sizes="100vw"
-                className={styles.heroImage}
-              />
+                <Image
+                  src={thumbs[project.heroImage] || project.heroImage}
+                  alt={project.title}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className={styles.heroImage}
+                />
             </motion.div>
           </div>
         ) : null}

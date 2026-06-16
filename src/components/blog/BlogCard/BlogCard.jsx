@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './BlogCard.module.css';
+import thumbs from '@/data/project-thumbs.json';
 
 const BlogCard = ({ slug, title, subtitle, image, variant = 'regular', href }) => {
   const cardClass = `${styles.card} ${styles[variant] ?? ''}`;
@@ -10,7 +11,7 @@ const BlogCard = ({ slug, title, subtitle, image, variant = 'regular', href }) =
     <Link href={destination} className={cardClass}>
       <div className={styles.imageContainer}>
         <Image
-          src={image}
+          src={thumbs[image] || image}
           alt={title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 33vw"

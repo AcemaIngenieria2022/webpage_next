@@ -39,6 +39,23 @@
   object-fit: cover;
 }
 
+/* Placeholder shown while hi-res image loads (avoids showing pixelated thumb) */
+.heroPlaceholder {
+  position: absolute;
+  inset: 0;
+  background-color: #000; /* keep background neutral */
+}
+
+/* Fade-in transition when image becomes visible */
+.heroImage {
+  opacity: 0;
+  transition: opacity 480ms ease-in-out;
+}
+
+.heroImageVisible {
+  opacity: 1;
+}
+
 .waveWrapper {
   position: absolute;
   bottom: -2px;

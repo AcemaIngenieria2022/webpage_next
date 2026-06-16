@@ -4,8 +4,7 @@ import serviciosElectricosFeatures from '@/data/servicios-electricos-features';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
-  const feature = serviciosElectricosFeatures.find((f) => f.slug === slug);
+  const feature = serviciosElectricosFeatures.find((f) => f.slug === params.slug);
   if (!feature) return { title: 'Servicio - ACEMA' };
   return { title: `${feature.title} - ACEMA Ingeniería`, description: feature.description };
 }
@@ -14,8 +13,8 @@ export function generateStaticParams() {
   return serviciosElectricosFeatures.map((f) => ({ slug: f.slug }));
 }
 
-export default async function ServiceSlugPage({ params }) {
-  const { slug } = await params;
+export default function ServiceSlugPage({ params }) {
+  const { slug } = params;
   const feature = serviciosElectricosFeatures.find((f) => f.slug === slug);
   if (!feature) return notFound();
 

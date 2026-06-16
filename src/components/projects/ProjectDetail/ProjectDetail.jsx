@@ -242,14 +242,7 @@ export default function ProjectDetail({ project }) {
               className="w-full h-full"
               style={{ height: '100%', position: 'relative' }}
             >
-                <Image
-                  src={thumbs[project.heroImage] || project.heroImage}
-                  alt={project.title}
-                  fill
-                  priority
-                  sizes="100vw"
-                  className={styles.heroImage}
-                />
+              <ProjectHeroImage project={project} />
             </motion.div>
           </div>
         ) : null}
@@ -389,5 +382,49 @@ export default function ProjectDetail({ project }) {
         </motion.div>
       </div>
     </article>
+  );
+}
+
+// Progressive hero image: show fast thumb first, then upgrade to original when loaded
+function ProjectHeroImage({ project }) {
+  const mapped = thumbs[project.heroImage];
+  const [src, setSrc] = useState(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // If mapped is a small thumb, don't render it — preload the original and swap when ready
+    if (mapped && mapped.includes('-800') && project.heroImage) {
+      if (typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
+        const hi = new globalThis.Image();
+        hi.src = project.heroImage;
+        hi.onload = () => {
+          setSrc(project.heroImage);
+          // small delay to ensure transition applies
+          requestAnimationFrame(() => setVisible(true));
+        };
+        return;
+      }
+    }
+
+    // Otherwise use mapped thumb or original immediately and show
+    setSrc(mapped || project.heroImage);
+    requestAnimationFrame(() => setVisible(true));
+  }, [mapped, project.heroImage]);
+
+  if (!src) {
+    return <div className={styles.heroPlaceholder} />;
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={project.title}
+      fill
+      priority
+      loading="eager"
+      sizes="100vw"
+      quality={90}
+      className={`${styles.heroImage} ${visible ? styles.heroImageVisible : ''}`}
+    />
   );
 }

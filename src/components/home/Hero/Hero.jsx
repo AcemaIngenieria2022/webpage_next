@@ -55,23 +55,37 @@ export default function Hero() {
    SLIDER (Framer Motion)
 ========================= */
 function HeroSlider({ isMobile }) {
-  const currentImg = HERO_IMAGES[0];
-  const src = isMobile && currentImg.srcMobile ? currentImg.srcMobile : currentImg.src;
-  const thumb = thumbs[src] || src;
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % HERO_IMAGES.length);
+    }, AUTOPLAY_DELAY);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className={styles.heroSlider}>
-      <div className={styles.imageWrapper}>
-        <Image
-          src={thumb}
-          alt={currentImg.alt}
-          fill
-          className={styles.heroImage}
-          priority
-          quality={90}
-          sizes="100vw"
-        />
-      </div>
+      {HERO_IMAGES.map((img, i) => {
+        const src = isMobile && img.srcMobile ? img.srcMobile : img.src;
+        const thumb = thumbs[src] || src;
+        const cls = i === index ? `${styles.slide} ${styles.active}` : styles.slide;
+        return (
+          <div key={img.src} className={cls}>
+            <div className={styles.imageWrapper}>
+              <Image
+                src={thumb}
+                alt={img.alt}
+                fill
+                className={styles.heroImage}
+                priority={i === 0}
+                quality={90}
+                sizes="100vw"
+              />
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

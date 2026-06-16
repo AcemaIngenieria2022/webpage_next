@@ -68,7 +68,7 @@ function HeroSlider({ isMobile }) {
           fill
           className={styles.heroImage}
           priority
-          quality={75}
+          quality={90}
           sizes="100vw"
         />
       </div>

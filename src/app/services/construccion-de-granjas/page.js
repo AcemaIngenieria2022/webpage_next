@@ -1,6 +1,7 @@
 "use client";
 
 import Image from 'next/image';
+import thumbs from '@/data/project-thumbs.json';
 import styles from '../service.module.css';
 import Card from '@/components/shared/Card/Card';
 import { construccionFeatures } from '@/data/construccion-features';
@@ -11,8 +12,8 @@ export default function ConstruccionPage() {
   return (
     <main className={styles.servicePage}>
       <div className={styles.bannerBox}>
-        <Image src="/images/services/banner/construccion-granjas.webp" alt="Construcción de granjas" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} priority />
-        <Image src="/images/services/banner/contruccion-movil.png" alt="Construcción de granjas" fill className={styles.bannerImgMobile} sizes="100vw" quality={70} priority />
+        <Image src={thumbs['/images/services/banner/construccion-granjas.webp'] || '/images/services/banner/construccion-granjas.webp'} alt="Construcción de granjas" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={90} priority />
+        <Image src={thumbs['/images/services/banner/contruccion-movil.png'] || '/images/services/banner/contruccion-movil.png'} alt="Construcción de granjas" fill className={styles.bannerImgMobile} sizes="100vw" quality={90} priority />
       </div>
 
       <section className={styles.featuresSection}>

@@ -1,9 +1,9 @@
- 'use client';
+'use client';
 
 import Image from 'next/image';
 import thumbs from '@/data/project-thumbs.json';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion'; // 1. Importar Framer Motion
+import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import ProjectsToggle from '@/components/shared/Toggle/ProjectsToggle';
 import ProjectMiniCarousel from '@/components/shared/ProjectMiniCarousel/ProjectMiniCarousel';
@@ -18,22 +18,16 @@ export default function ProjectDetail({ project }) {
   function toEmbedUrl(url) {
     if (!url) return '';
     try {
-      // Si ya es /embed/ devolvemos tal cual
       if (url.includes('/embed/')) return url;
-
-      // Enlace tipo watch?v=VIDEOID
       if (url.includes('youtube.com/watch')) {
         const parts = url.split('v=');
         const id = parts[1] ? parts[1].split('&')[0] : null;
         if (id) return `https://www.youtube.com/embed/${id}`;
       }
-
-      // Enlace corto youtu.be/VIDEOID
       if (url.includes('youtu.be/')) {
         const id = url.split('youtu.be/')[1].split('?')[0];
         if (id) return `https://www.youtube.com/embed/${id}`;
       }
-
       return url;
     } catch (e) {
       return url;
@@ -41,7 +35,7 @@ export default function ProjectDetail({ project }) {
   }
 
   const videoEmbedUrl = toEmbedUrl(project.videoUrl);
-  // Extrae el ID de YouTube para construir miniatura y enlace directo
+  
   function getYouTubeId(url) {
     if (!url) return null;
     try {
@@ -61,7 +55,6 @@ export default function ProjectDetail({ project }) {
   const youtubeWatchUrl = youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : null;
   const youtubeThumb = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
 
-  // YouTube IFrame API player handling to detect playback errors (owner restrictions)
   const playerRef = useRef(null);
   const playerInstanceRef = useRef(null);
   const [playerError, setPlayerError] = useState(false);
@@ -69,6 +62,7 @@ export default function ProjectDetail({ project }) {
   const containerRef = useRef(null);
   const [showFallbackModal, setShowFallbackModal] = useState(false);
 
+  // YouTube IFrame API player handling
   useEffect(() => {
     if (!youtubeId) return;
     setPlayerError(false);
@@ -85,13 +79,17 @@ export default function ProjectDetail({ project }) {
       try {
         playerInstanceRef.current = new window.YT.Player(`youtube-player-${youtubeId}`, {
           videoId: youtubeId,
-          playerVars: { modestbranding: 1, rel: 0, playsinline: 1, controls: 1, enablejsapi: 1 },
+          playerVars: { 
+            modestbranding: 1, 
+            rel: 0, 
+            playsinline: 1, 
+            controls: 1, 
+            enablejsapi: 1 
+          },
           events: {
             onReady: (event) => {
               setPlayerLoading(false);
-              // Try to set higher playback quality to reduce initial low-res playback
               try {
-                // Preferred qualities in order
                 const prefs = ['hd1080', 'hd720', 'large', 'medium'];
                 for (const q of prefs) {
                   try {
@@ -99,7 +97,7 @@ export default function ProjectDetail({ project }) {
                       playerInstanceRef.current.setPlaybackQuality(q);
                     }
                   } catch (err) {
-                    // ignore and try next
+                    // ignore
                   }
                 }
               } catch (err) {
@@ -107,15 +105,13 @@ export default function ProjectDetail({ project }) {
               }
             },
             onError: (event) => {
-              // Codes 101 and 150 indicate embedding is not allowed by the owner
               setPlayerError(true);
               setPlayerLoading(false);
               try { playerInstanceRef.current.destroy(); } catch (e) {}
               playerInstanceRef.current = null;
             },
             onPlaybackQualityChange: (ev) => {
-              // optional: could log or react to quality changes
-              // console.log('quality changed', ev.data);
+              // optional
             }
           }
         });
@@ -128,14 +124,12 @@ export default function ProjectDetail({ project }) {
     if (window.YT && window.YT.Player) {
       mountPlayer();
     } else {
-      // Load API
       const existing = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
       if (!existing) {
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
         document.body.appendChild(tag);
       }
-      // API will call this global when ready
       const prev = window.onYouTubeIframeAPIReady;
       window.onYouTubeIframeAPIReady = () => {
         if (typeof prev === 'function') prev();
@@ -149,7 +143,7 @@ export default function ProjectDetail({ project }) {
     };
   }, [youtubeId]);
 
-  // Fullscreen handling: when entering fullscreen, remove transform hacks and request higher quality
+  // Fullscreen handling
   useEffect(() => {
     if (!youtubeId) return;
 
@@ -159,7 +153,6 @@ export default function ProjectDetail({ project }) {
 
       if (isFs) {
         document.body.classList.add('youtube-fullscreen');
-        // request higher quality when entering fullscreen
         try {
           if (playerInstanceRef.current && typeof playerInstanceRef.current.setPlaybackQuality === 'function') {
             playerInstanceRef.current.setPlaybackQuality('hd1080');
@@ -182,15 +175,38 @@ export default function ProjectDetail({ project }) {
     };
   }, [youtubeId]);
 
+  // Asegurar que el video se mantenga dentro del contenedor
+  useEffect(() => {
+    const ensureVideoBounds = () => {
+      const videoBox = containerRef.current;
+      if (!videoBox) return;
+      
+      const iframe = videoBox.querySelector('iframe');
+      if (!iframe) return;
+      
+      const containerWidth = videoBox.clientWidth;
+      if (iframe.clientWidth > containerWidth) {
+        iframe.style.width = `${containerWidth}px`;
+      }
+    };
+
+    ensureVideoBounds();
+    window.addEventListener('resize', ensureVideoBounds);
+    
+    return () => {
+      window.removeEventListener('resize', ensureVideoBounds);
+    };
+  }, []);
+
   if (!project) return null;
 
-  // 2. VARIANTES PARA ANIMACIÓN ESCALONADA (TEXTO, VIDEO, SPECS)
+  // Variants para animación escalonada
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15, // Hace que los hijos aparezcan uno tras otro
+        staggerChildren: 0.15,
         delayChildren: 0.2
       }
     }
@@ -217,7 +233,7 @@ export default function ProjectDetail({ project }) {
 
   return (
     <article className={styles.container}>
-      {/* El Toggle superior aparece suavemente desde arriba */}
+      {/* Toggle superior */}
       <motion.div 
         className={styles.toggleWrapper}
         initial={{ opacity: 0, y: -20 }}
@@ -230,11 +246,10 @@ export default function ProjectDetail({ project }) {
         />
       </motion.div>
 
-      {/* Sección Hero con Imagen y Wave */}
+      {/* Sección Hero */}
       <section className={styles.heroSection}>
         {project.heroImage ? (
           <div className={styles.imageContainer}>
-            {/* 3. Efecto Parallax / Zoom Cinemático inicial en la imagen */}
             <motion.div
               initial={{ scale: 1.15, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -247,7 +262,7 @@ export default function ProjectDetail({ project }) {
           </div>
         ) : null}
         
-        {/* Curva SVG inferior animada con un sutil slide up */}
+        {/* Curva SVG */}
         <motion.div 
           className={styles.waveWrapper}
           initial={{ opacity: 0, y: 40 }}
@@ -264,10 +279,9 @@ export default function ProjectDetail({ project }) {
         </motion.div>
       </section>
 
-      {/* Título Flotante y Contenido con contenedor controlado */}
+      {/* Contenido */}
       <div className={styles.contentWrapper}>
         <header className={styles.header}>
-          {/* 4. Entrada del Título de abajo hacia arriba de manera dramática pero elegante */}
           <motion.div 
             className={styles.titleBadge}
             initial={{ opacity: 0, y: 50 }}
@@ -278,7 +292,6 @@ export default function ProjectDetail({ project }) {
           </motion.div>
         </header>
 
-        {/* Contenedor principal que coordina la cascada de animaciones de sus hijos */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -295,55 +308,77 @@ export default function ProjectDetail({ project }) {
               ))}
             </motion.div>
 
-            {/* Box del Video que entra fluidamente */}
+            {/* Columna de video - CORREGIDA */}
             <motion.div className={styles.videoColumn} variants={itemVariants}>
-              <div className={styles.videoBox}>
-                {youtubeId && !playerError ? (
-                  <div id={`youtube-player-${youtubeId}`} ref={playerRef} style={{ width: '100%', height: '100%' }} />
-                ) : videoEmbedUrl && !playerError ? (
-                  <iframe
-                    src={videoEmbedUrl}
-                    title="Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                ) : null}
+              <div className={styles.videoBox} ref={containerRef}>
+                {/* Wrapper interno para asegurar el contenido */}
+                <div className={styles.videoInnerWrapper}>
+                  {youtubeId && !playerError ? (
+                    <div 
+                      id={`youtube-player-${youtubeId}`} 
+                      ref={playerRef} 
+                      className={styles.youtubePlayer}
+                    />
+                  ) : videoEmbedUrl && !playerError ? (
+                    <iframe
+                      src={videoEmbedUrl}
+                      title="Video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className={styles.videoIframe}
+                    />
+                  ) : null}
 
-                {/* Fallback: miniatura y enlace a YouTube cuando el embed está bloqueado por derechos */}
-                {youtubeThumb && youtubeWatchUrl ? (
-                  <div className={styles.videoFallback}>
-                    <button
-                      type="button"
-                      onClick={() => setShowFallbackModal(true)}
-                      className={styles.videoThumbButton}
-                      aria-label={`Abrir opciones de video para ${project.title}`}
-                    >
-                      <img src={youtubeThumb} alt={`Ver ${project.title} en YouTube`} className={styles.videoThumb} />
-                    </button>
-                    <p className={styles.videoFallbackText}>
-                      Este video puede estar bloqueado para reproducción embebida. Pulsa la miniatura para ver opciones.
-                    </p>
+                  {/* Fallback */}
+                  {youtubeThumb && youtubeWatchUrl && (playerError || !videoEmbedUrl) ? (
+                    <div className={styles.videoFallback}>
+                      <button
+                        type="button"
+                        onClick={() => setShowFallbackModal(true)}
+                        className={styles.videoThumbButton}
+                        aria-label={`Abrir opciones de video para ${project.title}`}
+                      >
+                        <img src={youtubeThumb} alt={`Ver ${project.title} en YouTube`} className={styles.videoThumb} />
+                      </button>
+                      <p className={styles.videoFallbackText}>
+                        Este video puede estar bloqueado para reproducción embebida. Pulsa la miniatura para ver opciones.
+                      </p>
 
-                    {showFallbackModal ? (
-                      <div className={styles.fallbackModal} role="dialog" aria-modal="true">
-                        <div className={styles.fallbackModalContent}>
-                          <h3>Video no reproducible aquí</h3>
-                          <p>El propietario del video ha restringido la reproducción embebida. Puedes verlo en YouTube.</p>
-                          <div className={styles.fallbackModalActions}>
-                            <a href={youtubeWatchUrl} target="_blank" rel="noopener noreferrer" className={styles.primaryButton}>Ver en YouTube</a>
-                            <button type="button" onClick={() => { navigator.clipboard?.writeText(youtubeWatchUrl); }} className={styles.secondaryButton}>Copiar enlace</button>
-                            <button type="button" onClick={() => setShowFallbackModal(false)} className={styles.ghostButton}>Cerrar</button>
+                      {showFallbackModal && (
+                        <div className={styles.fallbackModal} role="dialog" aria-modal="true">
+                          <div className={styles.fallbackModalContent}>
+                            <h3>Video no reproducible aquí</h3>
+                            <p>El propietario del video ha restringido la reproducción embebida. Puedes verlo en YouTube.</p>
+                            <div className={styles.fallbackModalActions}>
+                              <a href={youtubeWatchUrl} target="_blank" rel="noopener noreferrer" className={styles.primaryButton}>
+                                Ver en YouTube
+                              </a>
+                              <button 
+                                type="button" 
+                                onClick={() => { navigator.clipboard?.writeText(youtubeWatchUrl); }} 
+                                className={styles.secondaryButton}
+                              >
+                                Copiar enlace
+                              </button>
+                              <button 
+                                type="button" 
+                                onClick={() => setShowFallbackModal(false)} 
+                                className={styles.ghostButton}
+                              >
+                                Cerrar
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ) : null}
-                  </div>
-                ) : null}
+                      )}
+                    </div>
+                  ) : null}
+                </div>
               </div>
             </motion.div>
           </section>
 
-          {/* 5. Sección de Especificaciones con animaciones individuales escalonadas */}
+          {/* Especificaciones */}
           <section className={styles.specsGrid}>
             {project.specs?.map((spec, i) => (
               <motion.div 
@@ -359,11 +394,10 @@ export default function ProjectDetail({ project }) {
             ))}
           </section>
 
-          {/* Footer de la página */}
+          {/* Footer */}
           <footer className={styles.footer}>
             <motion.p variants={itemVariants}>{project.textfooter}</motion.p>
             
-            {/* Botón Call to Action dinámico */}
             <motion.button 
               className={styles.ctaButton} 
               onClick={() => router.push('/contact')}
@@ -374,8 +408,7 @@ export default function ProjectDetail({ project }) {
               Hacemos realidad tus proyectos
             </motion.button>
             
-            {/* Carrusel inferior */}
-            <motion.div variants={itemVariants} className="w-full">
+            <motion.div variants={itemVariants} className={styles.carouselWrapper}>
               <ProjectMiniCarousel images={carouselImages || [project.heroImage]} />
             </motion.div>
           </footer>
@@ -385,28 +418,25 @@ export default function ProjectDetail({ project }) {
   );
 }
 
-// Progressive hero image: show fast thumb first, then upgrade to original when loaded
+// Componente de imagen hero progresiva
 function ProjectHeroImage({ project }) {
   const mapped = thumbs[project.heroImage];
   const [src, setSrc] = useState(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // If mapped is a small thumb, don't render it — preload the original and swap when ready
     if (mapped && mapped.includes('-800') && project.heroImage) {
       if (typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
         const hi = new globalThis.Image();
         hi.src = project.heroImage;
         hi.onload = () => {
           setSrc(project.heroImage);
-          // small delay to ensure transition applies
           requestAnimationFrame(() => setVisible(true));
         };
         return;
       }
     }
 
-    // Otherwise use mapped thumb or original immediately and show
     setSrc(mapped || project.heroImage);
     requestAnimationFrame(() => setVisible(true));
   }, [mapped, project.heroImage]);

@@ -3,7 +3,7 @@
    ========================================================================== */
 .servicePage {
   font-family: "Montserrat", sans-serif;
-  margin-top: 70px; /* Espacio para el Navbar */
+  margin-top: 80px; /* Espacio para el Navbar */
 }
 
 /* ==========================================================================
@@ -300,6 +300,21 @@
   color: #215ba0;
 }
 
+/* Centro de contenido reutilizable para bloques que deben compartir el mismo fondo */
+.centerBlock {
+  background-color:#fff;
+  width: 100%;
+  box-sizing: border-box;
+ 
+}
+
+.centerBlock p{
+  color: #215ba0;
+  font-size: 15px;
+  line-height: 1.6;
+  padding-bottom: 120px;
+}
+
 .featuresSection .ctaButton,
 .featuresSection .ctaGranjas {
   color: #ffffff !important;
@@ -434,15 +449,53 @@
 
 .offerList {
   margin: 0;
-  padding-left: 0;
+  padding-left: 0.8rem;
   color: #215ba0;
-  list-style: none; /* remove default bullets */
+  list-style-type: disc; /* restore bullets */
 }
 
 .offerList li {
   margin-bottom: 10px; /* more breathing room */
-  line-height: 1.6;
+ 
   padding-left: 0;
+}
+
+/* Puntos alineados con el inicio del ítem usando ::marker (se aplican sólo dentro de las cards) */
+.offerList,
+.offerListTwoCol,
+.infoList,
+.offerBox ul,
+.infoBox ul,
+.benefitCard ul,
+.cardTextWrapper ul {
+  list-style-position: inside; /* coloca el marcador en la primera línea del item */
+  list-style-type: disc;
+  padding-left: 0;
+  margin: 0 0 0.9rem 0;
+}
+
+.offerList li,
+.offerListTwoCol li,
+.infoList li,
+.offerBox ul li,
+.infoBox ul li,
+.benefitCard ul li,
+.cardTextWrapper ul li {
+  margin-bottom: 0.9rem;
+ 
+}
+
+/* Estilizar el marcador nativo para que sea un punto verde más grande */
+.offerList li::marker,
+.offerListTwoCol li::marker,
+.infoList li::marker,
+.offerBox ul li::marker,
+.infoBox ul li::marker,
+.benefitCard ul li::marker,
+.cardTextWrapper ul li::marker {
+  color: #40a335;
+  font-size: 18px; /* tamaño del punto */
+  opacity: 1;
 }
 
 /* Two-column list layout for wide cards */
@@ -451,8 +504,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 8px 22px;
   margin: 0;
-  padding-left: 0;
-  list-style: none;
+  padding-left: 0.8rem;
+  list-style-type: disc;
 }
 
 @media (max-width: 900px) {
@@ -587,8 +640,8 @@
 
 .infoList {
   margin: 0;
-  padding-left: 0; /* remove default list padding to hide bullets */
-  list-style: none; /* hide bullets */
+  padding-left: 0.8rem; /* restore default list padding */
+  list-style-type: disc; /* restore bullets */
   color: #215ba0;
 }
 

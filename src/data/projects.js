@@ -1,6 +1,6 @@
 export const projectsData = [
   // --- FINALIZADOS ---
-  { id: 1, title: 'La Rubiela', slug: 'la-rubiela', status: 'finalizados', image: '/images/projects/finished/Rubiela.webp' },
+  { id: 1, title: 'La Rubiela', slug: 'la-rubiela', status: 'finalizados', image: '/images/projects/finished/foto-prueba1.png' },
   { id: 2, title: 'San Pelayo', slug: 'san-pelayo', status: 'finalizados', image: '/images/projects/finished/pelayo.webp' },
   { id: 3, title: 'Inti I y II', slug: 'inti-i-y-ii', status: 'finalizados', image: '/images/projects/finished/inti.webp' },
   { id: 4, title: 'Piedras I y II', slug: 'piedras-i-y-ii', status: 'finalizados', image: '/images/projects/finished/piedras.webp' },

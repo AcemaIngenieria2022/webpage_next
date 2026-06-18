@@ -25,7 +25,7 @@ export const projectsDetailsData = {
     specs: [
       {
         label: "Ubicación:",
-        value: "Montería, Córdoba, Colombiax",
+        value: "Montería, Córdoba, Colombia",
       },
       {
         label: "Generación estimada:",

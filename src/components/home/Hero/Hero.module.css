@@ -5,9 +5,10 @@
   position: relative;
   width: 100%;
   height: calc(100vh - 80px);
+  margin-top: 35px; /* dejar el Hero justo debajo del Navbar fijo */
   min-height: 70vh;
   overflow: hidden;
-  background-color: #000;
+  isolation: isolate;
 }
 
 /* =========================
@@ -27,11 +28,14 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-color: #ffffff;
 }
 
 .heroImage {
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
+  transition: opacity 800ms ease-in-out;
+  
 }
 
 /* Slides stacked for crossfade */
@@ -41,7 +45,7 @@
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 800ms ease-in-out;
+  transition: opacity 1200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 1;
 }
 
@@ -50,23 +54,14 @@
   z-index: 3;
 }
 
-/* =========================
-   OVERLAY
-========================= */
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 2;
-  pointer-events: none;
-}
+ 
 
 /* =========================
-   CONTENT & CENTERING (Solución al desalineado horizontal)
+   CONTENT & CENTERING
 ========================= */
 .heroContent {
   position: absolute;
-  bottom: 40px;
+  bottom: 48px;
   left: 0;
   right: 0;
   display: flex;
@@ -76,35 +71,197 @@
 }
 
 /* =========================
-   SCROLL BUTTON
+   SCROLL BUTTON - Premium
 ========================= */
 .scrollDown {
-  width: 44px;
-  height: 44px;
+  width: 56px;
+  height: 56px;
   display: grid;
   place-items: center;
   cursor: pointer;
   color: #fff;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  transition:
-    background 0.25s ease,
-    box-shadow 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 80px;
+}
+
+/* Efecto de brillo en el borde */
+.scrollDown::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(103, 174, 240, 0.3),
+    transparent,
+    rgba(103, 174, 240, 0.3),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: -1;
+  animation: rotateBorder 4s linear infinite;
+}
+
+.scrollDown:hover::before {
+  opacity: 1;
 }
 
 .scrollDown:hover {
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(103, 174, 240, 0.2);
+  border-color: rgba(103, 174, 240, 0.3);
+  box-shadow: 
+    0 8px 40px rgba(103, 174, 240, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px) scale(1.05);
 }
 
-/* Animación aislada en el SVG para evitar conflictos con Framer Motion */
+.scrollDown:active {
+  transform: scale(0.92);
+  transition-duration: 0.1s;
+}
+
+/* Animación aislada en el SVG */
 .arrowIcon {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   display: block;
-  animation: bounceIcon 2s infinite ease-in-out;
+  animation: floatArrow 2.4s infinite ease-in-out;
+  filter: drop-shadow(0 2px 8px rgba(103, 174, 240, 0.2));
+}
+
+/* =========================
+   NAVIGATION ARROWS - Ultra Modern
+========================= */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(1);
+  width: 36px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(190, 190, 190, 0.5);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  color: #fff;
+  z-index: 12;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  outline: none;
+  overflow: hidden;
+}
+
+/* Glow effect en hover */
+.navButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(103, 174, 240, 0.15),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.navButton:hover::before {
+  opacity: 1;
+  
+}
+
+/* Anillo pulsante en hover */
+.navButton::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(103, 174, 240, 0);
+  transition: all 0.4s ease;
+  
+}
+
+.navButton:hover::after {
+  border-color: rgba(103, 174, 240, 0.2);
+  box-shadow: 0 0 30px rgba(103, 174, 240, 0.05);
+  
+}
+
+/* Icono interno */
+.navButton svg,
+.navButton i {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 1;
+  
+}
+
+/* Hover */
+.navButton:hover {
+  transform: translateY(-50%) scale(1.12);
+  background: rgba(103, 174, 240, 0.15);
+  border-color: rgba(103, 174, 240, 0.25);
+  box-shadow: 
+    0 12px 48px rgba(103, 174, 240, 0.15),
+    0 0 0 1px rgba(103, 174, 240, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+ color:white;
+}
+
+.navButton:hover svg,
+.navButton:hover i {
+  transform: scale(1.15) rotate(2deg);
+}
+
+/* Active / Click */
+.navButton:active {
+  transform: translateY(-50%) scale(0.9);
+  background: rgba(103, 174, 240, 0.25);
+  box-shadow: 0 4px 16px rgba(103, 174, 240, 0.2);
+  transition-duration: 0.08s;
+}
+
+/* Focus (accesibilidad) */
+.navButton:focus-visible {
+  outline: 2px solid rgba(103, 174, 240, 0.6);
+  outline-offset: 4px;
+}
+
+/* Posiciones */
+.navPrev {
+  left: 32px;
+}
+
+.navNext {
+  right: 32px;
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 /* =========================
@@ -113,24 +270,50 @@
 @media (max-width: 768px) {
   .hero {
     height: auto;
+    margin-top: 0; /* móviles: sin offset */
     aspect-ratio: 1 / 1;
     min-height: unset;
   }
 
   .heroContent {
-    /* Sube el botón un 12% para que no tape el logo de ACEMA inferior */
-    bottom: 12%; 
+    bottom: 12%;
   }
 
   .scrollDown {
-    width: 48px;
-    height: 48px;
-    background-color: rgba(255, 255, 255, 0.2);
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .arrowIcon {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .navButton {
+    width: 44px;
+    height: 44px;
+    background: rgba(190, 190, 190, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .navButton svg,
+  .navButton i {
+    width: 20px;
+    height: 20px;
+  }
+
+  .navPrev {
+    left: 16px;
+  }
+
+  .navNext {
+    right: 16px;
+  }
+
+  .navButton:hover {
+    transform: translateY(-50%) scale(1.08);
   }
 }
 
@@ -139,7 +322,38 @@
 ========================= */
 @media (max-width: 1024px) and (min-width: 769px) {
   .hero {
-    margin-top: 0;
+    margin-top: 25px; /* tablet: mantener 15px */
+  }
+
+  .navPrev {
+    left: 24px;
+  }
+
+  .navNext {
+    right: 24px;
+  }
+}
+
+/* Force circular nav buttons for intermediate/laptop widths (typical 14"–15") */
+@media (min-width: 1025px) and (max-width: 1599px) {
+  .navButton {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+  }
+
+  .navButton svg,
+  .navButton i {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .navPrev {
+    left: 32px;
+  }
+
+  .navNext {
+    right: 32px;
   }
 }
 
@@ -149,17 +363,59 @@
 @media (min-width: 1600px) {
   .hero {
     height: calc(100vh - 80px);
+    
+  }
+
+  .navButton {
+    width: 64px;
+    height: 64px;
+  }
+
+  .navButton svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .navPrev {
+    left: 48px;
+  }
+
+  .navNext {
+    right: 48px;
   }
 }
 
 /* =========================
    ANIMATIONS
 ========================= */
-@keyframes bounceIcon {
+@keyframes floatArrow {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(6px);
+    transform: translateY(8px);
+  }
+}
+
+@keyframes rotateBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ajuste para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .hero {
+    margin-top: 0; /* móviles muy pequeños: sin offset */
+  }
+}
+
+/* Pantallas grandes (>= 1440px) — aproximación para >15" */
+@media (min-width: 1440px) {
+  .hero {
+    margin-top: 35px; /* mayor a 15" */
   }
 }

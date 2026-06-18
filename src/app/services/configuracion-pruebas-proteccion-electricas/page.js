@@ -73,11 +73,11 @@ export default function ProteccionesPage() {
         </div>
       </section>
       
-      <section className={styles.content}>
-        <h3 className={styles.benefitsTitle}>Pruebas eléctricas</h3>
+      <section className={`${styles.content} ${styles.centerBlock}`} style={{ paddingTop: 48, paddingBottom: 48, textAlign: 'center' }}>
+        <h3 className={styles.benefitsTitle} style={{ marginTop: 0, marginBottom: 12 }}>Pruebas eléctricas</h3>
 
-        <div className={styles.introCenter}>
-          <p>Contamos con un equipo capacitado para la planeación y ejecución de pruebas primarias principalmente a sistemas de generación fotovoltaicas, transformadores de potencia, transformadores de medida, y además, equipos que componen el sistema eléctrico.</p>
+        <div className={styles.introCenter} style={{ margin: '0 auto' }}>
+          <p style={{ margin: 0, textAlign: 'center', maxWidth: 820, marginLeft: 'auto', marginRight: 'auto' }}>Contamos con un equipo capacitado para la planeación y ejecución de pruebas primarias principalmente a sistemas de generación fotovoltaicas, transformadores de potencia, transformadores de medida, y además, equipos que componen el sistema eléctrico.</p>
         </div>
 
         <div className={`${styles.featuresSection} ${styles.scadaFeaturesFullWidth}`}>

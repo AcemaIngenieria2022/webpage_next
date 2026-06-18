@@ -81,9 +81,9 @@ const Navbar = () => {
             <span className={styles.linkText}>Inicio</span>
           </Link>
 
-          <Link href="/about" className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
+          {/* <Link href="/about" className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Nosotros</span>
-          </Link>
+          </Link> */}
 
           {/* CONTENEDOR DEL DROPDOWN */}
           <div 
@@ -121,13 +121,11 @@ const Navbar = () => {
           <Link href="/blog" className={`${styles.navLink} ${isActive('/blog') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Blog</span>
           </Link>
-           
-          <Link href="/pqrs" className={`${styles.navLink} ${isActive('/pqrs') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
-            <span className={styles.linkText}>PQRS</span>
-          </Link>
-          <Link href="/data-processing" className={`${styles.navLink} ${isActive('/data-processing') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
-            <span className={styles.linkText}>Tratamiento de datos</span>
-          </Link>
+  {/*            
+            <Link href="/pqrs" className={`${styles.navLink} ${isActive('/pqrs') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
+              <span className={styles.linkText}>PQRS</span>
+            </Link> */}
+          {/* Tratamiento de datos moved to Footer for easier access on mobile */}
 
         </div>
 

@@ -26,7 +26,7 @@ const HERO_IMAGES = [
   },
 ];
 
-const AUTOPLAY_DELAY = 6000;
+const AUTOPLAY_DELAY = 4000;
 
 /* =========================
    COMPONENTE PRINCIPAL
@@ -63,6 +63,10 @@ function HeroSlider({ isMobile }) {
     }, AUTOPLAY_DELAY);
     return () => clearInterval(id);
   }, []);
+  const len = HERO_IMAGES.length;
+
+  const handlePrev = () => setIndex((i) => (i - 1 + len) % len);
+  const handleNext = () => setIndex((i) => (i + 1) % len);
 
   return (
     <div className={styles.heroSlider}>
@@ -86,6 +90,28 @@ function HeroSlider({ isMobile }) {
           </div>
         );
       })}
+
+      <button
+        type="button"
+        className={`${styles.navButton} ${styles.navPrev}`}
+        aria-label="Imagen anterior"
+        onClick={handlePrev}
+      >
+        <svg viewBox="0 0 24 24" className={styles.navIcon} aria-hidden="true">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        className={`${styles.navButton} ${styles.navNext}`}
+        aria-label="Siguiente imagen"
+        onClick={handleNext}
+      >
+        <svg viewBox="0 0 24 24" className={styles.navIcon} aria-hidden="true">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" fill="currentColor" />
+        </svg>
+      </button>
     </div>
   );
 }

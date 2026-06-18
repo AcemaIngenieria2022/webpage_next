@@ -10,6 +10,7 @@ import {
   FaBriefcase,
   FaInstagram,
   FaLinkedin,
+  FaShieldAlt,
 } from "react-icons/fa";
 
 const Footer = () => {
@@ -17,7 +18,6 @@ const Footer = () => {
     <footer className={styles.footer} id="contacto">
       <div className={styles.footerContainer}>
         
-
         {/* LOGO IZQUIERDA */}
         <div className={styles.footerBrand}>
           <a href="">
@@ -28,52 +28,67 @@ const Footer = () => {
           </a>
         </div>
 
-        {/* DATOS DE CONTACTO (CENTRO-IZQUIERDA) */}      
+        {/* DATOS DE CONTACTO EN DOS COLUMNAS */}      
         <div className={styles.footerContact}>
-          <div className={styles.contactItem}>
-            <div className={styles.contactIcon}>
-              <FaWhatsapp />
+          {/* Columna 1: WhatsApp, Dirección, Email */}
+          <div className={styles.contactColumn}>
+            <div className={styles.contactItem}>
+              <div className={styles.contactIcon}>
+                <FaWhatsapp />
+              </div>
+              <span>(+57) 301 4577572</span>
             </div>
-            <span>(+57) 301 4577572</span>
+
+            <div className={styles.contactItem}>
+              <div className={styles.contactIcon}>
+                <FaMapMarkerAlt />
+              </div>
+              <span>
+                Calle 48A #81 A 30 Calasanz<br />
+                - Medellín, Antioquia
+              </span>
+            </div>
+
+            <div className={styles.contactItem}>
+              <div className={styles.contactIcon}>
+                <FaEnvelope />
+              </div>
+              <span>Comercial@acemaingenieria.com</span>
+            </div>
           </div>
 
-          <div className={styles.contactItem}>
-            <div className={styles.contactIcon}>
-              <FaMapMarkerAlt />
+          {/* Columna 2: Trabaja con nosotros + Tratamiento de datos + Síguenos */}
+          <div className={styles.contactColumn}>
+            <div className={styles.contactItem}>
+              <div className={styles.contactIcon}>
+                <FaBriefcase />
+              </div>
+              <Link href="/contact" className={styles.workLink}>
+                Trabaja con nosotros
+              </Link>
             </div>
-            <span>
-              Calle 48A #81 A 30 Calasanz<br />
-              - Medellín, Antioquia
-            </span>
-          </div>
 
-          <div className={styles.contactItem}>
-            <div className={styles.contactIcon}>
-              <FaEnvelope />
+            <div className={styles.contactItem}>
+              <div className={styles.contactIcon}>
+                <FaShieldAlt />
+              </div>
+              <Link href="/data-processing" className={styles.dataLink}>
+                Tratamiento de datos
+              </Link>
             </div>
-            <span>Comercial@acemaingenieria.com</span>
-          </div>
 
-          <div className={styles.contactItem}>
-            <div className={styles.contactIcon}>
-              <FaBriefcase />
+            {/* SÍGUENOS CON ICONOS - DENTRO DE LA COLUMNA 2 */}
+            <div className={styles.socialWrapper}>
+              <div className={styles.socialLabel}>Síguenos:</div>
+              <div className={styles.socialIcons}>
+                <a href="https://www.instagram.com/acema_ingenieria/" className={styles.socialLink} aria-label="Instagram">
+                  <FaInstagram />
+                </a>
+                <a href="https://www.linkedin.com/company/acema-ingenier%C3%ADa/posts/?feedView=all" className={styles.socialLink} aria-label="LinkedIn">
+                  <FaLinkedin />
+                </a>
+              </div>
             </div>
-            <Link href="/contact" className={styles.workLink}>
-              Trabaja con nosotros
-            </Link>
-          </div>
-        </div>
-
-        {/* REDES SOCIALES (CENTRO-DERECHA) */}
-        <div className={styles.footerSocial}>
-          <p className={styles.socialLabel}>Síguenos:</p>
-          <div className={styles.socialIcons}>
-            <a href="https://www.instagram.com/acema_ingenieria/" className={styles.socialLink} aria-label="Instagram">
-              <FaInstagram />
-            </a>
-            <a href="https://www.linkedin.com/company/acema-ingenier%C3%ADa/posts/?feedView=all" className={styles.socialLink} aria-label="LinkedIn">
-              <FaLinkedin />
-            </a>
           </div>
         </div>
 

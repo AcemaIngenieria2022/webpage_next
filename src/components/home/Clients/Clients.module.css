@@ -14,31 +14,18 @@
   font-family: var(--font-montserrat), sans-serif;
 }
 
-.marquee {
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-}
-
-.logosTrack {
-  display: flex;
-  width: max-content;
-  gap: 60px; 
-  padding-left: 60px; /* Debe ser igual al gap para el loop perfecto */
-  animation: scroll 30s linear infinite;
-}
-
-.logosTrack:hover {
-  animation-play-state: paused;
-}
-
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.logosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 40px 60px;
+  align-items: center;
+  justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .logoItem {
-  flex: 0 0 auto;
   width: 180px;
   display: flex;
   justify-content: center;
@@ -57,6 +44,6 @@
 }
 
 @media (max-width: 768px) {
-  .logosTrack { gap: 40px; padding-left: 40px; }
-  .logoItem { width: 130px; }
+  .logosGrid { gap: 24px 32px; }
+  .logoItem { width: 140px; }
 }

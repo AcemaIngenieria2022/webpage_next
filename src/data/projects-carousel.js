@@ -24,7 +24,19 @@ export const projectsCarouselData = {
       {
         src: '/images/projects/carousel/rubiela/rubiela3.webp',
         alt: 'Granja solar La Rubiela - Vista 3'
-      }
+      },
+      {
+        src: '/images/projects/carousel/rubiela/rubiela3.webp',
+        alt: 'Granja solar La Rubiela - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/rubiela/rubiela3.webp',
+        alt: 'Granja solar La Rubiela - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/rubiela/rubiela3.webp',
+        alt: 'Granja solar La Rubiela - Vista 3'
+      },
     ]
   },
   'san-pelayo': {
@@ -41,7 +53,15 @@ export const projectsCarouselData = {
       {
         src: '/images/projects/carousel/pelayo/pelayo3.webp',
         alt: 'Proyecto San Pelayo - Vista 3'
-      }
+      },
+      {
+        src: '/images/projects/carousel/pelayo/pelayo3.webp',
+        alt: 'Proyecto San Pelayo - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/pelayo/pelayo3.webp',
+        alt: 'Proyecto San Pelayo - Vista 3'
+      },
     ]
   },
   'inti-i-y-ii': {

@@ -1,0 +1,232 @@
+/* =========================
+   PQRS RIBBON - Moderno & Minimalista
+========================= */
+.ribbon {
+  position: fixed;
+  right: 32px;
+  bottom: 110px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  color: #fff;
+  border-radius: 50%;
+  padding: 0;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  z-index: 1001;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  border: none;
+}
+
+/* Efecto de brillo sutil */
+.ribbon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(103, 174, 240, 0.15),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.ribbon:hover::before {
+  opacity: 1;
+}
+
+/* Anillo pulsante al hacer hover */
+.ribbon::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(103, 174, 240, 0);
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.ribbon:hover::after {
+  border-color: rgba(103, 174, 240, 0.15);
+  box-shadow: 0 0 40px rgba(103, 174, 240, 0.05);
+}
+
+/* Hover - Expansión elegante */
+.ribbon:hover {
+  width: 180px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(103, 174, 240, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Etiqueta PQRS - Ícono circular */
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+ 
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, rgba(103, 174, 240, 0.2), rgba(64, 163, 53, 0.2));
+  color: #40a335;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+/* Texto "Enviar PQRS" */
+.text {
+  opacity: 0;
+  transform: translateX(-8px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  color: rgba(110, 153, 233, 0.9);
+  padding-right: 16px;
+}
+
+.ribbon:hover .text {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* =========================
+   VARIANTE CON GRADIENTE (Alternativa más colorida)
+========================= */
+/* 
+.ribbon {
+  background: linear-gradient(135deg, rgba(33, 91, 160, 0.85), rgba(64, 163, 53, 0.85));
+  backdrop-filter: blur(12px);
+}
+
+.ribbon:hover {
+  background: linear-gradient(135deg, rgba(33, 91, 160, 0.95), rgba(64, 163, 53, 0.95));
+}
+
+.label {
+  background: rgba(255, 255, 255, 0.15);
+}
+*/
+
+/* =========================
+   RESPONSIVE - MÓVIL
+========================= */
+@media (max-width: 768px) {
+  .ribbon {
+    right: 20px;
+    bottom: 90px;
+    width: 48px;
+    height: 48px;
+    box-shadow: 
+      0 6px 24px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .ribbon:hover {
+    width: 160px;
+    transform: translateY(-2px) scale(1.04);
+  }
+
+  .label {
+    width: 48px;
+    height: 48px;
+    font-size: 0.75rem;
+  }
+
+  .text {
+    font-size: 0.85rem;
+    padding-right: 14px;
+  }
+}
+
+/* =========================
+   PANTALLAS MUY PEQUEÑAS
+========================= */
+@media (max-width: 480px) {
+  .ribbon {
+    right: 16px;
+    bottom: 80px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .ribbon:hover {
+    width: 140px;
+  }
+
+  .label {
+    width: 44px;
+    height: 44px;
+    font-size: 0.7rem;
+  }
+
+  .text {
+    font-size: 0.8rem;
+    padding-right: 12px;
+  }
+}
+
+/* =========================
+   ANIMACIÓN DE ENTRADA (Opcional)
+========================= */
+@keyframes ribbonSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.ribbon {
+  animation: ribbonSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+/* =========================
+   ALTERNATIVA CON BADGE (Opcional)
+========================= */
+/*
+.ribbon .badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  background: #40a335;
+  border-radius: 50%;
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  border: 2px solid #0a0a0f;
+}
+*/

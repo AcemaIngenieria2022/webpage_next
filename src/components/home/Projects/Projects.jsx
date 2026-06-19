@@ -37,7 +37,7 @@ const Projects = () => {
         <Link href={project.url} className="w-full h-full block" style={{ textDecoration: "none", color: "inherit" }}>
           <div className={styles.projectCard}>
             <div className={styles.imageContainer}>
-              <div style={{ width: "100%", height: "100%", position: "relative" }}>
+              <div style={{ width: "100%", height: "100%", position: "relative" }} suppressHydrationWarning>
                 <Image
                   src={project.thumb || project.image}
                   alt={`${project.name} - ${project.location}`}

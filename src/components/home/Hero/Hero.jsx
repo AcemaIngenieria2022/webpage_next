@@ -76,7 +76,7 @@ function HeroSlider({ isMobile }) {
         const cls = i === index ? `${styles.slide} ${styles.active}` : styles.slide;
         return (
           <div key={img.src} className={cls}>
-            <div className={styles.imageWrapper}>
+              <div className={styles.imageWrapper} suppressHydrationWarning>
               <Image
                 src={thumb}
                 alt={img.alt}

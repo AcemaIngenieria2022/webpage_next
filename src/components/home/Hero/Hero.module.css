@@ -28,6 +28,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  margin-top: 45px;
   background: linear-gradient(90deg, #f6f6f6 0%, #efefef 100%);
 }
 
@@ -280,55 +281,53 @@
 }
 
 /* =========================
-   PROGRESS DOTS
+   PROGRESS DOTS - Minimal
+   Small neutral pills with a single colored active dot
 ========================= */
 .progressDots {
   position: absolute;
-  bottom: 40px;
+  bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 12px;
+  gap: 10px;
   z-index: 15;
-  padding: 8px 16px;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  background: transparent;
 }
 
 .progressDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  width: 22px;
+  height: 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.12);
   border: none;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 180ms ease, background 180ms ease;
   padding: 0;
   position: relative;
 }
 
 .progressDot:hover {
-  background: rgba(255, 255, 255, 0.5);
-  transform: scale(1.2);
+  transform: scale(1.06);
 }
 
+/* Active shows a small centered red dot */
 .progressDot.activeDot {
-  background: #67aef0;
-  width: 30px;
-  border-radius: 5px;
-  box-shadow: 0 0 20px rgba(103, 174, 240, 0.3);
+  background: rgba(189, 189, 189, 0.06);
 }
 
 .progressDot.activeDot::after {
   content: '';
   position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 1px solid rgba(103, 174, 240, 0.3);
-  animation: pulse 1.5s infinite;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 8px;
+  border-radius: 30%;
+  background: #40a335; /* accent red */
+ 
 }
 
 @keyframes pulse {

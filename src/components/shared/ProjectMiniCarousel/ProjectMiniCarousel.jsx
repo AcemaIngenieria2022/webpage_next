@@ -157,12 +157,12 @@ const ProjectMiniCarousel = ({ images = [] }) => {
                     onKeyDown={(e) => { if (e.key === 'Enter') setLightbox({ visible: true, index: logicalIndex }); }}
                     onMouseEnter={() => setIsPaused(true)}
                   >
-                    <OptimizedImage
-                      src={imageSrc}
-                      thumb={thumbs[imageSrc]}
+                    <img
+                      src={thumbs[imageSrc] || imageSrc}
                       alt={imageAlt}
                       className={styles.carouselImage}
                       sizes="(max-width: 768px) 100vw, 33vw"
+                      loading="lazy"
                     />
                   </div>
                 </div>

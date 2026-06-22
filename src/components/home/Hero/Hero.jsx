@@ -113,6 +113,20 @@ function HeroSlider({ isMobile }) {
           <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" fill="currentColor" />
         </svg>
       </button>
+
+      {/* Minimal progress dots */}
+      <div className={styles.progressDots} role="tablist" aria-label="Selector de slides">
+        {HERO_IMAGES.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`${styles.progressDot} ${i === index ? styles.activeDot : ''}`}
+            onClick={() => setIndex(i)}
+            aria-label={`Ir a la imagen ${i + 1}`}
+            aria-current={i === index}
+          />
+        ))}
+      </div>
     </div>
   );
 }

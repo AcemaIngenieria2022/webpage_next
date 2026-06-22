@@ -250,25 +250,14 @@ export default function ProjectDetail({ project }) {
       <section className={styles.heroSection}>
         {project.heroImage ? (
           <div className={styles.imageContainer}>
-            <motion.div
-              initial={{ scale: 1.15, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="w-full h-full"
-              style={{ height: '100%', position: 'relative' }}
-            >
+            <div className="w-full h-full" style={{ height: '100%', position: 'relative' }}>
               <ProjectHeroImage project={project} />
-            </motion.div>
+            </div>
           </div>
         ) : null}
         
         {/* Curva SVG */}
-        <motion.div 
-          className={styles.waveWrapper}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-        >
+        <div className={styles.waveWrapper}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path
               fill="#ffffff"
@@ -276,7 +265,7 @@ export default function ProjectDetail({ project }) {
               d="M0,192L80,213.3C160,235,320,277,480,261.3C640,245,800,171,960,154.7C1120,139,1280,181,1360,202.7L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
             ></path>
           </svg>
-        </motion.div>
+        </div>
       </section>
 
       {/* Contenido */}
@@ -423,27 +412,35 @@ function ProjectHeroImage({ project }) {
   const mapped = thumbs[project.heroImage];
   const [src, setSrc] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [isBlurred, setIsBlurred] = useState(false);
 
   useEffect(() => {
-    if (mapped && mapped.includes('-800') && project.heroImage) {
-      if (typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
+    // If we have a low-res thumb (mapped), show it immediately
+    if (mapped) {
+      setSrc(mapped);
+      // if mapped is different from the final image, show blurred placeholder
+      setIsBlurred(project.heroImage && mapped !== project.heroImage);
+      requestAnimationFrame(() => setVisible(true));
+
+      // Preload final image and swap when ready
+      if (project.heroImage && typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
         const hi = new globalThis.Image();
         hi.src = project.heroImage;
         hi.onload = () => {
           setSrc(project.heroImage);
-          requestAnimationFrame(() => setVisible(true));
         };
-        return;
       }
+      return;
     }
 
-    setSrc(mapped || project.heroImage);
-    requestAnimationFrame(() => setVisible(true));
+    // Fallback: no mapped thumb, use the provided image
+    if (project.heroImage) {
+      setSrc(project.heroImage);
+      requestAnimationFrame(() => setVisible(true));
+    }
   }, [mapped, project.heroImage]);
 
-  if (!src) {
-    return <div className={styles.heroPlaceholder} />;
-  }
+  if (!src) return <div className={styles.heroPlaceholder} />;
 
   return (
     <Image
@@ -453,8 +450,12 @@ function ProjectHeroImage({ project }) {
       priority
       loading="eager"
       sizes="100vw"
-      quality={90}
-      className={`${styles.heroImage} ${visible ? styles.heroImageVisible : ''}`}
+      quality={80}
+      className={isBlurred ? `${styles.heroImage} ${styles.heroImageBlurred}` : styles.heroImage}
+      onLoadingComplete={() => {
+        // remove blur once the current src has finished loading
+        setIsBlurred(false);
+      }}
     />
   );
 }

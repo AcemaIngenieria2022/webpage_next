@@ -51,16 +51,28 @@
 .heroPlaceholder {
   position: absolute;
   inset: 0;
-  background-color: #000;
+  background-color: #f3f4f6; /* neutral light gray to avoid black flash */
 }
 
+/* Ensure hero image is visible immediately without fade */
 .heroImage {
-  opacity: 0;
-  transition: opacity 480ms ease-in-out;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
 }
 
 .heroImageVisible {
-  opacity: 1;
+  /* kept for compatibility but no-op */
+}
+
+/* Blurred placeholder style to make LQ thumbnails look intentional */
+.heroImageBlurred {
+  filter: blur(18px) saturate(0.95);
+  transform: scale(1.03);
+  transition: filter 360ms ease, transform 360ms ease;
 }
 
 .waveWrapper {

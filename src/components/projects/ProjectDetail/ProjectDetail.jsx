@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import ProjectsToggle from '@/components/shared/Toggle/ProjectsToggle';
 import ProjectMiniCarousel from '@/components/shared/ProjectMiniCarousel/ProjectMiniCarousel';
-import OptimizedImage from '@/components/shared/OptimizedImage/OptimizedImage';
 import { getCarouselImagesBySlug } from '@/data/projects-carousel';
 import styles from './ProjectDetail.module.css';
 
@@ -251,14 +250,25 @@ export default function ProjectDetail({ project }) {
       <section className={styles.heroSection}>
         {project.heroImage ? (
           <div className={styles.imageContainer}>
-            <div className="w-full h-full" style={{ height: '100%', position: 'relative' }}>
-              <OptimizedImage src={project.heroImage} thumb={thumbs[project.heroImage]} alt={project.title} priority sizes="100vw" quality={90} placeholderUntilLoaded={true} />
-            </div>
+            <motion.div
+              initial={{ scale: 1.15, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="w-full h-full"
+              style={{ height: '100%', position: 'relative' }}
+            >
+              <ProjectHeroImage project={project} />
+            </motion.div>
           </div>
         ) : null}
         
         {/* Curva SVG */}
-        <div className={styles.waveWrapper}>
+        <motion.div 
+          className={styles.waveWrapper}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+        >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path
               fill="#ffffff"
@@ -266,7 +276,7 @@ export default function ProjectDetail({ project }) {
               d="M0,192L80,213.3C160,235,320,277,480,261.3C640,245,800,171,960,154.7C1120,139,1280,181,1360,202.7L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
             ></path>
           </svg>
-        </div>
+        </motion.div>
       </section>
 
       {/* Contenido */}
@@ -408,4 +418,43 @@ export default function ProjectDetail({ project }) {
   );
 }
 
-// Hero image now uses the shared `OptimizedImage` component above.
+// Componente de imagen hero progresiva
+function ProjectHeroImage({ project }) {
+  const mapped = thumbs[project.heroImage];
+  const [src, setSrc] = useState(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (mapped && mapped.includes('-800') && project.heroImage) {
+      if (typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
+        const hi = new globalThis.Image();
+        hi.src = project.heroImage;
+        hi.onload = () => {
+          setSrc(project.heroImage);
+          requestAnimationFrame(() => setVisible(true));
+        };
+        return;
+      }
+    }
+
+    setSrc(mapped || project.heroImage);
+    requestAnimationFrame(() => setVisible(true));
+  }, [mapped, project.heroImage]);
+
+  if (!src) {
+    return <div className={styles.heroPlaceholder} />;
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={project.title}
+      fill
+      priority
+      loading="eager"
+      sizes="100vw"
+      quality={90}
+      className={`${styles.heroImage} ${visible ? styles.heroImageVisible : ''}`}
+    />
+  );
+}

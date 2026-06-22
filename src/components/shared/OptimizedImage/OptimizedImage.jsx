@@ -1,80 +1,49 @@
 "use client";
 
-import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
-import styles from './OptimizedImage.module.css';
+import { useState } from "react";
+import Image from "next/image";
 
-export default function OptimizedImage({ src, thumb, alt, className = '', priority = false, sizes, quality = 80, placeholderUntilLoaded = false }) {
-  const [current, setCurrent] = useState(null);
-  const [isBlurred, setIsBlurred] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const loaderStartRef = useRef(0);
-
-  useEffect(() => {
-    // If caller requests placeholder until HQ loaded, do not show thumb
-    if (placeholderUntilLoaded) {
-      if (!src) return;
-      setLoading(true);
-      loaderStartRef.current = Date.now();
-      if (typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
-        const hi = new globalThis.Image();
-        hi.src = src;
-        hi.onload = () => setCurrent(src);
-      } else {
-        setCurrent(src);
-      }
-      return;
-    }
-
-    const mapped = thumb || null;
-    if (mapped) {
-      setCurrent(mapped);
-      setIsBlurred(src && mapped !== src);
-      // preload HQ
-      if (src && mapped !== src && typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
-        setLoading(true);
-        loaderStartRef.current = Date.now();
-        const hi = new globalThis.Image();
-        hi.src = src;
-        hi.onload = () => setCurrent(src);
-      }
-      return;
-    }
-
-    // fallback: no thumb
-    if (src) {
-      setLoading(true);
-      loaderStartRef.current = Date.now();
-      setCurrent(src);
-    }
-  }, [src, thumb, placeholderUntilLoaded]);
-
-  if (!current) return <div className={styles.placeholder} />;
+export default function OptimizedImage({
+  src,
+  thumb,
+  alt = "",
+  priority = false,
+  quality = 75,
+  sizes,
+  className,
+  ...props
+}) {
+  const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      {thumb && !loaded && (
+        <img
+          src={thumb}
+          alt={alt}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            filter: "blur(16px)",
+            transform: "scale(1.04)",
+          }}
+        />
+      )}
+
       <Image
-        src={current}
+        src={src}
         alt={alt}
         fill
-        priority={priority}
         sizes={sizes}
         quality={quality}
-        className={`${styles.image} ${isBlurred ? styles.blurred : ''} ${className}`}
-        onLoadingComplete={() => {
-          setIsBlurred(false);
-          const min = 240;
-          const elapsed = Date.now() - (loaderStartRef.current || 0);
-          if (elapsed >= min) setLoading(false);
-          else setTimeout(() => setLoading(false), min - elapsed);
-        }}
+        priority={priority}
+        className={className}
+        onLoadingComplete={() => setLoaded(true)}
+        {...props}
       />
-
-      {loading && (
-        <div className={styles.loader} aria-hidden>
-          <div className={styles.spinner} />
-        </div>
-      )}
     </div>
   );
 }

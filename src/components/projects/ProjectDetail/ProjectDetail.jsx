@@ -250,15 +250,9 @@ export default function ProjectDetail({ project }) {
       <section className={styles.heroSection}>
         {project.heroImage ? (
           <div className={styles.imageContainer}>
-            <motion.div
-              initial={{ scale: 1.15, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="w-full h-full"
-              style={{ height: '100%', position: 'relative' }}
-            >
+            <div className="w-full h-full" style={{ height: '100%', position: 'relative' }}>
               <ProjectHeroImage project={project} />
-            </motion.div>
+            </div>
           </div>
         ) : null}
         
@@ -424,20 +418,29 @@ function ProjectHeroImage({ project }) {
   const [src, setSrc] = useState(null);
   const [visible, setVisible] = useState(false);
 
+  // Preload the hero image to speed up rendering in the browser
   useEffect(() => {
-    if (mapped && mapped.includes('-800') && project.heroImage) {
-      if (typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
-        const hi = new globalThis.Image();
-        hi.src = project.heroImage;
-        hi.onload = () => {
-          setSrc(project.heroImage);
-          requestAnimationFrame(() => setVisible(true));
-        };
-        return;
-      }
-    }
+    if (!project?.heroImage) return;
+    const href = project.heroImage;
+    // Avoid adding duplicate preload links
+    const existing = Array.from(document.querySelectorAll('link[rel="preload"][as="image"]')).find(l => l.href && l.href.endsWith(href));
+    if (existing) return;
 
-    setSrc(mapped || project.heroImage);
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = href;
+    document.head.appendChild(link);
+
+    return () => {
+      try { if (link.parentNode) link.parentNode.removeChild(link); } catch (e) {}
+    };
+  }, [project?.heroImage]);
+
+  useEffect(() => {
+    // Mostrar la imagen original desde el inicio para evitar pixelado
+    const initialSrc = project.heroImage || mapped;
+    setSrc(initialSrc);
     requestAnimationFrame(() => setVisible(true));
   }, [mapped, project.heroImage]);
 
@@ -452,6 +455,7 @@ function ProjectHeroImage({ project }) {
       fill
       priority
       loading="eager"
+      fetchPriority="high"
       sizes="100vw"
       quality={90}
       className={`${styles.heroImage} ${visible ? styles.heroImageVisible : ''}`}

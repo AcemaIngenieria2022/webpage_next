@@ -14,25 +14,15 @@ export default function OptimizedImage({
   ...props
 }) {
   const [loaded, setLoaded] = useState(false);
+  const bgStyle = thumb ? {
+    backgroundImage: `url(${thumb})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  } : {};
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%" }}>
-      {thumb && !loaded && (
-        <img
-          src={thumb}
-          alt={alt}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            filter: "blur(16px)",
-            transform: "scale(1.04)",
-          }}
-        />
-      )}
-
+    <div style={{ position: "relative", width: "100%", height: "100%", ...bgStyle }}>
       <Image
         src={src}
         alt={alt}
@@ -42,6 +32,12 @@ export default function OptimizedImage({
         priority={priority}
         className={className}
         onLoadingComplete={() => setLoaded(true)}
+        style={{
+          objectFit: 'cover',
+          objectPosition: 'center',
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 360ms ease'
+        }}
         {...props}
       />
     </div>

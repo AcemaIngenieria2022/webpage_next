@@ -252,7 +252,7 @@ export default function ProjectDetail({ project }) {
         {project.heroImage ? (
           <div className={styles.imageContainer}>
             <div className="w-full h-full" style={{ height: '100%', position: 'relative' }}>
-              <OptimizedImage src={project.heroImage} thumb={thumbs[project.heroImage]} alt={project.title} priority sizes="100vw" quality={90} />
+              <OptimizedImage src={project.heroImage} thumb={thumbs[project.heroImage]} alt={project.title} priority sizes="100vw" quality={90} placeholderUntilLoaded={true} />
             </div>
           </div>
         ) : null}

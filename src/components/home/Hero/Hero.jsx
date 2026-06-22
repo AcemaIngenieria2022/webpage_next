@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import OptimizedImage from '@/components/shared/OptimizedImage/OptimizedImage';
 import styles from "./Hero.module.css";
 import thumbs from '@/data/project-thumbs.json';
 
@@ -77,14 +78,14 @@ function HeroSlider({ isMobile }) {
         return (
           <div key={img.src} className={cls}>
               <div className={styles.imageWrapper} suppressHydrationWarning>
-              <Image
-                src={thumb}
+              <OptimizedImage
+                src={src}
+                thumb={thumb}
                 alt={img.alt}
-                fill
-                className={styles.heroImage}
                 priority={i === 0}
                 quality={90}
                 sizes="100vw"
+                className={styles.heroImage}
               />
             </div>
           </div>

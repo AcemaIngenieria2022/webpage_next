@@ -1,4 +1,5 @@
 import Image from "next/image";
+import OptimizedImage from '@/components/shared/OptimizedImage/OptimizedImage';
 import Link from "next/link";
 import styles from "./Projects.module.css";
 
@@ -37,11 +38,11 @@ const Projects = () => {
         <Link href={project.url} className="w-full h-full block" style={{ textDecoration: "none", color: "inherit" }}>
           <div className={styles.projectCard}>
             <div className={styles.imageContainer}>
-              <div style={{ width: "100%", height: "100%", position: "relative" }} suppressHydrationWarning>
-                <Image
-                  src={project.thumb || project.image}
+                <div style={{ width: "100%", height: "100%", position: "relative" }} suppressHydrationWarning>
+                <OptimizedImage
+                  src={project.image}
+                  thumb={project.thumb}
                   alt={`${project.name} - ${project.location}`}
-                  fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className={styles.projectImg}
                   priority={project.id <= 2}

@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import ProjectsToggle from '@/components/shared/Toggle/ProjectsToggle';
 import ProjectMiniCarousel from '@/components/shared/ProjectMiniCarousel/ProjectMiniCarousel';
+import OptimizedImage from '@/components/shared/OptimizedImage/OptimizedImage';
 import { getCarouselImagesBySlug } from '@/data/projects-carousel';
 import styles from './ProjectDetail.module.css';
 
@@ -251,7 +252,7 @@ export default function ProjectDetail({ project }) {
         {project.heroImage ? (
           <div className={styles.imageContainer}>
             <div className="w-full h-full" style={{ height: '100%', position: 'relative' }}>
-              <ProjectHeroImage project={project} />
+              <OptimizedImage src={project.heroImage} thumb={thumbs[project.heroImage]} alt={project.title} priority sizes="100vw" quality={90} />
             </div>
           </div>
         ) : null}
@@ -407,55 +408,4 @@ export default function ProjectDetail({ project }) {
   );
 }
 
-// Componente de imagen hero progresiva
-function ProjectHeroImage({ project }) {
-  const mapped = thumbs[project.heroImage];
-  const [src, setSrc] = useState(null);
-  const [visible, setVisible] = useState(false);
-  const [isBlurred, setIsBlurred] = useState(false);
-
-  useEffect(() => {
-    // If we have a low-res thumb (mapped), show it immediately
-    if (mapped) {
-      setSrc(mapped);
-      // if mapped is different from the final image, show blurred placeholder
-      setIsBlurred(project.heroImage && mapped !== project.heroImage);
-      requestAnimationFrame(() => setVisible(true));
-
-      // Preload final image and swap when ready
-      if (project.heroImage && typeof globalThis !== 'undefined' && typeof globalThis.Image === 'function') {
-        const hi = new globalThis.Image();
-        hi.src = project.heroImage;
-        hi.onload = () => {
-          setSrc(project.heroImage);
-        };
-      }
-      return;
-    }
-
-    // Fallback: no mapped thumb, use the provided image
-    if (project.heroImage) {
-      setSrc(project.heroImage);
-      requestAnimationFrame(() => setVisible(true));
-    }
-  }, [mapped, project.heroImage]);
-
-  if (!src) return <div className={styles.heroPlaceholder} />;
-
-  return (
-    <Image
-      src={src}
-      alt={project.title}
-      fill
-      priority
-      loading="eager"
-      sizes="100vw"
-      quality={80}
-      className={isBlurred ? `${styles.heroImage} ${styles.heroImageBlurred}` : styles.heroImage}
-      onLoadingComplete={() => {
-        // remove blur once the current src has finished loading
-        setIsBlurred(false);
-      }}
-    />
-  );
-}
+// Hero image now uses the shared `OptimizedImage` component above.

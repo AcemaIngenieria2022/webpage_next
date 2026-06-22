@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect } from 'react';
 import styles from './ProjectMiniCarousel.module.css';
+import OptimizedImage from '@/components/shared/OptimizedImage/OptimizedImage';
 import thumbs from '@/data/project-thumbs.json';
 import ImageLightbox from '@/components/shared/ImageLightbox/ImageLightbox';
 
@@ -156,13 +157,12 @@ const ProjectMiniCarousel = ({ images = [] }) => {
                     onKeyDown={(e) => { if (e.key === 'Enter') setLightbox({ visible: true, index: logicalIndex }); }}
                     onMouseEnter={() => setIsPaused(true)}
                   >
-                    <img
-                      src={srcToUse}
+                    <OptimizedImage
+                      src={imageSrc}
+                      thumb={thumbs[imageSrc]}
                       alt={imageAlt}
                       className={styles.carouselImage}
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
                 </div>

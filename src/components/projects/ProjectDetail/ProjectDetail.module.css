@@ -75,6 +75,39 @@
   transition: filter 360ms ease, transform 360ms ease;
 }
 
+/* Wrapper for the image so overlay can be positioned */
+.heroImageWrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Loader overlay */
+.heroLoader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.35);
+  z-index: 8;
+}
+
+/* Simple spinner */
+.spinner {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 4px solid rgba(0,0,0,0.08);
+  border-top-color: #43a047;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .waveWrapper {
   position: absolute;
   bottom: -2px;

@@ -1,0 +1,7 @@
+.wrapper{position:absolute;inset:0;width:100%;height:100%;display:block}
+.placeholder{position:absolute;inset:0;background:#f3f4f6}
+.image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1}
+.blurred{filter:blur(14px) saturate(.95);transform:scale(1.02);transition:filter .35s ease,transform .35s ease}
+.loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.32);z-index:6}
+.spinner{width:36px;height:36px;border-radius:50%;border:3px solid rgba(0,0,0,.08);border-top-color:#43a047;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}

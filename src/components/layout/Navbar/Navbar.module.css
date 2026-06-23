@@ -342,6 +342,20 @@
 ========================== */
 
 @media (max-width: 1024px) {
+  /* MÓVIL: fondo del navbar en blanco */
+  .navbar {
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* Asegurar contraste de enlaces en móvil (negro/brand) */
+  .navbar .navLink,
+  .navMenu.active .navLink,
+  .navMenu .dropdownItem {
+    color: #215ba0 !important;
+  }
   .navbarContainer {
     padding: 5px 20px;
     height: 64px;

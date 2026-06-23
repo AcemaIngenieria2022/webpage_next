@@ -3,8 +3,8 @@
 ========================= */
 .ribbon {
   position: fixed;
-  right: 32px;
-  bottom: 110px;
+  left: 30px;
+  bottom: 30px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -138,8 +138,8 @@
 ========================= */
 @media (max-width: 768px) {
   .ribbon {
-    right: 20px;
-    bottom: 90px;
+    left: 20px;
+    bottom: 20px;
     width: 48px;
     height: 48px;
     box-shadow: 
@@ -169,8 +169,8 @@
 ========================= */
 @media (max-width: 480px) {
   .ribbon {
-    right: 16px;
-    bottom: 80px;
+    left: 16px;
+    bottom: 16px;
     width: 44px;
     height: 44px;
   }
@@ -197,7 +197,7 @@
 @keyframes ribbonSlideIn {
   from {
     opacity: 0;
-    transform: translateX(40px) scale(0.8);
+    transform: translateX(-40px) scale(0.8);
   }
   to {
     opacity: 1;

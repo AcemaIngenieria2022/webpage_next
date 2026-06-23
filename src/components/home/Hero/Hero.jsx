@@ -83,6 +83,7 @@ function HeroSlider({ isMobile }) {
                 thumb={thumb}
                 alt={img.alt}
                 priority={i === 0}
+                loading={i === 0 ? 'eager' : 'lazy'}
                 quality={90}
                 sizes="100vw"
                 className={styles.heroImage}

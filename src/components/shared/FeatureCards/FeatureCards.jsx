@@ -8,7 +8,7 @@ import styles from './FeatureCards.module.css';
 
 const FeatureCards = ({ features = [], variant = 'slim' }) => {
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="sync">
       {features.map((f, i) => (
         <motion.div
           key={f.title}

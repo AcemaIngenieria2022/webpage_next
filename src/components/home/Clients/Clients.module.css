@@ -27,6 +27,8 @@
 
 .logoItem {
   width: 180px;
+  height: 80px;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,9 +36,17 @@
 
 .clientImage {
   max-width: 100%;
+  width: auto;
   height: auto;
   object-fit: contain;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Ensure the underlying <img> also gets auto dimensions (Next Image can wrap elements)
+   Use !important to override inline or library-applied sizing in dev. */
+.clientImage img {
+  width: auto !important;
+  height: auto !important;
 }
 
 .logoItem:hover .clientImage {
@@ -45,5 +55,5 @@
 
 @media (max-width: 768px) {
   .logosGrid { gap: 24px 32px; }
-  .logoItem { width: 140px; }
+  .logoItem { width: 140px; height: 64px; }
 }

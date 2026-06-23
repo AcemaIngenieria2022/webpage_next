@@ -32,7 +32,7 @@ export default function OptimizedImage({
         quality={quality}
         priority={priority}
         className={className}
-        onLoadingComplete={() => setLoaded(true)}
+        onLoad={() => setLoaded(true)}
         style={{
           objectFit: 'cover',
           objectPosition: 'center',

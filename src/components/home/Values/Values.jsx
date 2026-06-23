@@ -107,6 +107,7 @@ const Values = () => {
                       y1="8"
                       x2="12"
                       y2="16"
+                      initial={false}
                       animate={{
                         opacity: isHovered ? 0 : 1,
                         scaleY: isHovered ? 0 : 1,

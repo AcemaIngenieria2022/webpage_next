@@ -84,7 +84,8 @@ export default function ProjectDetail({ project }) {
             rel: 0, 
             playsinline: 1, 
             controls: 1, 
-            enablejsapi: 1 
+            enablejsapi: 1,
+            origin: window.location?.origin || location.origin
           },
           events: {
             onReady: (event) => {
@@ -315,7 +316,16 @@ export default function ProjectDetail({ project }) {
                     />
                   ) : videoEmbedUrl && !playerError ? (
                     <iframe
-                      src={videoEmbedUrl}
+                      src={(() => {
+                        try {
+                          const url = new URL(videoEmbedUrl);
+                          if (!url.search) url.search = `origin=${encodeURIComponent(window.location.origin)}`;
+                          else url.search += `&origin=${encodeURIComponent(window.location.origin)}`;
+                          return url.toString();
+                        } catch (e) {
+                          return videoEmbedUrl;
+                        }
+                      })()}
                       title="Video"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen

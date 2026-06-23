@@ -27,9 +27,9 @@ const Clients = () => {
             <Image 
               src={thumbs[client.logo] || client.logo} 
               alt={client.name}
-              width={180}
-              height={80}
+              fill
               className={styles.clientImage}
+              style={{ objectFit: 'contain' }}
               priority={index < 8}
             />
           </div>

@@ -4,6 +4,8 @@ const nextConfig = {
 
   images: {
     unoptimized: true,
+    // soportar calidades usadas en el proyecto: 70, 75, 80, 90
+    qualities: [70, 75, 80, 90],
   },
 };
 

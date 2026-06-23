@@ -32,8 +32,7 @@ const ProjectsToggle = ({ onFilterChange, className = "" }) => {
             }`}
             onClick={() => handleFilter("finalizados")}
           >
-            {activeFilter === "finalizados" && <div className={styles.activeBackground} />}
-
+            <div className={styles.activeBackground} aria-hidden="true" />
             <span>Finalizados</span>
           </button>
 
@@ -43,8 +42,7 @@ const ProjectsToggle = ({ onFilterChange, className = "" }) => {
             }`}
             onClick={() => handleFilter("desarrollo")}
           >
-            {activeFilter === "desarrollo" && <div className={styles.activeBackground} />}
-
+            <div className={styles.activeBackground} aria-hidden="true" />
             <span>En desarrollo</span>
           </button>
         </nav>

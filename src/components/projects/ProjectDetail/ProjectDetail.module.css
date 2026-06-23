@@ -54,6 +54,26 @@
   background: linear-gradient(90deg, #f3f3f3 0%, #e9e9e9 100%);
 }
 
+/* Spinner centered over the hero while loading */
+.heroSpinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.6);
+  border-top-color: rgba(64,163,53,0.95);
+  animation: spin 1s linear infinite;
+  z-index: 6;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 .heroImage {
   opacity: 0;
 }

@@ -236,9 +236,9 @@ export default function ProjectDetail({ project }) {
       {/* Toggle superior */}
       <motion.div 
         className={styles.toggleWrapper}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.45, delay: 0.1 }}
       >
         <ProjectsToggle
           className={styles.slugToggle}
@@ -417,6 +417,7 @@ function ProjectHeroImage({ project }) {
   const mapped = thumbs[project.heroImage];
   const [src, setSrc] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   // Preload the hero image to speed up rendering in the browser
   useEffect(() => {
@@ -441,7 +442,8 @@ function ProjectHeroImage({ project }) {
     // Mostrar la imagen original desde el inicio para evitar pixelado
     const initialSrc = project.heroImage || mapped;
     setSrc(initialSrc);
-    requestAnimationFrame(() => setVisible(true));
+    // no marcar visible hasta que la imagen haya cargado
+    setVisible(false);
   }, [mapped, project.heroImage]);
 
   if (!src) {
@@ -449,16 +451,24 @@ function ProjectHeroImage({ project }) {
   }
 
   return (
-    <Image
-      src={src}
-      alt={project.title}
-      fill
-      priority
-      loading="eager"
-      fetchPriority="high"
-      sizes="100vw"
-      quality={90}
-      className={`${styles.heroImage} ${visible ? styles.heroImageVisible : ''}`}
-    />
+    <>
+      {!visible && <div className={styles.heroSpinner} aria-hidden="true" />}
+      <Image
+        src={src}
+        alt={project.title}
+        fill
+        priority
+        loading="eager"
+        fetchPriority="high"
+        sizes="100vw"
+        quality={90}
+        className={`${styles.heroImage} ${visible ? styles.heroImageVisible : ''}`}
+        onLoadingComplete={() => {
+          setLoaded(true);
+          // small timeout to make transition smooth
+          setTimeout(() => setVisible(true), 50);
+        }}
+      />
+    </>
   );
 }

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import thumbs from '@/data/project-thumbs.json';
 import { useRouter } from 'next/navigation';
-// framer-motion removed for slug pages to avoid re-renders of the banner
+import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import ProjectsToggle from '@/components/shared/Toggle/ProjectsToggle';
 import ProjectMiniCarousel from '@/components/shared/ProjectMiniCarousel/ProjectMiniCarousel';
@@ -200,17 +200,51 @@ export default function ProjectDetail({ project }) {
 
   if (!project) return null;
 
-  // Animaciones deshabilitadas para evitar re-render del banner
+  // Variants para animación escalonada
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: [0.215, 0.610, 0.355, 1.000] } 
+    }
+  };
+
+  const specCardVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 15 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" } 
+    }
+  };
 
   return (
     <article className={styles.container}>
-      {/* Toggle superior (sin animaciones) */}
-      <div className={styles.toggleWrapper}>
+      {/* Toggle superior */}
+      <motion.div 
+        className={styles.toggleWrapper}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
         <ProjectsToggle
           className={styles.slugToggle}
           onFilterChange={(filter) => router.push(`/projects?filter=${filter}`)}
         />
-      </div>
+      </motion.div>
 
       {/* Sección Hero */}
       <section className={styles.heroSection}>
@@ -222,8 +256,13 @@ export default function ProjectDetail({ project }) {
           </div>
         ) : null}
         
-        {/* Curva SVG (sin animación) */}
-        <div className={styles.waveWrapper}>
+        {/* Curva SVG */}
+        <motion.div 
+          className={styles.waveWrapper}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+        >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path
               fill="#ffffff"
@@ -231,30 +270,40 @@ export default function ProjectDetail({ project }) {
               d="M0,192L80,213.3C160,235,320,277,480,261.3C640,245,800,171,960,154.7C1120,139,1280,181,1360,202.7L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
             ></path>
           </svg>
-        </div>
+        </motion.div>
       </section>
 
       {/* Contenido */}
       <div className={styles.contentWrapper}>
         <header className={styles.header}>
-          <div className={styles.titleBadge}>
+          <motion.div 
+            className={styles.titleBadge}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
             <h1>{project.title}</h1>
-          </div>
+          </motion.div>
         </header>
 
-        <div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <section className={styles.mainGrid}>
             {/* Columna de descripción */}
-            <div className={styles.descriptionColumn}>
+            <motion.div className={styles.descriptionColumn} variants={itemVariants}>
               {project.description.split(/\n{2,}/g).map((paragraph, index) => (
                 <p key={index} className={styles.textWithLines}>
                   {paragraph.trim()}
                 </p>
               ))}
-            </div>
+            </motion.div>
 
             {/* Columna de video - CORREGIDA */}
-            <div className={styles.videoColumn}>
+            <motion.div className={styles.videoColumn} variants={itemVariants}>
               <div className={styles.videoBox} ref={containerRef}>
                 {/* Wrapper interno para asegurar el contenido */}
                 <div className={styles.videoInnerWrapper}>
@@ -320,35 +369,44 @@ export default function ProjectDetail({ project }) {
                   ) : null}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </section>
 
           {/* Especificaciones */}
           <section className={styles.specsGrid}>
             {project.specs?.map((spec, i) => (
-              <div key={i} className={styles.specCard}>
+              <motion.div 
+                key={i} 
+                className={styles.specCard}
+                variants={specCardVariants}
+                whileHover={{ scale: 1.03, y: -4, boxShadow: "0 10px 25px rgba(0,0,0,0.08)" }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <span className={styles.specLabel}>{spec.label}</span>
                 <span className={styles.specValue}>{spec.value}</span>
-              </div>
+              </motion.div>
             ))}
           </section>
 
           {/* Footer */}
           <footer className={styles.footer}>
-            <p>{project.textfooter}</p>
-
-            <button
-              className={styles.ctaButton}
+            <motion.p variants={itemVariants}>{project.textfooter}</motion.p>
+            
+            <motion.button 
+              className={styles.ctaButton} 
               onClick={() => router.push('/contact')}
+              variants={itemVariants}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
             >
               Hacemos realidad tus proyectos
-            </button>
-
-            <div className={styles.carouselWrapper}>
+            </motion.button>
+            
+            <motion.div variants={itemVariants} className={styles.carouselWrapper}>
               <ProjectMiniCarousel images={carouselImages || [project.heroImage]} />
-            </div>
+            </motion.div>
           </footer>
-        </div>
+        </motion.div>
       </div>
     </article>
   );

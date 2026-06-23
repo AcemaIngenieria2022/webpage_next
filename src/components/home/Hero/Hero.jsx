@@ -11,19 +11,19 @@ import thumbs from '@/data/project-thumbs.json';
 ========================= */
 const HERO_IMAGES = [
   {
-    src: "/images/hero/img-prueba.png",
+    src: "/images/hero/img1-prueba.png",
     srcMobile: "/images/hero/movile-img1.webp",
     alt: "Proyecto ACEMA 1",
   },
   {
-    src: "/images/hero/img-prueba2.png",
-    srcMobile: "/images/hero/movile-img2.webp",
-    alt: "Proyecto ACEMA 2",
+     src: "/images/hero/img1-prueba.png",
+    srcMobile: "/images/hero/movile-img1.webp",
+    alt: "Proyecto ACEMA 1",
   },
   {
-    src: "/images/hero/img-prueba3.png",
-    srcMobile: "/images/hero/movile-img3.webp",
-    alt: "Proyecto ACEMA 3",
+     src: "/images/hero/img1-prueba.png",
+    srcMobile: "/images/hero/movile-img1.webp",
+    alt: "Proyecto ACEMA 1",
   },
 ];
 

@@ -9,6 +9,7 @@
   min-height: 70vh;
   overflow: hidden;
   isolation: isolate;
+  background-color: #ffffff;
 }
 
 /* =========================
@@ -29,7 +30,7 @@
   height: 100%;
   overflow: hidden;
   margin-top: 45px;
-  background: linear-gradient(90deg, #f6f6f6 0%, #efefef 100%);
+
 }
 
 .heroImage {

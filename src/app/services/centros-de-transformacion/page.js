@@ -13,8 +13,8 @@ export default function CentrosPage() {
   return (
     <main className={styles.servicePage}>
       <div className={styles.bannerBox}>
-        <Image src="/images/services/banner/centros-transformacion.webp" alt="Centros de transformación" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} priority />
-        <Image src="/images/services/banner/centros-movil.png" alt="Centros de transformación" fill className={styles.bannerImgMobile} sizes="100vw" quality={70} priority />
+        <Image src="/images/services/banner/centros-transformacion.webp" alt="Centros de transformación" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} priority fetchPriority="high" loading="eager" decoding="async" />
+        <Image src="/images/services/banner/centros-movil.png" alt="Centros de transformación" fill className={styles.bannerImgMobile} sizes="100vw" quality={70} priority fetchPriority="high" loading="eager" decoding="async" />
       </div>
 
       <section className={styles.content}>

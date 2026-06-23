@@ -12,8 +12,8 @@ export default function ConstruccionPage() {
   return (
     <main className={styles.servicePage}>
       <div className={styles.bannerBox}>
-        <Image src={thumbs['/images/services/banner/construccion-granjas.webp'] || '/images/services/banner/construccion-granjas.webp'} alt="Construcción de granjas" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={90} priority />
-        <Image src={thumbs['/images/services/banner/contruccion-movil.png'] || '/images/services/banner/contruccion-movil.png'} alt="Construcción de granjas" fill className={styles.bannerImgMobile} sizes="100vw" quality={90} priority />
+        <Image src={thumbs['/images/services/banner/construccion-granjas.webp'] || '/images/services/banner/construccion-granjas.webp'} alt="Construcción de granjas" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={90} priority fetchPriority="high" loading="eager" decoding="async" />
+        <Image src={thumbs['/images/services/banner/contruccion-movil.png'] || '/images/services/banner/contruccion-movil.png'} alt="Construcción de granjas" fill className={styles.bannerImgMobile} sizes="100vw" quality={90} priority fetchPriority="high" loading="eager" decoding="async" />
       </div>
 
       <section className={styles.featuresSection}>

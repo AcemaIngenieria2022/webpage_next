@@ -14,8 +14,8 @@ export default function ServicesPage() {
   return (
     <main className={styles.servicesPage}>
       <div className={styles.bannerBox}>
-        <Image src="/images/projects/banner/contruccion-granjas.webp" alt="Servicios" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} priority />
-        <Image src="/images/services/banner/contruccion-movil.png" alt="Servicios" fill className={styles.bannerImgMobile} sizes="100vw" quality={70} priority />
+        <Image src="/images/projects/banner/contruccion-granjas.webp" alt="Servicios" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} priority fetchPriority="high" loading="eager" decoding="async" />
+        <Image src="/images/services/banner/contruccion-movil.png" alt="Servicios" fill className={styles.bannerImgMobile} sizes="100vw" quality={70} priority fetchPriority="high" loading="eager" decoding="async" />
         <div className={styles.bannerOverlay}></div>
       </div>
 

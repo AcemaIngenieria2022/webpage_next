@@ -33,11 +33,12 @@ export default function OptimizedImage({
         priority={priority}
         className={className}
         onLoad={() => setLoaded(true)}
+        decoding={props.decoding ?? 'async'}
         style={{
           objectFit: 'cover',
           objectPosition: 'center',
           opacity: loaded ? 1 : 0,
-          transition: 'opacity 360ms ease'
+          transition: (priority || props.loading === 'eager' || props.fetchPriority === 'high') ? 'opacity 0ms' : 'opacity 360ms ease'
         }}
         {...props}
       />

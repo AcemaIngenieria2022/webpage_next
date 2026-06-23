@@ -31,6 +31,9 @@ const Clients = () => {
               className={styles.clientImage}
               style={{ objectFit: 'contain' }}
               priority={index < 8}
+              fetchPriority={index < 8 ? 'high' : 'auto'}
+              loading={index < 8 ? 'eager' : 'lazy'}
+              decoding="async"
             />
           </div>
         ))}

@@ -46,6 +46,9 @@ const Projects = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className={styles.projectImg}
                   priority={project.id <= 2}
+                  fetchPriority={project.id <= 2 ? 'high' : 'auto'}
+                  loading={project.id <= 2 ? 'eager' : 'lazy'}
+                  decoding="async"
                 />
               </div>
             </div>

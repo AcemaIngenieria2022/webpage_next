@@ -58,24 +58,6 @@ export default function Hero() {
 function HeroSlider({ isMobile }) {
   const [index, setIndex] = useState(0);
 
-  // Preload the LCP hero image (first slide) to speed up first paint
-  useEffect(() => {
-    try {
-      const first = HERO_IMAGES[0];
-      const src = isMobile && first.srcMobile ? first.srcMobile : first.src;
-      const existing = document.querySelector(`link[rel="preload"][href="${src}"]`);
-      if (!existing) {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = src;
-        document.head.appendChild(link);
-      }
-    } catch (e) {
-      // noop
-    }
-  }, [isMobile]);
-
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % HERO_IMAGES.length);
@@ -101,7 +83,6 @@ function HeroSlider({ isMobile }) {
                 thumb={thumb}
                 alt={img.alt}
                 priority={i === 0}
-                fetchPriority={i === 0 ? 'high' : 'auto'}
                 loading={i === 0 ? 'eager' : 'lazy'}
                 quality={90}
                 sizes="100vw"

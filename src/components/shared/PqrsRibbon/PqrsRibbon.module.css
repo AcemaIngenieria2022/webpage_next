@@ -8,8 +8,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px) saturate(1.4);
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
@@ -83,8 +83,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
  
   font-weight: 700;
   font-size: 0.85rem;

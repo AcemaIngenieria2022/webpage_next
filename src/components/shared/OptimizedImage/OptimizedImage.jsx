@@ -14,7 +14,8 @@ export default function OptimizedImage({
   ...props
 }) {
   const [loaded, setLoaded] = useState(false);
-  const bgStyle = thumb ? {
+  // show blurred/thumb background only while the main image is loading
+  const bgStyle = (!loaded && thumb) ? {
     backgroundImage: `url(${thumb})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',

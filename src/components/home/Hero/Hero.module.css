@@ -367,6 +367,45 @@
 }
 
 /* =========================
+   MOBILE: reducir/eliminar espacios verticales
+   Se aplica cuando el componente Hero está en modo 'mobile' (<=1024px)
+========================= */
+@media (max-width: 1024px) {
+  .hero {
+    margin-top: 0;
+    height: 100vh;
+    min-height: 0;
+  }
+
+  .imageWrapper {
+    margin-top: 0;
+  }
+
+  .heroContent {
+    bottom: 12px;
+  }
+
+  .scrollDown {
+    margin-bottom: 12px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .progressDots {
+    bottom: 12px;
+    gap: 8px;
+  }
+
+  .navPrev {
+    left: 12px;
+  }
+
+  .navNext {
+    right: 12px;
+  }
+}
+
+/* =========================
    ANIMATIONS
 ========================= */
 @keyframes floatArrow {

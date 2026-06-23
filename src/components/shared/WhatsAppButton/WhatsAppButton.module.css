@@ -26,8 +26,8 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   background-color: #40a335; /* Verde corporativo ACEMA */
   color: white;
   border: none;
@@ -52,7 +52,7 @@
 }
 
 .whatsappIcon {
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 
 /* Ajuste para dispositivos móviles */
@@ -60,7 +60,7 @@
   .whatsappButton {
     bottom: 20px;
     right: 20px;
-    width: 55px;
-    height: 55px;
+    width: 48px;
+    height: 48px;
   }
 }

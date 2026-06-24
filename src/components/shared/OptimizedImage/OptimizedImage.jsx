@@ -13,7 +13,11 @@ export default function OptimizedImage({
   className,
   ...props
 }) {
-  const [loaded, setLoaded] = useState(false);
+  // If the image is priority or explicitly eager, treat it as already loaded
+  // to avoid an initial fade-in (prevents hero 'parpadeo').
+  const initialLoaded = Boolean(priority || props.loading === 'eager');
+  const [loaded, setLoaded] = useState(initialLoaded);
+
   // show blurred/thumb background only while the main image is loading
   const bgStyle = (!loaded && thumb) ? {
     backgroundImage: `url(${thumb})`,

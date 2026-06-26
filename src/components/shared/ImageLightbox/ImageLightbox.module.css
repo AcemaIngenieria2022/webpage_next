@@ -58,6 +58,10 @@
   justify-content: center;
   position: relative;
   cursor: default;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 16px;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 /* Área de clic para navegar - izquierda */
@@ -124,6 +128,9 @@
 }
 
 .image {
+  display: block;
+  width: auto;
+  height: auto;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;

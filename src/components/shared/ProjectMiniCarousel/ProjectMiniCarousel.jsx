@@ -53,10 +53,9 @@ const ProjectMiniCarousel = ({ images = [] }) => {
 
   const baseLen = carouselImages.length;
 
-  // Prepare arrays for lightbox navigation (use the carouselImages array)
+  // Prepare arrays for lightbox navigation using the original images so the popup keeps quality.
   const allSrcs = carouselImages.map((image) => {
-    const s = typeof image === 'string' ? image : image?.src;
-    return thumbs[s] || s;
+    return typeof image === 'string' ? image : image?.src;
   });
   const allAlts = carouselImages.map((image, idx) => {
     return typeof image === 'string' ? `Proyecto imagen ${idx + 1}` : image?.alt || `Proyecto imagen ${idx + 1}`;

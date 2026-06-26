@@ -125,7 +125,7 @@ border-top: 1px solid rgba(33, 91, 160, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 .socialLabel {
@@ -137,7 +137,8 @@ border-top: 1px solid rgba(33, 91, 160, 0.3);
 
 .socialIcons {
   display: flex;
-  gap: 15px;
+  gap: 16px;
+  margin-top: 4px;
 }
 
 .socialLink {

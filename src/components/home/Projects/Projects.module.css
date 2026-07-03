@@ -17,9 +17,37 @@
   color: #43a335; /* Verde corporativo ACEMA */
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   text-align: left; /* Alineado a la izquierda según la imagen */
   letter-spacing: -1.5px;
+}
+
+.filterButtons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.filterButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  background-color: #ffffff;
+  border: 2px solid #43a335;
+  border-radius: 999px;
+  color: #43a335;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.filterButton:hover {
+  background-color: #43a335;
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .projectsGrid {

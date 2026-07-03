@@ -10,7 +10,7 @@ const HERO_IMAGES = [
   { src: "/images/hero/hero-img3.webp", srcMobile: "/images/hero/movile-img3.webp", alt: "Proyecto ACEMA 3" },
 ];
 
-const AUTOPLAY_DELAY = 4000;
+const AUTOPLAY_DELAY = 7000;
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);

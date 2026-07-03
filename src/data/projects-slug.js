@@ -21,18 +21,18 @@ export const projectsDetailsData = {
     description:
       "En Montería (Córdoba) se levanta La Rubiela, una granja solar de 1,25MWp que impulsa la transición energética y el desarrollo sostenible en la región. Este proyecto fortalece la generación distribuida y la independencia energética de las comunidades.\n\nAcema Ingeniería participó en la construcción e interconexión, asegurando calidad, seguridad y eficiencia en cada etapa. La Rubiela es hoy una fuente constante de energía limpia y un ejemplo del aporte de la ingeniería colombiana al desarrollo sostenible",
     heroImage: "/images/projects/finished/Rubiela.webp",
-    videoUrl: "https://www.youtube.com/watch?v=wQfgcVw0FAU",
+    videoUrl: "https://youtu.be/Wlcu6Au9W6E",
     specs: [
       {
-        label: "Ubicación:",
+        label: "Ubicación",
         value: "Montería, Córdoba, Colombia",
       },
       {
-        label: "Generación estimada:",
+        label: "Generación estimada",
         value: "1,83GWh/año",
       },
       {
-        label: "CO₂:",
+        label: "CO₂",
         value: "500 toneladas reducidas",
       },
     ],
@@ -53,16 +53,16 @@ export const projectsDetailsData = {
     videoUrl: "https://www.youtube.com/watch?v=1YIEjJ8IyFQ",
     specs: [
       {
-        label: "Ubicación:",
+        label: "Ubicación",
         value: "San Pelayo, Córdoba, Colombia",
       },
       {
-        label: "Generación estimada:",
+        label: "Generación estimada",
         value: "2,04GWh/año",
       },
        
       {
-        label: "CO₂:",
+        label: "CO₂",
         value: "501 toneladas reducidas",
       },
     ],
@@ -96,15 +96,15 @@ export const projectsDetailsData = {
     videoUrl: "https://www.youtube.com/watch?v=ZIl9fwrawJU",
     specs: [
       {
-        label: "Ubicación:",
+        label: "Ubicación",
         value: "Sampués (Sucre), Colombia",
       },
       {
-        label: "Generación estimada:",
+        label: "Generación estimada",
         value: "4,02GWh/año",
       },
       {
-        label: "CO₂:",
+        label: "CO₂",
         value: "502 toneladas reducidas",
       },
     ],
@@ -123,15 +123,15 @@ export const projectsDetailsData = {
     videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
-        label: "Ubicación:",
+        label: "Ubicación",
         value: "Montería, Córdoba, Colombia",
       },
       {
-        label: "Generación estimada:",
+        label: "Generación estimada",
         value: "3,65GWh/año",
       },
       {
-        label: "CO₂:",
+        label: "CO₂",
         value: "504 toneladas reducidas",
       },
     ],
@@ -150,15 +150,15 @@ export const projectsDetailsData = {
     videoUrl: "https://www.youtube.com/watch?v=inZovQXV3VQ",
     specs: [
       {
-        label: "Ubicación:",
+        label: "Ubicación",
         value: "Valledupar, Cesar, Colombia",
       },
       {
-        label: "Capacidad instalada:",
+        label: "Capacidad instalada",
         value: "1,436 MWp",
       },
       {
-        label: "CO₂:",
+        label: "CO₂",
         value: "8566,623 toneladas reducidas",
       },
     ],
@@ -201,15 +201,15 @@ export const projectsDetailsData = {
     videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
-        label: "Ubicación:",
+        label: "Ubicación",
         value: "Córdoba, Colombia",
       },
       {
-        label: "Capacidad Instalada:",
+        label: "Capacidad Instalada",
         value: "2.662 MWp",
       },
       {
-        label: "CO₂:",
+        label: "CO₂",
         value: "1.716 toneladas reducidas",
       },
     ],
@@ -228,15 +228,15 @@ export const projectsDetailsData = {
     videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
-        label: "Ubicación:",
+        label: "Ubicación",
         value: "Montería, Córdoba, Colombia",
       },
       {
-        label: "Capacidad Instalada:",
+        label: "Capacidad Instalada",
         value: "2.662 MWp",
       },
       {
-        label: "CO₂:",
+        label: "CO₂",
         value: "17,164 toneladas reducidas",
       },
     ],
@@ -255,15 +255,15 @@ export const projectsDetailsData = {
     videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
-        label: "Ubicación:",
+        label: "Ubicación",
         value: "Montería, Córdoba, Colombia",
       },
       {
-        label: "Capacidad Instalada:",
+        label: "Capacidad Instalada",
         value: "2.662 MWp",
       },
       {
-        label: "CO₂:",
+        label: "CO₂",
         value: "17,164 toneladas reducidas",
       },
     ],

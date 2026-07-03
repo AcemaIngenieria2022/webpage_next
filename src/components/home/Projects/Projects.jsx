@@ -69,6 +69,15 @@ const Projects = () => {
         {/* Título de la sección */}
         <h2 className={styles.projectsHeader}>Proyectos destacados</h2>
 
+        <div className={styles.filterButtons}>
+          <Link href="/projects?filter=finalizados" className={styles.filterButton}>
+            Finalizados
+          </Link>
+          <Link href="/projects?filter=desarrollo" className={styles.filterButton}>
+            En desarrollo
+          </Link>
+        </div>
+
         <div className={styles.projectsGrid}>
           {projectList.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />

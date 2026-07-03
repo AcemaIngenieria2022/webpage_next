@@ -6,7 +6,6 @@ import thumbs from '@/data/project-thumbs.json';
 const Clients = () => {
   const clientList = [
     { name: 'ERCO', logo: '/images/clients/erco.webp' },
-    { name: 'Suncolombia', logo: '/images/clients/sun.webp' },
     { name: 'URRÁ', logo: '/images/clients/urra.webp' },
     // { name: 'ABB', logo: '/images/clients/abb.webp' },
     // { name: 'GREEN', logo: '/images/clients/green.webp' },

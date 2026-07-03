@@ -70,16 +70,14 @@ const About = () => {
           }}
         >
             <motion.div className={styles.videoWrapper}>
-              <video
+              <iframe
                 className={styles.aboutVideo}
-                src="/video/video-about.mp4"
-                poster="/video/video-about-005.jpg"
-                controls
-                preload="metadata"
-                playsInline
-              >
-                Tu navegador no soporta el elemento de video.
-              </video>
+                src="https://www.youtube.com/embed/dSsJTkIXNMA"
+                title="¿Quienes somos? - Acema Ingeniería"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </motion.div>
         </motion.div>
 

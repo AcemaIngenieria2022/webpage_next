@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import styles from './Quality.module.css';
 
@@ -17,8 +20,34 @@ const qualityImages = [
 ];
 
 export default function Quality() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className={styles.section}>
+    <section
+      ref={sectionRef}
+      className={`${styles.section} ${isVisible ? styles.visible : styles.hidden}`}
+    >
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.textContent}>

@@ -3,6 +3,14 @@
   background: #ffffff;
   border-top: 1px solid #f0f4f8;
   border-bottom: 1px solid #f0f4f8;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .container {
@@ -16,6 +24,17 @@
   grid-template-columns: 1fr 200px;
   gap: 40px;
   align-items: center;
+  transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
+}
+
+.section.hidden .content {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.section.visible .content {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .textContent {
@@ -53,6 +72,17 @@
   flex-direction: column;
   gap: 12px;
   align-items: center;
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.section.hidden .imageGallery {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.section.visible .imageGallery {
+  opacity: 1;
+  transform: translateY(0);
 }
  
 

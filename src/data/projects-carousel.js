@@ -132,57 +132,6 @@ export const projectsCarouselData = {
       }
     ]
   },
-  'salamina': {
-    slug: 'salamina',
-    images: [
-      {
-        src: '/images/projects/carousel/salamina/salamina1.webp',
-        alt: 'Proyecto Salamina - Vista 1'
-      },
-      {
-        src: '/images/projects/carousel/salamina/salamina2.webp',
-        alt: 'Proyecto Salamina - Vista 2'
-      },
-      {
-        src: '/images/projects/carousel/salamina/salamina3.webp',
-        alt: 'Proyecto Salamina - Vista 3'
-      }
-    ]
-  },
-  'urra': {
-    slug: 'urra',
-    images: [
-      {
-        src: '/images/projects/carousel/urra/urra1.webp',
-        alt: 'Proyecto Urrá - Vista 1'
-      },
-      {
-        src: '/images/projects/carousel/urra/urra2.webp',
-        alt: 'Proyecto Urrá - Vista 2'
-      },
-      {
-        src: '/images/projects/carousel/urra/urra3.webp',
-        alt: 'Proyecto Urrá - Vista 3'
-      }
-    ]
-  },
-  'sol-y-cielo': {
-    slug: 'sol-y-cielo',
-    images: [
-      {
-        src: '/images/projects/carousel/sol/sol1.webp',
-        alt: 'Proyecto Sol y Cielo - Vista 1'
-      },
-      {
-        src: '/images/projects/carousel/sol/sol2.webp',
-        alt: 'Proyecto Sol y Cielo - Vista 2'
-      },
-      {
-        src: '/images/projects/carousel/sol/sol3.webp',
-        alt: 'Proyecto Sol y Cielo - Vista 3'
-      }
-    ]
-  },
   'emperatriz-i-y-ii': {
     slug: 'emperatriz-i-y-ii',
     images: [

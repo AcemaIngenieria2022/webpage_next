@@ -1,6 +1,7 @@
 .aboutSection {
-  padding: 100px 0;
+  padding: 100px 0 70px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 450px;
@@ -21,11 +22,11 @@
 }
 
 .aboutTitle {
-  color: #43a335; /* Verde corporativo ACEMA */
+  color: #43a335;
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 25px;
-  letter-spacing: -2px; /* Ajuste para look moderno */
+  letter-spacing: -2px;
   line-height: 1;
 }
 
@@ -44,9 +45,100 @@
   width: 100%;
 }
 
+/* ===== ESTADÍSTICAS MEJORADAS ===== */
+.statsSection {
+  margin-top: 48px;
+  width: min(1200px, 90%);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.statCard {
+  background: linear-gradient(135deg, #f7fcf6 0%, #eef8ec 100%);
+  border: 1px solid rgba(67, 163, 53, 0.15);
+  border-radius: 20px;
+  padding: 28px 20px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto hover mejorado */
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(67, 163, 53, 0.15);
+  border-color: rgba(67, 163, 53, 0.3);
+  cursor: pointer;
+}
+
+/* Línea decorativa en la parte superior */
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #215ba0;
+  border-radius: 0 0 3px 3px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.statCard:hover::before {
+  opacity: 1;
+}
+
+.statValue {
+  color: #43a335;
+  font-size: 2.6rem; /* Aumentado para más impacto */
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums; /* Mejor alineación de números */
+  letter-spacing: -1px;
+}
+
+/* Pequeño efecto de pulso sutil al finalizar la animación */
+.statValue.animated {
+  animation: subtlePulse 2s ease-in-out infinite;
+}
+
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.statLabel {
+  color: #4b5563;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Icono decorativo opcional para cada estadística */
+.statCard .statIcon {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+  display: block;
+  opacity: 0.6;
+}
+
+/* ===== FIN ESTADÍSTICAS MEJORADAS ===== */
+
 .videoWrapper {
   overflow: hidden;
-  padding-bottom: 56.25%; /* Ratio 16:9 perfecto */
+  padding-bottom: 56.25%;
   position: relative;
   height: 0;
   border-radius: 12px;
@@ -61,7 +153,6 @@
   position: absolute;
 }
 
-/* Make native <video> match iframe sizing and behavior */
 .videoWrapper video {
   left: 0;
   top: 0;
@@ -89,5 +180,38 @@
 
   .aboutVideoSide {
     max-width: 600px;
+  }
+
+  .statsSection {
+    grid-template-columns: 1fr;
+    width: min(560px, 90%);
+    gap: 16px;
+  }
+
+  .statCard {
+    padding: 20px;
+  }
+
+  .statValue {
+    font-size: 2.2rem;
+  }
+}
+
+/* Mejoras para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .aboutTitle {
+    font-size: 2.5rem;
+  }
+
+  .aboutBody p {
+    font-size: 1rem;
+  }
+
+  .statValue {
+    font-size: 2rem;
+  }
+
+  .statLabel {
+    font-size: 0.85rem;
   }
 }

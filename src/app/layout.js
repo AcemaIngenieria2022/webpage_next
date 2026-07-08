@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar/Navbar';
 import Footer from '@/components/layout/Footer/Footer';
 import WhatsAppButton from '@/components/shared/WhatsAppButton/WhatsAppButton';
 import PqrsRibbon from '@/components/shared/PqrsRibbon/PqrsRibbon';
+import LineaEticaRibbon from '@/components/shared/LineaEticaRibbon/LineaEticaRibbon';
 import "./globals.css";
  
 const geistSans = Geist({
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
         </div>
         <Footer />
         <PqrsRibbon />
+        <LineaEticaRibbon />
         <WhatsAppButton />
       </body>
     </html>

@@ -13,6 +13,7 @@ import styles from './ProjectDetail.module.css';
 export default function ProjectDetail({ project }) {
   const router = useRouter();
   const carouselImages = getCarouselImagesBySlug(project?.slug);
+  const hasCarouselImages = Array.isArray(carouselImages) && carouselImages.length > 0;
   
   // Normaliza distintas formas de URL de YouTube a la forma embebible
   function toEmbedUrl(url) {
@@ -54,6 +55,7 @@ export default function ProjectDetail({ project }) {
   const youtubeId = getYouTubeId(project.videoUrl || videoEmbedUrl);
   const youtubeWatchUrl = youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : null;
   const youtubeThumb = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
+  const hasVideo = Boolean(project.videoUrl);
 
   const playerRef = useRef(null);
   const playerInstanceRef = useRef(null);
@@ -293,7 +295,7 @@ export default function ProjectDetail({ project }) {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <section className={styles.mainGrid}>
+          <section className={`${styles.mainGrid} ${!hasVideo ? styles.singleColumnGrid : ''}`}>
             {/* Columna de descripción */}
             <motion.div className={styles.descriptionColumn} variants={itemVariants}>
               {project.description.split(/\n{2,}/g).map((paragraph, index) => (
@@ -303,83 +305,85 @@ export default function ProjectDetail({ project }) {
               ))}
             </motion.div>
 
-            {/* Columna de video - CORREGIDA */}
-            <motion.div className={styles.videoColumn} variants={itemVariants}>
-              <div className={styles.videoBox} ref={containerRef}>
-                {/* Wrapper interno para asegurar el contenido */}
-                <div className={styles.videoInnerWrapper}>
-                  {youtubeId && !playerError ? (
-                    <div 
-                      id={`youtube-player-${youtubeId}`} 
-                      ref={playerRef} 
-                      className={styles.youtubePlayer}
-                    />
-                  ) : videoEmbedUrl && !playerError ? (
-                    <iframe
-                      src={(() => {
-                        try {
-                          const url = new URL(videoEmbedUrl);
-                          if (!url.search) url.search = `origin=${encodeURIComponent(window.location.origin)}`;
-                          else url.search += `&origin=${encodeURIComponent(window.location.origin)}`;
-                          return url.toString();
-                        } catch (e) {
-                          return videoEmbedUrl;
-                        }
-                      })()}
-                      title="Video"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className={styles.videoIframe}
-                    />
-                  ) : null}
+            {/* Columna de video - solo si hay video registrado */}
+            {hasVideo ? (
+              <motion.div className={styles.videoColumn} variants={itemVariants}>
+                <div className={styles.videoBox} ref={containerRef}>
+                  {/* Wrapper interno para asegurar el contenido */}
+                  <div className={styles.videoInnerWrapper}>
+                    {youtubeId && !playerError ? (
+                      <div 
+                        id={`youtube-player-${youtubeId}`} 
+                        ref={playerRef} 
+                        className={styles.youtubePlayer}
+                      />
+                    ) : videoEmbedUrl && !playerError ? (
+                      <iframe
+                        src={(() => {
+                          try {
+                            const url = new URL(videoEmbedUrl);
+                            if (!url.search) url.search = `origin=${encodeURIComponent(window.location.origin)}`;
+                            else url.search += `&origin=${encodeURIComponent(window.location.origin)}`;
+                            return url.toString();
+                          } catch (e) {
+                            return videoEmbedUrl;
+                          }
+                        })()}
+                        title="Video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className={styles.videoIframe}
+                      />
+                    ) : null}
 
-                  {/* Fallback */}
-                  {youtubeThumb && youtubeWatchUrl && (playerError || !videoEmbedUrl) ? (
-                    <div className={styles.videoFallback}>
-                      <button
-                        type="button"
-                        onClick={() => setShowFallbackModal(true)}
-                        className={styles.videoThumbButton}
-                        aria-label={`Abrir opciones de video para ${project.title}`}
-                      >
-                        <img src={youtubeThumb} alt={`Ver ${project.title} en YouTube`} className={styles.videoThumb} />
-                      </button>
-                      <p className={styles.videoFallbackText}>
-                        Este video puede estar bloqueado para reproducción embebida. Pulsa la miniatura para ver opciones.
-                      </p>
+                    {/* Fallback */}
+                    {youtubeThumb && youtubeWatchUrl && (playerError || !videoEmbedUrl) ? (
+                      <div className={styles.videoFallback}>
+                        <button
+                          type="button"
+                          onClick={() => setShowFallbackModal(true)}
+                          className={styles.videoThumbButton}
+                          aria-label={`Abrir opciones de video para ${project.title}`}
+                        >
+                          <img src={youtubeThumb} alt={`Ver ${project.title} en YouTube`} className={styles.videoThumb} />
+                        </button>
+                        <p className={styles.videoFallbackText}>
+                          Este video puede estar bloqueado para reproducción embebida. Pulsa la miniatura para ver opciones.
+                        </p>
 
-                      {showFallbackModal && (
-                        <div className={styles.fallbackModal} role="dialog" aria-modal="true">
-                          <div className={styles.fallbackModalContent}>
-                            <h3>Video no reproducible aquí</h3>
-                            <p>El propietario del video ha restringido la reproducción embebida. Puedes verlo en YouTube.</p>
-                            <div className={styles.fallbackModalActions}>
-                              <a href={youtubeWatchUrl} target="_blank" rel="noopener noreferrer" className={styles.primaryButton}>
-                                Ver en YouTube
-                              </a>
-                              <button 
-                                type="button" 
-                                onClick={() => { navigator.clipboard?.writeText(youtubeWatchUrl); }} 
-                                className={styles.secondaryButton}
-                              >
-                                Copiar enlace
-                              </button>
-                              <button 
-                                type="button" 
-                                onClick={() => setShowFallbackModal(false)} 
-                                className={styles.ghostButton}
-                              >
-                                Cerrar
-                              </button>
+                        {showFallbackModal && (
+                          <div className={styles.fallbackModal} role="dialog" aria-modal="true">
+                            <div className={styles.fallbackModalContent}>
+                              <h3>Video no reproducible aquí</h3>
+                              <p>El propietario del video ha restringido la reproducción embebida. Puedes verlo en YouTube.</p>
+                              <div className={styles.fallbackModalActions}>
+                                <a href={youtubeWatchUrl} target="_blank" rel="noopener noreferrer" className={styles.primaryButton}>
+                                  Ver en YouTube
+                                </a>
+                                <button 
+                                  type="button" 
+                                  onClick={() => { navigator.clipboard?.writeText(youtubeWatchUrl); }} 
+                                  className={styles.secondaryButton}
+                                >
+                                  Copiar enlace
+                                </button>
+                                <button 
+                                  type="button" 
+                                  onClick={() => setShowFallbackModal(false)} 
+                                  className={styles.ghostButton}
+                                >
+                                  Cerrar
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  ) : null}
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ) : null}
           </section>
 
           {/* Especificaciones */}
@@ -412,9 +416,11 @@ export default function ProjectDetail({ project }) {
               Hacemos realidad tus proyectos
             </motion.button>
             
-            <motion.div variants={itemVariants} className={styles.carouselWrapper}>
-              <ProjectMiniCarousel images={carouselImages || [project.heroImage]} />
-            </motion.div>
+            {hasCarouselImages ? (
+              <motion.div variants={itemVariants} className={styles.carouselWrapper}>
+                <ProjectMiniCarousel images={carouselImages} />
+              </motion.div>
+            ) : null}
           </footer>
         </motion.div>
       </div>

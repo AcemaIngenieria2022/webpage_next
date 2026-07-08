@@ -8,7 +8,7 @@ const Projects = () => {
     {
       id: 1,
       name: "Granja solar",
-      location: "La Rubiela 0,9 MW",
+      location: "La Rubiela (0,9 MW)",
       image: "/images/projects/featured/img-rubiela.webp",
       thumb: "/images/projects/featured/thumbs/img-rubiela-800.webp",
       url: "/projects/la-rubiela",
@@ -16,7 +16,7 @@ const Projects = () => {
     {
       id: 2,
       name: "Granja solar",
-      location: "San Pelayo 0,99 MW",
+      location: "San Pelayo (0,09 MW)",
       image: "/images/projects/featured/img-pelayo.webp",
       thumb: "/images/projects/featured/thumbs/img-pelayo-800.webp",
       url: "/projects/san-pelayo",
@@ -24,7 +24,7 @@ const Projects = () => {
     {
       id: 3,
       name: "Granja solar",
-      location: "Piedras 1 y 2 0,9 MW",
+      location: "Piedras I y II (2 MW)",
       image: "/images/projects/featured/proyecto3.webp",
       thumb: "/images/projects/featured/thumbs/proyecto3-800.webp",
       url: "/projects/piedras-i-y-ii",

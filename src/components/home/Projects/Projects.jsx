@@ -2,6 +2,7 @@ import Image from "next/image";
 import OptimizedImage from '@/components/shared/OptimizedImage/OptimizedImage';
 import Link from "next/link";
 import styles from "./Projects.module.css";
+import thumbs from '@/data/project-thumbs.json';
 
 const Projects = () => {
   const projectList = [
@@ -10,7 +11,7 @@ const Projects = () => {
       name: "Granja solar",
       location: "La Rubiela (0,9 MW)",
       image: "/images/projects/featured/img-rubiela.webp",
-      thumb: "/images/projects/featured/thumbs/img-rubiela-800.webp",
+      thumb: "/images/projects/featured/thumbs/img-rubiela-480.webp",
       url: "/projects/la-rubiela",
     },
     {
@@ -18,7 +19,7 @@ const Projects = () => {
       name: "Granja solar",
       location: "San Pelayo (0,09 MW)",
       image: "/images/projects/featured/img-pelayo.webp",
-      thumb: "/images/projects/featured/thumbs/img-pelayo-800.webp",
+      thumb: "/images/projects/featured/thumbs/img-pelayo-480.webp",
       url: "/projects/san-pelayo",
     },
     {
@@ -26,7 +27,7 @@ const Projects = () => {
       name: "Granja solar",
       location: "Piedras I y II (2 MW)",
       image: "/images/projects/featured/proyecto3.webp",
-      thumb: "/images/projects/featured/thumbs/proyecto3-800.webp",
+      thumb: "/images/projects/featured/thumbs/proyecto3-480.webp",
       url: "/projects/piedras-i-y-ii",
     },
   ];
@@ -40,8 +41,8 @@ const Projects = () => {
             <div className={styles.imageContainer}>
                 <div style={{ width: "100%", height: "100%", position: "relative" }} suppressHydrationWarning>
                 <OptimizedImage
-                  src={project.image}
-                  thumb={project.thumb}
+                  src={thumbs[project.image] || project.image}
+                  thumb={thumbs[project.thumb] || project.thumb}
                   alt={`${project.name} - ${project.location}`}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className={styles.projectImg}

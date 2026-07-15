@@ -100,16 +100,6 @@ const Navbar = () => {
         </Link>
 
         <div className={`${styles.navMenu} ${isOpen ? styles.active : ''}`}>
-          <button
-            type="button"
-            className={`${styles.reportButton} ${isScrolled ? styles.reportButtonScrolled : ''}`}
-            onClick={handleSendWeeklyReport}
-            disabled={isSendingReport}
-            aria-label="Simular envío del informe semanal"
-          >
-            {isSendingReport ? 'Enviando...' : 'Reporte'}
-          </button>
-
           <Link href="/" className={`${styles.navLink} ${isScrolled ? styles.linkScrolled : ''} ${isActive('/') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Inicio</span>
           </Link>

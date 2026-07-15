@@ -328,7 +328,7 @@ export const projectsDetailsData = {
     description:
       "Las Granjas Solares San Onofre I, II y III representan un importante avance para la generación de energía renovable en Colombia, fortaleciendo la infraestructura energética del país mediante tres proyectos de generación distribuida que hoy aportan energía limpia y sostenible. En estos proyectos, Acema Ingeniería fue responsable del desarrollo de la ingeniería detallada, la elaboración de especificaciones técnicas y el suministro y ensamblaje de tableros, centros de transformación, sistemas de protección y demás equipos eléctricos. Además, ejecutó el montaje electromecánico, las pruebas especializadas, así como la puesta en servicio e interconexión de las tres plantas, garantizando el cumplimiento de los requisitos técnicos del operador de red y permitiendo su exitosa energización.",
     heroImage: "/images/projects/developing/sanonofre.webp",
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
+    videoUrl: "https://www.youtube.com/watch?v=BBotymwcKM4",
     specs: [
       {
         label: "Ubicación",

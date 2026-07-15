@@ -29,8 +29,8 @@ async function processImage(fullPath) {
     const base = path.basename(fullPath, ext);
     const thumbsDir = path.join(dir, 'thumbs');
     if (!fs.existsSync(thumbsDir)) fs.mkdirSync(thumbsDir);
-    const out = path.join(thumbsDir, `${base}-800.webp`);
-    await sharp(fullPath).resize({ width: 800 }).webp({ quality: 75 }).toFile(out);
+    const out = path.join(thumbsDir, `${base}-480.webp`);
+    await sharp(fullPath).resize({ width: 480 }).webp({ quality: 68 }).toFile(out);
     outMap[relPublic(fullPath)] = relPublic(out);
     console.log('Thumb created', out);
   } catch (e) {

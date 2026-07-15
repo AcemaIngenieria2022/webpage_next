@@ -131,6 +131,30 @@ export const projectsCarouselData = {
       {
         src: '/images/projects/carousel/piedras/piedras3.webp',
         alt: 'Proyecto Piedras I y II - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/piedras/piedras4.webp',
+        alt: 'Proyecto Piedras I y II - Vista 4'
+      },
+      {
+        src: '/images/projects/carousel/piedras/piedras5.webp',
+        alt: 'Proyecto Piedras I y II - Vista 5'
+      },
+      {
+        src: '/images/projects/carousel/piedras/piedras6.webp',
+        alt: 'Proyecto Piedras I y II - Vista 6'
+      },
+      {
+        src: '/images/projects/carousel/piedras/piedras7.webp',
+        alt: 'Proyecto Piedras I y II - Vista 7'
+      },
+      {
+        src: '/images/projects/carousel/piedras/piedras8.webp',
+        alt: 'Proyecto Piedras I y II - Vista 8'
+      },
+      {
+        src: '/images/projects/carousel/piedras/piedras9.webp',
+        alt: 'Proyecto Piedras I y II - Vista 9'
       }
     ]
   },
@@ -182,6 +206,34 @@ export const projectsCarouselData = {
       {
         src: '/images/projects/carousel/emperatriz/emperatriz3.webp',
         alt: 'Proyecto Emperatriz I y II - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/emperatriz/emperatriz4.webp',
+        alt: 'Proyecto Emperatriz I y II - Vista 4'
+      },
+      {
+        src: '/images/projects/carousel/emperatriz/emperatriz5.webp',
+        alt: 'Proyecto Emperatriz I y II - Vista 5'
+      },
+      {
+        src: '/images/projects/carousel/emperatriz/emperatriz6.webp',
+        alt: 'Proyecto Emperatriz I y II - Vista 6'
+      },
+      {
+        src: '/images/projects/carousel/emperatriz/emperatriz7.webp',
+        alt: 'Proyecto Emperatriz I y II - Vista 7'
+      },
+      {
+        src: '/images/projects/carousel/emperatriz/emperatriz8.webp',
+        alt: 'Proyecto Emperatriz I y II - Vista 8'
+      },
+      {
+        src: '/images/projects/carousel/emperatriz/emperatriz9.webp',
+        alt: 'Proyecto Emperatriz I y II - Vista 9'
+      },
+      {
+        src: '/images/projects/carousel/emperatriz/emperatriz10.webp',
+        alt: 'Proyecto Emperatriz I y II - Vista 10'
       }
     ]
   },
@@ -199,6 +251,46 @@ export const projectsCarouselData = {
       {
         src: '/images/projects/carousel/coralito/coralito3.webp',
         alt: 'Proyecto Coralito y Golondrina - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito4.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 4'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito5.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 5'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito6.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 6'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito7.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 7'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito8.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 8'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito9.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 9'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito10.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 10'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito11.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 11'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito12.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 12'
+      },
+      {
+        src: '/images/projects/carousel/coralito/coralito13.webp',
+        alt: 'Proyecto Coralito y Golondrina - Vista 13'
       }
     ]
   },
@@ -240,16 +332,28 @@ export const projectsCarouselData = {
     slug: 'granjas-solares-san-onofre-i-ii-y-iii',
     images: [
       {
-        src: '/images/projects/carousel/sanonofre/sanonofre1.webp',
+        src: '/images/projects/carousel/onofre/onofre1.webp',
         alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 1'
       },
       {
-        src: '/images/projects/carousel/sanonofre/sanonofre2.webp',
+        src: '/images/projects/carousel/onofre/onofre2.webp',
         alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 2'
       },
       {
-        src: '/images/projects/carousel/sanonofre/sanonofre3.webp',
+        src: '/images/projects/carousel/onofre/onofre3.webp',
         alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/onofre/onofre4.webp',
+        alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 4'
+      },
+      {
+        src: '/images/projects/carousel/onofre/onofre5.webp',
+        alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 5'
+      },
+      {
+        src: '/images/projects/carousel/onofre/onofre6.webp',
+        alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 6'
       }
     ]
   },

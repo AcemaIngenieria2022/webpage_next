@@ -11,12 +11,12 @@ export const projectsData = [
   { id: 9, title: 'Sol y cielo', slug: 'sol-y-cielo', status: 'finalizados', image: '/images/projects/finished/solycielo.webp' },
   { id: 10, title: 'Emperatriz I y II', slug: 'emperatriz-i-y-ii', status: 'finalizados', image: '/images/projects/finished/emperatriz.webp' },
   { id: 11, title: 'Coralito y Golondrina', slug: 'coralito-y-golondrina', status: 'finalizados', image: '/images/projects/finished/coralito.webp' },
+  { id: 12, title: 'Granjas Solares San Onofre I, II y III', slug: 'granjas-solares-san-onofre-i-ii-y-iii', status: 'finalizados', image: '/images/projects/developing/sanonofre.webp' },
   
   
 // --- EN DESARROLLO ---
-  { id: 12, title: 'Puerto Libertador', slug: 'puerto-libertador', status: 'desarrollo', image: '/images/projects/developing/libertador.webp' },
-  { id: 13, title: 'Lorica 1 - 8', slug: 'lorica-1-8', status: 'desarrollo', image: '/images/projects/developing/lorica.webp' },
-  { id: 14, title: 'San Onofre I, II y III', slug: 'san-onofre-i-ii-y-iii', status: 'desarrollo', image: '/images/projects/developing/sanonofre.webp' },
+  { id: 13, title: 'Puerto Libertador', slug: 'puerto-libertador', status: 'desarrollo', image: '/images/projects/developing/libertador.webp' },
+  { id: 14, title: 'Lorica 1 - 8', slug: 'lorica-1-8', status: 'desarrollo', image: '/images/projects/developing/lorica.webp' },
   { id: 15, title: 'Tierra Alta I y II', slug: 'tierra-alta-i-y-ii', status: 'desarrollo', image: '/images/projects/developing/tierraalta.webp' },
   { id: 16, title: 'Cementera', slug: 'cementera', status: 'desarrollo', image: '/images/projects/developing/cementera.webp' },
   { id: 17, title: 'Laureles 1 - 4', slug: 'laureles-1-4', status: 'desarrollo', image: '/images/projects/developing/laureles.webp' },

@@ -321,26 +321,26 @@ export const projectsDetailsData = {
     year: 2024,
   },
 
-  "san-onofre-i-ii-y-iii": {
-    title: "Granja Solar San Onofre I, II y III",
-    slug: "san-onofre-i-ii-y-iii",
-    status: "desarrollo",
+  "granjas-solares-san-onofre-i-ii-y-iii": {
+    title: "Granjas Solares San Onofre I, II y III",
+    slug: "granjas-solares-san-onofre-i-ii-y-iii",
+    status: "finalizados",
     description:
-      "En Acema ingeniería ejecutamos impulsiando la transición energética del país mediante la construcción de diversas granjas solares distribuidas para conectar y beneficiarse a nivel local.",
+      "Las Granjas Solares San Onofre I, II y III representan un importante avance para la generación de energía renovable en Colombia, fortaleciendo la infraestructura energética del país mediante tres proyectos de generación distribuida que hoy aportan energía limpia y sostenible. En estos proyectos, Acema Ingeniería fue responsable del desarrollo de la ingeniería detallada, la elaboración de especificaciones técnicas y el suministro y ensamblaje de tableros, centros de transformación, sistemas de protección y demás equipos eléctricos. Además, ejecutó el montaje electromecánico, las pruebas especializadas, así como la puesta en servicio e interconexión de las tres plantas, garantizando el cumplimiento de los requisitos técnicos del operador de red y permitiendo su exitosa energización.",
     heroImage: "/images/projects/developing/sanonofre.webp",
     videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación",
-        value: "Sucre, Colombia",
+        value: "San Onofre, Sucre, Colombia",
       },
       {
-        label: "Capacidad Proyectada",
-        value: "2.662 MWp",
+        label: "Generación estimada",
+        value: "6,03 GWh/año",
       },
       {
-        label: "CO₂ a reducir",
-        value: "1.716 toneladas/año",
+        label: "CO₂",
+        value: "26.765 toneladas reducidas al año",
       },
     ],
     gallery: ["/images/projects/developing/sanonofre.webp"],

@@ -236,20 +236,20 @@ export const projectsCarouselData = {
       }
     ]
   },
-  'san-onofre-i-ii-y-iii': {
-    slug: 'san-onofre-i-ii-y-iii',
+  'granjas-solares-san-onofre-i-ii-y-iii': {
+    slug: 'granjas-solares-san-onofre-i-ii-y-iii',
     images: [
       {
         src: '/images/projects/carousel/sanonofre/sanonofre1.webp',
-        alt: 'Proyecto San Onofre I, II y III - Vista 1'
+        alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 1'
       },
       {
         src: '/images/projects/carousel/sanonofre/sanonofre2.webp',
-        alt: 'Proyecto San Onofre I, II y III - Vista 2'
+        alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 2'
       },
       {
         src: '/images/projects/carousel/sanonofre/sanonofre3.webp',
-        alt: 'Proyecto San Onofre I, II y III - Vista 3'
+        alt: 'Proyecto Granjas Solares San Onofre I, II y III - Vista 3'
       }
     ]
   },

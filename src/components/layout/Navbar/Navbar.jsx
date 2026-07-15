@@ -9,6 +9,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSendingReport, setIsSendingReport] = useState(false);
+  const [reportStatus, setReportStatus] = useState('');
   const timeoutRef = useRef(null);
 
   // --- FUNCIÓN isActive (DEBE ESTAR AQUÍ DENTRO) ---
@@ -49,6 +51,35 @@ const Navbar = () => {
     }
   };
 
+  const handleSendWeeklyReport = async () => {
+    try {
+      setIsSendingReport(true);
+      setReportStatus('');
+
+      const response = await fetch('/api/reports/weekly', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ days: 7 }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || 'No se pudo enviar el informe.');
+      }
+
+      setReportStatus('Informe enviado');
+    } catch (error) {
+      setReportStatus(error.message || 'Error al enviar el informe');
+    } finally {
+      setIsSendingReport(false);
+      window.setTimeout(() => {
+        setReportStatus('');
+      }, 4000);
+    }
+  };
+
   return (
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.navbarContainer}>
@@ -69,6 +100,16 @@ const Navbar = () => {
         </Link>
 
         <div className={`${styles.navMenu} ${isOpen ? styles.active : ''}`}>
+          <button
+            type="button"
+            className={`${styles.reportButton} ${isScrolled ? styles.reportButtonScrolled : ''}`}
+            onClick={handleSendWeeklyReport}
+            disabled={isSendingReport}
+            aria-label="Simular envío del informe semanal"
+          >
+            {isSendingReport ? 'Enviando...' : 'Reporte'}
+          </button>
+
           <Link href="/" className={`${styles.navLink} ${isScrolled ? styles.linkScrolled : ''} ${isActive('/') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Inicio</span>
           </Link>
@@ -116,6 +157,12 @@ const Navbar = () => {
         >
           <span></span><span></span><span></span>
         </button>
+
+        {reportStatus && (
+          <div className={styles.reportStatus} role="status" aria-live="polite">
+            {reportStatus}
+          </div>
+        )}
       </div>
     </nav>
   );

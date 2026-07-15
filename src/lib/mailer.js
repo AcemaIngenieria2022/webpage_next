@@ -1,6 +1,8 @@
 import nodemailer from 'nodemailer';
 import path from 'path';
 import fs from 'fs';
+import * as XLSX from 'xlsx';
+import { pool } from './db';
 import { sanitizeForEmail } from './inputUtils';
 
 // ==========================================
@@ -14,7 +16,9 @@ const DEPARTMENTS = {
   solar: process.env.EMAIL_TO_SOLAR || '',
   electric: process.env.EMAIL_TO_ELECTRIC || '',
   pqrs: process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
-  etica: process.env.EMAIL_TO_ETICA || process.env.EMAIL_TO_CONTACTO || ''
+  etica: process.env.EMAIL_TO_ETICA || process.env.EMAIL_TO_CONTACTO || '',
+  info: process.env.EMAIL_TO_INFO || process.env.EMAIL_TO_REPORTES || process.env.EMAIL_TO_CONTACTO || '',
+  reportes: process.env.EMAIL_TO_REPORTES || process.env.EMAIL_TO_INFO || process.env.EMAIL_TO_CONTACTO || ''
 };
 
 const host = process.env.EMAIL_HOST || 'smtp-mail.outlook.com';
@@ -82,6 +86,129 @@ async function sendMailWithFallback(mailOptions) {
     }
   }
   throw lastError;
+}
+
+function normalizeEmailList(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.filter(Boolean);
+
+  return String(value)
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function formatDateForReport(value) {
+  if (!value) return '—';
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
+function formatDateOnlyForReport(value) {
+  if (!value) return '—';
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
+function formatBooleanForReport(value) {
+  return value === true || value === 'true' || value === 'TRUE' ? 'Sí' : 'No';
+}
+
+function buildExcelWorkbook({ contactRows, pqrsRows, eticaRows }) {
+  const workbook = XLSX.utils.book_new();
+
+  const contactSheetRows = contactRows.map((row) => ({
+    'Nombre': row.name || '—',
+    'Correo electrónico': row.email || '—',
+    'Teléfono': row.phone || '—',
+    'Empresa': row.company || '—',
+    'Tipo de solicitud': row.request_type || '—',
+    'Fecha de registro': formatDateForReport(row.created_at),
+  }));
+
+  const pqrsSheetRows = pqrsRows.map((row) => ({
+    'Radicado': row.radicado || '—',
+    'Nombre': row.name || '—',
+    'Número de identificación': row.id_number || '—',
+    'Correo electrónico': row.email || '—',
+    'Teléfono': row.phone || '—',
+    'Tipo de solicitud': row.request_type || '—',
+    'Descripción': row.description || '—',
+    'Fecha de registro': formatDateForReport(row.created_at),
+  }));
+
+  const eticaSheetRows = eticaRows.map((row) => ({
+    'Tipo de reporte': row.tipo_reporte || '—',
+    'Descripción': row.descripcion || '—',
+    'Fecha de ocurrencia': formatDateOnlyForReport(row.fecha_ocurrencia),
+    'Tiene evidencia': formatBooleanForReport(row.tiene_evidencia),
+    'Fecha de reporte': formatDateForReport(row.fecha_reporte),
+  }));
+
+  const contactSheet = XLSX.utils.json_to_sheet(contactSheetRows);
+  const pqrsSheet = XLSX.utils.json_to_sheet(pqrsSheetRows);
+  const eticaSheet = XLSX.utils.json_to_sheet(eticaSheetRows);
+
+  XLSX.utils.book_append_sheet(workbook, contactSheet, 'Contacto');
+  XLSX.utils.book_append_sheet(workbook, pqrsSheet, 'PQRS');
+  XLSX.utils.book_append_sheet(workbook, eticaSheet, 'Línea Ética');
+
+  return XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+}
+
+function buildHtmlTable(rows, columns) {
+  if (!Array.isArray(rows) || rows.length === 0) {
+    return '<p class="msg-text">No se encontraron registros en este periodo.</p>';
+  }
+
+  const renderedHeaders = columns.map((column) => `<th style="border:1px solid #cbd5e1; padding:8px 10px; background:#eff6ff; text-align:left; font-size:11px; color:#1d4ed8;">${sanitizeForEmail(column.label || column.key)}</th>`).join('');
+  const renderedRows = rows.map((row) => {
+    const cells = columns.map((column) => {
+      const rawValue = row[column.key] ?? row[column.key.toLowerCase()] ?? '';
+      let text = String(rawValue ?? '').trim();
+
+      if (column.key === 'created_at' || column.key === 'fecha_reporte') {
+        text = formatDateForReport(rawValue);
+      }
+
+      if (column.key === 'fecha_ocurrencia') {
+        text = formatDateOnlyForReport(rawValue);
+      }
+
+      if (column.key === 'tiene_evidencia') {
+        text = formatBooleanForReport(rawValue);
+      }
+
+      return `<td style="border:1px solid #e2e8f0; padding:8px 10px; font-size:12px; color:#0f172a;">${sanitizeForEmail(text || '—')}</td>`;
+    }).join('');
+
+    return `<tr>${cells}</tr>`;
+  }).join('');
+
+  return `
+    <table style="width:100%; border-collapse:collapse; margin-top:16px; font-size:12px; background:#ffffff;">
+      <thead>
+        <tr>${renderedHeaders}</tr>
+      </thead>
+      <tbody>${renderedRows}</tbody>
+    </table>
+  `;
 }
 
 // ==========================================
@@ -390,31 +517,12 @@ export async function sendEticaEmail({ tipoReporte, descripcion, fechaOcurrencia
                           </div>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <div class="data-card">
-                            <div class="data-label">IP de origen</div>
-                            <div class="data-value">${sanitizeForEmail(ipOrigen || 'No disponible')}</div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="data-card">
-                            <div class="data-label">User Agent</div>
-                            <div class="data-value">${sanitizeForEmail(userAgent || 'No disponible')}</div>
-                          </div>
-                        </td>
-                      </tr>
                     </table>
                     <div class="msg-box">
                       <div class="msg-title">Descripción del reporte</div>
                       <p class="msg-text">${sanitizeForEmail(descripcion)}</p>
                     </div>
-                    <div class="msg-box" style="margin-top: 18px; border-left: 4px solid #215ba0;">
-                      <div class="msg-title">Observaciones internas</div>
-                      <p class="msg-text">${sanitizeForEmail(observaciones || 'Sin observaciones adicionales')}</p>
-                    </div>
+                 
                     <div class="msg-box" style="margin-top: 18px; border-left: 4px solid #40a335;">
                       <div class="msg-title">Evidencias recibidas</div>
                       <p class="msg-text">${attachmentsSummary}</p>
@@ -439,6 +547,180 @@ export async function sendEticaEmail({ tipoReporte, descripcion, fechaOcurrencia
     return { ok: true, results };
   } catch (error) {
     console.error('Error general en sendEticaEmail:', error);
+    results.errors.push({ stage: 'general', error });
+    return { ok: false, results };
+  }
+}
+
+export async function sendWeeklyDatabaseReportEmail({ to, cc = [], days = 7 }) {
+  const targetEmail = to || DEPARTMENTS.info || DEPARTMENTS.reportes;
+  const ccList = normalizeEmailList(cc);
+  const results = { internal: null, errors: [] };
+
+  try {
+    if (!targetEmail) {
+      throw new Error('No se ha configurado un destinatario para los informes semanales.');
+    }
+
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - Number(days || 7));
+
+    const [contactRows, pqrsRows, eticaRows] = await Promise.all([
+      pool.query(
+        `
+          SELECT id, name, phone, email, company, request_type, message, created_at
+          FROM contact_leads
+          WHERE created_at >= $1
+          ORDER BY created_at DESC
+        `,
+        [cutoff]
+      ),
+      pool.query(
+        `
+          SELECT id, radicado, name, id_number, email, phone, request_type, description, created_at
+          FROM pqrs_leads
+          WHERE created_at >= $1
+          ORDER BY created_at DESC
+        `,
+        [cutoff]
+      ),
+      pool.query(
+        `
+          SELECT id, tipo_reporte, descripcion, fecha_ocurrencia, tiene_evidencia, estado, observaciones, fecha_reporte
+          FROM etica_leads
+          WHERE fecha_reporte >= $1
+          ORDER BY fecha_reporte DESC
+        `,
+        [cutoff]
+      ),
+    ]);
+
+    const contactColumns = [
+      { key: 'name', label: 'Nombre' },
+      { key: 'email', label: 'Correo electrónico' },
+      { key: 'phone', label: 'Teléfono' },
+      { key: 'company', label: 'Empresa' },
+      { key: 'request_type', label: 'Tipo de solicitud' },
+      { key: 'created_at', label: 'Fecha de registro' },
+    ];
+
+    const pqrsColumns = [
+      { key: 'radicado', label: 'Radicado' },
+      { key: 'name', label: 'Nombre' },
+      { key: 'id_number', label: 'Número de identificación' },
+      { key: 'email', label: 'Correo electrónico' },
+      { key: 'phone', label: 'Teléfono' },
+      { key: 'request_type', label: 'Tipo de solicitud' },
+      { key: 'description', label: 'Descripción' },
+      { key: 'created_at', label: 'Fecha de registro' },
+    ];
+
+    const eticaColumns = [
+      { key: 'tipo_reporte', label: 'Tipo de reporte' },
+      { key: 'descripcion', label: 'Descripción' },
+      { key: 'fecha_ocurrencia', label: 'Fecha de ocurrencia' },
+      { key: 'tiene_evidencia', label: 'Tiene evidencia' },
+      { key: 'fecha_reporte', label: 'Fecha de reporte' },
+    ];
+
+    const contactSummary = buildHtmlTable(contactRows.rows, contactColumns);
+    const pqrsSummary = buildHtmlTable(pqrsRows.rows, pqrsColumns);
+    const eticaSummary = buildHtmlTable(eticaRows.rows, eticaColumns);
+
+    const contactCountHtml = `<div style="margin:-10px 0 12px 0; font-size:12px; color:#475569; font-weight:700;">Cantidad de registros: ${contactRows.rows.length}</div>`;
+    const pqrsCountHtml = `<div style="margin:-10px 0 12px 0; font-size:12px; color:#475569; font-weight:700;">Cantidad de registros: ${pqrsRows.rows.length}</div>`;
+    const eticaCountHtml = `<div style="margin:-10px 0 12px 0; font-size:12px; color:#475569; font-weight:700;">Cantidad de registros: ${eticaRows.rows.length}</div>`;
+
+    const introMessage = `
+<p>Buenos días, cordial saludo.</p>
+
+<p>
+A continuación, se presenta el resumen semanal consolidado de los registros
+recibidos a través de los formularios de Contacto, PQRS y Línea Ética.
+La información se muestra en formato de tabla para facilitar su consulta y análisis.
+</p>
+
+<p>
+Adicionalmente, se adjunta el archivo de Excel con el mismo contenido para su revisión.
+</p>
+`;
+
+    const workbookBuffer = buildExcelWorkbook({
+      contactRows: contactRows.rows,
+      pqrsRows: pqrsRows.rows,
+      eticaRows: eticaRows.rows,
+    });
+
+    const internalResult = await sendMailWithFallback({
+      from: `"Reportes Semanales ACEMA" <${process.env.EMAIL_USER}>`,
+      to: targetEmail,
+      cc: ccList.length > 0 ? ccList : undefined,
+      subject: `[Informes] Resumen de formularios web ${new Date().toLocaleDateString('es-CO')}`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>${emailStyles}</style>
+          </head>
+          <body>
+            <div class="wrapper">
+              <table class="container">
+                <tr>
+                  <td class="header">
+                    ${headerLogoHtml}
+                    <div class="header-subtitle">Informe semanal de base de datos</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="content">
+                    <div class="badge">Resumen ${days || 7} días</div>
+                    <div class="msg-box" style="margin-bottom: 18px; border-left: 4px solid #215ba0;">
+                      <div class="msg-title">Mensaje del informe</div>
+                      ${introMessage}
+                    </div>
+                    <div class="section-title">Contacto</div>
+                    ${contactCountHtml}
+                    ${contactSummary}
+                    <div class="section-title">PQRS</div>
+                    ${pqrsCountHtml}
+                    ${pqrsSummary}
+                    <div class="section-title">Línea Ética</div>
+                    ${eticaCountHtml}
+                    ${eticaSummary}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="footer">
+                    <p class="footer-text">Este correo fue generado automáticamente desde acemaingenieria.com</p>
+                    <p class="footer-text">© 2026 ACEMA Ingeniería. Todos los derechos reservados.</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </body>
+        </html>
+      `,
+      attachments: [
+        {
+          filename: 'resumen-semanal.xlsx',
+          content: workbookBuffer,
+          contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        },
+        {
+          filename: 'logo-acema.webp',
+          path: logoPngPath,
+          cid: 'logo_acema_webp'
+        },
+        ...(logoWebpExists ? [{ filename: 'logo-acema.webp', path: logoWebpPath, cid: 'logo_acema_webp' }] : [])
+      ],
+    });
+
+    results.internal = internalResult;
+    return { ok: true, results };
+  } catch (error) {
+    console.error('Error general en sendWeeklyDatabaseReportEmail:', error);
     results.errors.push({ stage: 'general', error });
     return { ok: false, results };
   }
@@ -631,8 +913,11 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
   }
 }
 
-export default {
+const mailerExports = {
   sendDepartmentEmail,
   sendEticaEmail,
   sendPqrsEmail,
+  sendWeeklyDatabaseReportEmail,
 };
+
+export default mailerExports;

@@ -142,6 +142,58 @@
 }
 
 /* ==========================
+   BOTÓN DE REPORTE
+========================== */
+
+.reportButton {
+  border: 1px solid #215ba0;
+  background: #ffffff;
+  color: #215ba0;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.reportButton:hover {
+  background: #215ba0;
+  color: #ffffff;
+}
+
+.reportButton:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.reportButtonScrolled {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.reportButtonScrolled:hover {
+  background: #ffffff;
+  color: #215ba0;
+}
+
+.reportStatus {
+  position: absolute;
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: #40a335;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(64, 163, 53, 0.3);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+/* ==========================
    LINKS
 ========================== */
 
@@ -365,6 +417,19 @@
 
   .hamburger {
     display: flex;
+  }
+
+  .reportButton {
+    order: -1;
+    margin-right: auto;
+    margin-bottom: 8px;
+  }
+
+  .reportStatus {
+    right: 20px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
   }
 
   .navMenu {

@@ -13,7 +13,8 @@ const DEPARTMENTS = {
   comercial: process.env.EMAIL_TO_COMERCIAL || '',
   solar: process.env.EMAIL_TO_SOLAR || '',
   electric: process.env.EMAIL_TO_ELECTRIC || '',
-  pqrs: process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || ''
+  pqrs: process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
+  etica: process.env.EMAIL_TO_ETICA || process.env.EMAIL_TO_CONTACTO || ''
 };
 
 const host = process.env.EMAIL_HOST || 'smtp-mail.outlook.com';
@@ -310,6 +311,139 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
   }
 }
 
+export async function sendEticaEmail({ tipoReporte, descripcion, fechaOcurrencia, tieneEvidencia, adjuntos = [], observaciones, ipOrigen, userAgent }) {
+  const targetEmail = DEPARTMENTS.etica;
+  const results = { internal: null, errors: [] };
+
+  try {
+    if (!targetEmail) {
+      throw new Error('No se ha configurado un destinatario para los correos de Línea Ética.');
+    }
+
+    const fileAttachments = Array.isArray(adjuntos) && adjuntos.length > 0
+      ? adjuntos
+          .map((file) => {
+            if (!file || !file.storedPath) return null;
+            return {
+              filename: file.originalName || file.storedName || 'evidencia',
+              path: path.join(process.cwd(), file.storedPath),
+              contentType: file.mimeType || undefined,
+            };
+          })
+          .filter(Boolean)
+      : [];
+
+    const attachments = [
+      ...fileAttachments,
+      {
+        filename: 'logo-acema.webp',
+        path: logoPngPath,
+        cid: 'logo_acema_webp'
+      },
+      ...(logoWebpExists ? [{ filename: 'logo-acema.webp', path: logoWebpPath, cid: 'logo_acema_webp' }] : [])
+    ];
+
+    const evidenceText = tieneEvidencia ? 'Sí' : 'No';
+    const attachmentsSummary = Array.isArray(adjuntos) && adjuntos.length > 0
+      ? adjuntos.map((file, index) => `• ${sanitizeForEmail(file.originalName || file.name || `Archivo ${index + 1}`)} (${sanitizeForEmail(file.mimeType || file.type || 'tipo desconocido')})`).join('<br>')
+      : 'No se adjuntaron evidencias.';
+
+    const internalResult = await sendMailWithFallback({
+      from: `"Línea Ética ACEMA" <${process.env.EMAIL_USER}>`,
+      to: targetEmail,
+      subject: `[Línea Ética] ${tipoReporte}`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>${emailStyles}</style>
+          </head>
+          <body>
+            <div class="wrapper">
+              <table class="container">
+                <tr>
+                  <td class="header">
+                    ${headerLogoHtml}
+                    <div class="header-subtitle">Nuevo reporte de Línea Ética</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="content">
+                    <div class="badge">${sanitizeForEmail(tipoReporte)}</div>
+                    <div class="section-title">Detalles del reporte</div>
+                    <table class="data-table">
+                      <tr>
+                        <td>
+                          <div class="data-card">
+                            <div class="data-label">Fecha de ocurrencia</div>
+                            <div class="data-value">${sanitizeForEmail(fechaOcurrencia)}</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="data-card">
+                            <div class="data-label">¿Cuenta con evidencia?</div>
+                            <div class="data-value">${sanitizeForEmail(evidenceText)}</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="data-card">
+                            <div class="data-label">IP de origen</div>
+                            <div class="data-value">${sanitizeForEmail(ipOrigen || 'No disponible')}</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="data-card">
+                            <div class="data-label">User Agent</div>
+                            <div class="data-value">${sanitizeForEmail(userAgent || 'No disponible')}</div>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <div class="msg-box">
+                      <div class="msg-title">Descripción del reporte</div>
+                      <p class="msg-text">${sanitizeForEmail(descripcion)}</p>
+                    </div>
+                    <div class="msg-box" style="margin-top: 18px; border-left: 4px solid #215ba0;">
+                      <div class="msg-title">Observaciones internas</div>
+                      <p class="msg-text">${sanitizeForEmail(observaciones || 'Sin observaciones adicionales')}</p>
+                    </div>
+                    <div class="msg-box" style="margin-top: 18px; border-left: 4px solid #40a335;">
+                      <div class="msg-title">Evidencias recibidas</div>
+                      <p class="msg-text">${attachmentsSummary}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="footer">
+                    <p class="footer-text">Este correo fue generado automáticamente desde acemaingenieria.com</p>
+                    <p class="footer-text">© 2026 ACEMA Ingeniería. Todos los derechos reservados.</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </body>
+        </html>
+      `,
+      attachments,
+    });
+
+    results.internal = internalResult;
+    return { ok: true, results };
+  } catch (error) {
+    console.error('Error general en sendEticaEmail:', error);
+    results.errors.push({ stage: 'general', error });
+    return { ok: false, results };
+  }
+}
+
 export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, requestType, description }) {
   const targetEmail = DEPARTMENTS.pqrs || DEPARTMENTS.contacto;
   const results = { internal: null, confirmation: null, errors: [] };
@@ -499,5 +633,6 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
 
 export default {
   sendDepartmentEmail,
+  sendEticaEmail,
   sendPqrsEmail,
 };

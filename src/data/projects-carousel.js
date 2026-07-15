@@ -26,17 +26,25 @@ export const projectsCarouselData = {
         alt: 'Granja solar La Rubiela - Vista 3'
       },
       {
-        src: '/images/projects/carousel/rubiela/rubiela3.webp',
-        alt: 'Granja solar La Rubiela - Vista 3'
+        src: '/images/projects/carousel/rubiela/rubiela4.webp',
+        alt: 'Granja solar La Rubiela - Vista 4'
       },
       {
-        src: '/images/projects/carousel/rubiela/rubiela3.webp',
-        alt: 'Granja solar La Rubiela - Vista 3'
+        src: '/images/projects/carousel/rubiela/rubiela5.webp',
+        alt: 'Granja solar La Rubiela - Vista 5'
       },
       {
-        src: '/images/projects/carousel/rubiela/rubiela3.webp',
-        alt: 'Granja solar La Rubiela - Vista 3'
+        src: '/images/projects/carousel/rubiela/rubiela6.webp',
+        alt: 'Granja solar La Rubiela - Vista 6'
       },
+      {
+        src: '/images/projects/carousel/rubiela/rubiela7.webp',
+        alt: 'Granja solar La Rubiela - Vista 7'
+      },
+      {
+        src: '/images/projects/carousel/rubiela/rubiela8.webp',
+        alt: 'Granja solar La Rubiela - Vista 8'
+      }
     ]
   },
   'san-pelayo': {
@@ -78,6 +86,34 @@ export const projectsCarouselData = {
       {
         src: '/images/projects/carousel/inti/inti3.webp',
         alt: 'Proyecto Inti I y II - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/inti/inti4.webp',
+        alt: 'Proyecto Inti I y II - Vista 4'
+      },
+      {
+        src: '/images/projects/carousel/inti/inti5.webp',
+        alt: 'Proyecto Inti I y II - Vista 5'
+      },
+      {
+        src: '/images/projects/carousel/inti/inti6.webp',
+        alt: 'Proyecto Inti I y II - Vista 6'
+      },
+      {
+        src: '/images/projects/carousel/inti/inti7.webp',
+        alt: 'Proyecto Inti I y II - Vista 7'
+      },
+      {
+        src: '/images/projects/carousel/inti/inti8.webp',
+        alt: 'Proyecto Inti I y II - Vista 8'
+      },
+      {
+        src: '/images/projects/carousel/inti/inti9.webp',
+        alt: 'Proyecto Inti I y II - Vista 9'
+      },
+      {
+        src: '/images/projects/carousel/inti/inti10.webp',
+        alt: 'Proyecto Inti I y II - Vista 10'
       }
     ]
   },

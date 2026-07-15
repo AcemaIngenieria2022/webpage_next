@@ -70,6 +70,18 @@ export function validatePqrsPayload({ name, idNumber, email, phone, requestType,
   return { ok: errors.length === 0, errors };
 }
 
+export function validateEticaPayload({ tipoReporte, descripcion, fechaOcurrencia, tieneEvidencia, adjuntos }) {
+  const errors = [];
+  const evidenceFlag = typeof tieneEvidencia === 'string' ? tieneEvidencia === 'true' : tieneEvidencia;
+  if (!tipoReporte || String(tipoReporte).trim().length < 2) errors.push('Tipo de reporte inválido');
+  if (!descripcion || String(descripcion).trim().length < 10) errors.push('Descripción inválida o muy corta');
+  if (!fechaOcurrencia || isNaN(Date.parse(fechaOcurrencia))) errors.push('Fecha de ocurrencia inválida');
+  if (typeof evidenceFlag !== 'boolean') errors.push('Debe indicar si tiene evidencia');
+  if (!Array.isArray(adjuntos)) errors.push('Adjuntos inválidos');
+  if (Array.isArray(adjuntos) && adjuntos.length > 20) errors.push('Se permiten hasta 20 evidencias como máximo');
+  return { ok: errors.length === 0, errors };
+}
+
 export function checkRateLimit(ip = 'unknown', limit = 6, windowMs = 60_000) {
   try {
     const now = Date.now();

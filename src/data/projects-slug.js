@@ -120,7 +120,6 @@ export const projectsDetailsData = {
     description:
       "En Acema Ingeniería seguimos impulsando la transición energética del país con la construcción de varias granjas solares para Suncolombia. Entre ellas se destacan Semillas I y II, con una capacidad conjunta de 2,5MWp y una generación estimada de 3,65GWh/año",
     heroImage: "/images/projects/finished/semillas.webp",
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación",
@@ -219,7 +218,6 @@ export const projectsDetailsData = {
     description:
       "En Acema Ingeniería seguimos impulsando la transición energética del país mediante la construcción de diversas granjas solares, entre las que destacan Emperatriz I y II, centrales diseñadas para conectar y beneficiar a las comunidades.",
     heroImage: "/images/projects/finished/emperatriz.webp",
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación",
@@ -246,7 +244,6 @@ export const projectsDetailsData = {
     description:
       "En Acema Ingeniería seguimos impulsando la transición energética del país mediante la construcción de granjas solares como Coralito y Golondrina, proyectos diseñados para fortalecer el desarrollo local y acercar una energía más limpia a las comunidades y hogares.",
     heroImage: "/images/projects/finished/coralito.webp",
-    videoUrl: "https://www.youtube.com/watch?v=ilSGYjWafGM",
     specs: [
       {
         label: "Ubicación",
@@ -322,7 +319,7 @@ export const projectsDetailsData = {
   },
 
   "granjas-solares-san-onofre-i-ii-y-iii": {
-    title: "Granjas Solares San Onofre I, II y III",
+    title: "San Onofre I, II y III",
     slug: "granjas-solares-san-onofre-i-ii-y-iii",
     status: "finalizados",
     description:

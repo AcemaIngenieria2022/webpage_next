@@ -1,0 +1,295 @@
+.container {
+  width: 100%;
+  background-color: #ffffff;
+  font-family: var(--font-montserrat), sans-serif;
+  /* Dejar espacio para el navbar fijo (aprox. 80px) */
+  padding-top: 88px;
+}
+
+/* Contenido Principal */
+.contentWrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  color: #215ba0;
+}
+
+.header {
+  margin-bottom: 50px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #215ba0;
+  margin: 0 0 20px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Forzar color de todo el texto dentro del contenido a #215ba0 */
+.content,
+.content * {
+  color: #215ba0 !important;
+}
+
+/* Mantener encabezados de tablas con color legible (si se usan fondos oscuros) */
+.content table th {
+  color: #ffffff !important;
+}
+
+/* Justified paragraphs for better reading */
+.content p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  margin-bottom: 1rem;
+}
+
+/* Contenido */
+.content {
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.content :global(.badge-title) {
+  display: inline-block;
+  background-color: #43a047;
+  color: white !important;
+  padding: 0px 55px;
+  border-radius: 30px 5px 30px 5px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.content :global(.intro-text) {
+  font-size: 0.9rem;
+  color: #215ba0;
+text-align: justify;
+ 
+}
+
+.content :global(.highlight) {
+  background-color: #e3f2fd;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #1e508b;
+  margin: 20px 0;
+  color: #215ba0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.content :global(.section-title) {
+  font-size: 1.4rem;
+  color: #215ba0;
+  font-weight: 700;
+  margin: 30px 0 15px;
+}
+
+.content :global(.examples-box) {
+ text-align: justify;
+  margin: 25px 0;
+ 
+}
+
+.content :global(.examples-box ul) {
+  margin: 0;
+  padding-left: 25px;
+}
+
+.content :global(.examples-box li) {
+  margin-bottom: 12px;
+  color: #215ba0;
+  line-height: 1.7;
+  font-size: 0.9rem;
+}
+
+.content :global(.examples-box strong) {
+  color: #215ba0;
+}
+
+.content h2 {
+  font-size: 1.5rem;
+  color: #1f3c72;
+  margin: 30px 0 15px;
+  font-weight: 700;
+}
+
+.content h3 {
+  font-size: 1.2rem;
+  color: #2b2b2b;
+  margin: 25px 0 12px;
+  font-weight: 700;
+}
+
+.content p {
+  margin-bottom: 15px;
+  color: #215ba0;
+}
+
+.content ul,
+.content ol {
+  margin: 15px 0 15px 25px;
+  color: #444;
+}
+
+.content li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.content strong {
+  color: #215ba0;
+  font-weight: 700;
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.content table th {
+  background-color: #43a047;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.content table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.85rem;
+}
+
+.content table tr:last-child td {
+  border-bottom: none;
+}
+
+
+.content ul,
+.content ol {
+  margin: 20px 0 20px 40px;
+  color: #444;
+}
+
+.content li {
+  margin-bottom: 10px;
+}
+
+.content strong {
+  color: #215ba0;
+  font-weight: 700;
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.content table th {
+  background-color: #43a047;
+  color: white;
+  padding: 15px;
+  text-align: left;
+  font-weight: 700;
+}
+
+.content table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.content table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 40px 16px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .content {
+    font-size: 0.9rem;
+  }
+
+  .content :global([style*="grid-template-columns"]) {
+    grid-template-columns: 1fr !important;
+  }
+
+  .content :global(.section-title) {
+    font-size: 1.2rem;
+  }
+
+  .content h2 {
+    font-size: 1.2rem;
+  }
+
+  .content table {
+    font-size: 0.8rem;
+  }
+
+  .content table th,
+  .content table td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .content {
+    font-size: 0.85rem;
+  }
+
+  .content :global(.badge-title) {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .content :global(.highlight) {
+    padding: 15px;
+    font-size: 0.85rem;
+  }
+
+  .content :global(.examples-box) {
+    padding: 15px;
+  }
+
+  .content :global(.examples-box li) {
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+  }
+
+  .content table {
+    font-size: 0.75rem;
+  }
+
+  .content table th,
+  .content table td {
+    padding: 6px 4px;
+  }
+}

@@ -1,0 +1,582 @@
+/* ============================================
+   CONTENEDOR PRINCIPAL
+   ============================================ */
+.container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* ← Evita desbordes horizontales */
+  background-color: #ffffff;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+/* ============================================
+   TOGGLE
+   ============================================ */
+.toggleWrapper {
+  width: 100%;
+  padding: 80px 0 0;
+  position: relative;
+  z-index: 2;
+}
+
+.slugToggle {
+  margin-top: 0 !important;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroPlaceholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f3f3f3 0%, #e9e9e9 100%);
+}
+
+.heroImage {
+  opacity: 0;
+}
+
+.heroImageVisible {
+  opacity: 1;
+}
+
+.waveWrapper {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+}
+
+.waveWrapper svg {
+  width: 100%;
+  height: 100px;
+}
+
+/* ============================================
+   CONTENIDO Y TÍTULO
+   ============================================ */
+.contentWrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 10;
+}
+
+.titleBadge {
+  background-color: #43a047;
+  padding: 5px 60px;
+  border-radius: 40px 5px 40px 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.titleBadge h1 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ============================================
+   GRID PRINCIPAL
+   ============================================ */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  margin-top: 20px;
+  align-items: center;
+  color: #2b2b2b;
+  font-family: var(--font-montserrat), sans-serif;
+  text-align: justify;
+}
+
+.singleColumnGrid {
+  grid-template-columns: 1fr;
+}
+
+/* Estilos para la columna de descripción */
+
+.textWithLines {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+/* ============================================
+   VIDEO BOX - CORREGIDO
+   ============================================ */
+.videoColumn {
+  width: 100%;
+  max-width: 100%;
+}
+
+.videoBox {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.videoInnerWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Estilos para el player de YouTube */
+.youtubePlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* El iframe del player de YouTube se crea dentro de .youtubePlayer */
+.youtubePlayer iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+
+/* Estilos para iframes normales */
+.videoIframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+  display: block;
+}
+
+/* Estilos para cualquier iframe dentro de videoBox */
+.videoBox iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+  display: block;
+}
+
+/* ============================================
+   FALLBACK DEL VIDEO
+   ============================================ */
+.videoFallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+}
+
+.videoThumbButton {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: none;
+}
+
+.videoThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.videoThumbButton:hover .videoThumb {
+  transform: scale(1.05);
+}
+
+.videoFallbackText {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  max-width: 90%;
+  margin: 0;
+}
+
+/* Modal de fallback */
+.fallbackModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.fallbackModalContent {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.fallbackModalContent h3 {
+  margin-top: 0;
+  color: #1e508b;
+  font-size: 1.5rem;
+}
+
+.fallbackModalContent p {
+  margin-bottom: 30px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.fallbackModalActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.primaryButton,
+.secondaryButton,
+.ghostButton {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  font-size: 1rem;
+}
+
+.primaryButton {
+  background: #43a047;
+  color: white;
+}
+
+.primaryButton:hover {
+  background: #388e3c;
+  transform: translateY(-2px);
+}
+
+.secondaryButton {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.secondaryButton:hover {
+  background: #d0d0d0;
+}
+
+.ghostButton {
+  background: transparent;
+  color: #666;
+}
+
+.ghostButton:hover {
+  background: #f0f0f0;
+}
+
+/* ============================================
+   ESPECIFICACIONES
+   ============================================ */
+.specsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 50px 0;
+}
+
+.specCard {
+  background-color: #dbe4ef;
+  padding: 25px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.specLabel {
+  font-weight: bold;
+  color: #1e508b;
+  margin-bottom: 5px;
+}
+
+.specValue {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  text-align: center;
+  padding-bottom: 60px;
+  color: #2b2b2b;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.footer p {
+  color: inherit;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.ctaButton {
+  background-color: #43a047;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 40px;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  background-color: #388e3c;
+}
+
+.carouselWrapper {
+  width: 100%;
+  margin-top: 40px;
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVIDAD
+   ============================================ */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+  .mainGrid {
+    gap: 20px;
+  }
+  
+  .titleBadge h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Tablets pequeñas y móviles grandes */
+@media (max-width: 768px) {
+  .heroSection {
+    height: 300px;
+  }
+
+  .waveWrapper svg {
+    height: 60px;
+  }
+
+  .header {
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+
+  .titleBadge {
+    padding: 10px 25px;
+    border-radius: 25px 5px 25px 5px;
+  }
+
+  .titleBadge h1 {
+    font-size: 1.25rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .descriptionColumn {
+    order: 1;
+  }
+
+  .videoColumn {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Asegurar que el video sea responsivo en móvil */
+  .videoBox {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .videoBox iframe,
+  .videoInnerWrapper iframe,
+  .youtubePlayer iframe {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .specsGrid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin: 30px 0;
+  }
+
+  .specCard {
+    padding: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 0.9rem;
+    padding: 0 10px;
+  }
+
+  .ctaButton {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+
+  .fallbackModalContent {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .toggleWrapper {
+    padding-top: 40px;
+  }
+
+  .heroSection {
+    height: 250px;
+  }
+
+  .titleBadge h1 {
+    font-size: 1.1rem;
+  }
+
+  .videoBox {
+    aspect-ratio: 16 / 9;
+  }
+
+  .fallbackModalContent h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* ============================================
+   MODO FULLSCREEN
+   ============================================ */
+.youtube-fullscreen .videoBox {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  aspect-ratio: auto !important;
+  border-radius: 0 !important;
+}
+
+.youtube-fullscreen .videoBox iframe,
+.youtube-fullscreen .videoInnerWrapper iframe,
+.youtube-fullscreen .youtubePlayer iframe {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+}
+
+.youtube-fullscreen .videoInnerWrapper {
+  width: 100vw !important;
+  height: 100vh !important;
+}

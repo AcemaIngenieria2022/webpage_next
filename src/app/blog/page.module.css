@@ -1,0 +1,165 @@
+.main {
+  padding-top: 5rem; /* Espacio en escritorio */
+}
+
+.container {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+/* Usar Montserrat consistente con el sitio */
+.container,
+.title,
+.description {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #215ba0;
+}
+
+.description {
+  font-size: 1.125rem;
+  color: #4b5563;
+  line-height: 1.75;
+  max-width: 56rem;
+  margin-bottom: 2.5rem;
+}
+
+.topGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  align-items: center; 
+}
+
+.sideCards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center; 
+  height: 100%;
+  width: 100%;
+}
+
+/* Estilos de alto delgado para escritorio */
+.sideCards > div {
+  width: 100% !important;
+  max-height: 145px; 
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.sideCards :global([class*="Card"]) {
+  width: 100% !important;
+  height: 145px !important; 
+  display: flex !important;
+  align-items: center;
+}
+
+.sideCards img {
+  height: 145px !important;
+  object-fit: cover;
+}
+
+.sideCards h2, 
+.sideCards h3 {
+  font-size: 1.25rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.sideCards p {
+  font-size: 0.9rem !important;
+}
+
+.cardsGrid {
+  margin-top: 2.5rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* --- SECCIÓN CORREGIDA PARA MÓVILES Y TABLETS (RESPONSIVE) --- */
+@media (max-width: 900px) {
+  .main {
+    padding-top: 3.5rem; /* REBAJADO: Reduce el espacio muerto con el Navbar */
+  }
+
+  .container {
+    padding: 1rem 1rem; /* REBAJADO: Menos espacio vertical interno */
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .topGrid {
+    grid-template-columns: 1fr; /* Pasa a una sola columna */
+    gap: 1.5rem;
+  }
+
+  /* Asegura que las dos tarjetas "escondidas" se muestren una debajo de otra de manera fluida */
+  .sideCards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Anulamos por completo el límite de altura de escritorio para que vuelvan a su tamaño móvil nativo */
+  .sideCards > div {
+    max-height: none !important;
+    overflow: visible;
+  }
+
+  .sideCards :global([class*="Card"]) {
+    width: 100% !important;
+    height: auto !important; /* Permite que la tarjeta se adapte verticalmente en móviles */
+    display: block !important; /* Si tu tarjeta móvil cambia de horizontal a vertical */
+  }
+
+  .sideCards img {
+    height: auto !important;
+    min-height: 200px; /* Altura sugerida para que luzca bien la imagen en móvil */
+    object-fit: cover;
+  }
+
+  .cardsGrid {
+    margin-top: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding-top: 2.5rem; /* REBAJADO AÚN MÁS para teléfonos pequeños */
+  }
+  
+  .topGrid {
+    gap: 1.25rem;
+  }
+}
+
+.postBody {
+  background: #f8fafc;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  color: #334155;
+  line-height: 1.8;
+}
+
+.link {
+  display: inline-flex;
+  color: #1d4ed8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

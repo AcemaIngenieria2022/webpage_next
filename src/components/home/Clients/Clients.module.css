@@ -1,0 +1,59 @@
+.clientsSection {
+  background-color: #f1f1f2;
+  padding: 50px 0;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.clientsTitle {
+  color: #215ba0;
+  font-size: 2.1rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.logosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px 40px;
+  align-items: center;
+  justify-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logoItem {
+  width: 210px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clientImage {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Ensure the underlying <img> also gets auto dimensions (Next Image can wrap elements)
+   Use !important to override inline or library-applied sizing in dev. */
+.clientImage img {
+  width: auto !important;
+  height: auto !important;
+}
+
+.logoItem:hover .clientImage {
+  transform: scale(1.15); /* Solo efecto de tamaño */
+}
+
+@media (max-width: 768px) {
+  .logosGrid { gap: 24px 32px; }
+  .logoItem { width: 140px; height: 64px; }
+}

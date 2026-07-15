@@ -1,0 +1,369 @@
+/* ❌ ELIMINADO: @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"); */
+
+.footer {
+  padding: 30px 10px;
+  width: 100%;
+  /* From https://css.glass */
+background: rgba(33, 91, 160, 0.12);
+ 
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+
+  font-family: var(--font-montserrat), sans-serif;
+  
+}
+
+.footerContainer {
+  max-width: 1500px;
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.footerBrand {
+  flex: 0 0 auto;
+}
+
+.footerLogo {
+  object-fit: contain;
+}
+
+/* ========== NUEVO: CONTACTO EN DOS COLUMNAS ========== */
+.footerContact {
+  display: flex;
+  gap: 40px;
+  color: #1a4a8d;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.3;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.contactColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ========== FIN NUEVO ========== */
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.contactIcon {
+  width: 32px;
+  height: 32px;
+  background-color: #1a4a8d;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ✅ HOVER para iconos de contacto */
+.contactItem:hover .contactIcon {
+  background-color: #40a335;
+  transform: scale(1.12) rotate(-5deg);
+  box-shadow: 0 8px 24px rgba(64, 163, 53, 0.25);
+}
+
+.contactItem:hover .contactIcon svg {
+  transform: scale(1.1);
+}
+
+.contactIconPlaceholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.workLink {
+  color: #1a4a8d;
+  text-decoration: underline;
+  font-family: var(--font-montserrat), sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* ✅ HOVER para "Trabaja con nosotros" */
+.workLink:hover {
+  color: #40a335;
+  transform: translateX(4px);
+}
+
+.dataLink {
+  color: #1a4a8d;
+  text-decoration: underline;
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+/* ✅ HOVER para "Tratamiento de datos" */
+.dataLink:hover {
+  color: #40a335;
+  transform: translateX(4px);
+}
+
+/* ELIMINADO: .contactActions ya no se usa */
+/* ELIMINADO: .linkColumn ya no se usa */
+/* ELIMINADO: .linksGrid ya no se usa */
+
+.footerSocial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.socialLabel {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a4a8d;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.socialLink {
+  width: 45px;
+  height: 45px;
+  background-color: #1a4a8d;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+}
+
+/* ✅ HOVER para iconos de redes sociales */
+.socialLink:hover {
+  transform: scale(1.15) translateY(-3px);
+  background-color: #40a335;
+  box-shadow: 0 10px 30px rgba(64, 163, 53, 0.3);
+}
+
+.socialLink:active {
+  transform: scale(0.9);
+}
+
+/* ✅ HOVER para emojis en el footer (si usas emojis como texto) */
+.footerContainer .emoji,
+.contactItem .emoji,
+.socialLabel .emoji {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+}
+
+.contactItem:hover .emoji {
+  transform: scale(1.3) rotate(-10deg);
+}
+
+.socialLabel:hover .emoji {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.footerMap {
+  width: 250px;
+  height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* ✅ HOVER para el mapa */
+.footerMap:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+}
+
+.mapIframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.footerBottom {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #215ba0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+/* =========================
+   📱 MÓVILES - TODO AL INICIO (LEFT)
+   ✅ Logo centrado
+   ✅ Contacto al inicio
+   ✅ Acciones en columna al inicio
+   ✅ Redes sociales al inicio
+   ✅ Mapa al inicio
+   ✅ Copyright al inicio
+========================= */
+@media (max-width: 900px) {
+  .footerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .footerBrand {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footerLogo {
+    width: 160px;
+    height: auto;
+  }
+
+  .footerContact {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .contactColumn {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .contactItem {
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .contactIcon {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contactIconPlaceholder {
+    width: 28px;
+    height: 28px;
+  }
+
+  .workLink,
+  .dataLink {
+    font-size: 0.9rem;
+    white-space: normal;
+  }
+
+  .footerSocial {
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .socialLabel {
+    font-size: 0.9rem;
+  }
+
+  .socialIcons {
+    justify-content: flex-start;
+  }
+
+  .socialLink {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .footerMap {
+    width: 100%;
+    max-width: 100%;
+    height: 200px;
+  }
+
+  .footerBottom {
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 0;
+    font-size: 0.75rem;
+  }
+}
+
+/* =========================
+   PANTALLAS MUY PEQUEÑAS
+========================= */
+@media (max-width: 480px) {
+  .footer {
+    padding: 20px 12px 16px;
+  }
+
+  .footerLogo {
+    width: 130px;
+  }
+
+  .footerContact {
+    font-size: 0.85rem;
+    gap: 12px;
+  }
+
+  .contactColumn {
+    gap: 8px;
+  }
+
+  .contactIcon {
+    width: 24px;
+    height: 24px;
+    font-size: 0.85rem;
+  }
+
+  .contactIconPlaceholder {
+    width: 24px;
+    height: 24px;
+  }
+
+  .workLink,
+  .dataLink {
+    font-size: 0.85rem;
+  }
+
+  .socialLink {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+  }
+
+  .footerMap {
+    height: 160px;
+  }
+
+  .footerBottom {
+    font-size: 0.65rem;
+  }
+}

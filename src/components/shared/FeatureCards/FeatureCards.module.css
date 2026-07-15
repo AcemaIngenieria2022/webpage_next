@@ -1,0 +1,125 @@
+:root {
+  --accent-color: #215ba0;
+  --accent-hover: #40a335;
+}
+
+.featureCard {
+  background: transparent;
+  border-radius: 16px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: none; /* occupy full grid cell width */
+  flex: 1 1 auto;
+  height: 100%; /* ensure wrapper fills grid cell */
+  margin: 0; /* let parent grid control spacing */
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .featureCard {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+.featureImageBox {
+  position: relative;
+  width: 100%;
+  height: clamp(120px, 14vw, 160px); /* responsive height */
+  border-radius: 14px 14px 0 0;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.featureImage {
+  object-fit: cover;
+}
+
+ 
+
+.featureTitle {
+  color: var(--accent-color);
+  font-weight: 800;
+  font-size: clamp(14px, 1.2vw, 16px);
+  text-align: center;
+}
+
+/* Ensure title is vertically centered within the white bottom area */
+.featureBottom .featureTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Ensure the inner project Card fills the wrapper and spaces image and bottom area consistently */
+.featureCard :global(.projectCard) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* push image to top and bottom area to bottom */
+}
+
+/* Make sure the infoDetails area centers its content vertically */
+.featureCard :global(.infoDetails) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+}
+
+/* Reset title margins for predictable centering */
+.featureCard .featureTitle,
+.featureCard :global(.projectName) {
+  margin: 0;
+  padding: 0;
+}
+
+.featureCard a {
+  text-decoration: none; /* asegurar sin líneas */
+  color: inherit;
+}
+
+/* Ensure the Card link fills the whole card for consistent click area */
+.featureCard :global(a) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.featureBottom a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: color 0.18s ease;
+}
+
+/* Title hover class for Card title (passed as titleClassName) */
+.hoverTitle {
+  transition: color 0.18s ease;
+}
+
+/* Apply hover color when the feature card is hovered */
+.featureCard:hover :global(.projectName),
+.featureCard:hover .hoverTitle {
+  color: var(--accent-hover) !important;
+}
+
+@media (max-width: 480px) {
+  .featureImageBox {
+    height: 120px;
+  }
+
+  .featureTitle {
+    font-size: 15px;
+  }
+
+  .featureBottom {
+    padding: 12px 10px;
+  }
+}
+
+

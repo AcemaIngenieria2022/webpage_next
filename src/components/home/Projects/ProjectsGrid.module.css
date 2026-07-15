@@ -1,0 +1,90 @@
+
+.container {
+  width: 100%;
+  padding: 40px 20px 50px 20px;
+  font-family: var(--font-montserrat), sans-serif;
+  display: grid;
+  row-gap: 30px;
+  justify-items: center;
+  background-color: #f3f5f7;
+  color: var(--text);
+}
+
+/* Título de la sección (Finalizados / En desarrollo) */
+.sectionTitle {
+  color: var(--accent-alt);
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0;
+  color: #215ba0;
+  text-align: left;
+  letter-spacing: -0.5px;
+  width: 100%;
+  max-width: 1140px;
+}
+
+/* Configuración de la Grilla Compacta */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  justify-items: stretch;
+  align-items: stretch;
+  gap: 22px;
+  row-gap: 30px;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.cardLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 20px;
+}
+.cardLink {
+  display: block;
+  text-decoration: none;
+}
+
+.cardLink > div {
+  will-change: transform;
+}
+/* --- Ajustes de Responsividad --- */
+
+/* Tablets y Laptops pequeños */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.4rem;
+  }
+}
+
+/* Móviles */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr; /* Una sola tarjeta por fila */
+    gap: 25px;
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
+    text-align: center; /* Centrado en móvil para mejor equilibrio visual */
+    margin-bottom: 20px;
+  }
+  
+  .container {
+    padding: 10px 10px 30px 10px;
+  }
+}

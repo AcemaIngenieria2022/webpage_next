@@ -1,0 +1,16 @@
+.pageWrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f3f5f7;
+  padding: 3rem 1.5rem;
+}
+
+@media (max-width: 900px) {
+  /* Reduce padding-top so toggle sits flush below navbar on tablets/mobiles */
+  .pageWrapper { padding-top: 1rem; padding-bottom: 2.5rem; }
+}
+
+.content {
+  margin: 0 auto;
+  max-width: 80rem;
+}

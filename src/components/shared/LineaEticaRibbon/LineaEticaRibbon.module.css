@@ -1,0 +1,107 @@
+/* =========================
+   Línea Ética Button - Expandible como PQRS
+========================= */
+.ribbon {
+  position: fixed;
+  right: 30px;
+  bottom: 160px; /* placed above PQRS */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 56px;
+  height: 56px;
+  background-color: #40a335;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 0 16px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  z-index: 1002;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s ease,
+              background-color 0.3s ease,
+              color 0.3s ease;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Expansión al hover */
+.ribbon:hover {
+  width: 200px;
+  background-color: #f1f1f1;
+  color: #40a335;
+  border: 2px solid #40a335;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Icono */
+.icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+/* Texto - oculto por defecto */
+.text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  max-width: 0;
+  transition: opacity 0.3s ease, max-width 0.3s ease;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Mostrar texto al hacer hover */
+.ribbon:hover .text {
+  opacity: 1;
+  max-width: 200px;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 768px) {
+  .ribbon {
+    right: 20px;
+    bottom: 148px;
+    width: 48px;
+    height: 48px;
+    padding: 0 12px;
+  }
+
+  .ribbon:hover {
+    width: 170px;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+  }
+
+  .text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ribbon {
+    right: 16px;
+    bottom: 140px;
+    width: 44px;
+    height: 44px;
+    padding: 0 10px;
+  }
+
+  .ribbon:hover {
+    width: 150px;
+  }
+
+  .icon {
+    font-size: 1.3rem;
+  }
+
+  .text {
+    font-size: 0.75rem;
+  }
+}

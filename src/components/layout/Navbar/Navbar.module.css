@@ -1,0 +1,508 @@
+/* ==========================
+   NAVBAR - PRINCIPAL
+========================== */
+
+.navbar {
+  width: 100%;
+
+ background: rgb(232, 239, 251);
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  font-family: var(--font-montserrat), sans-serif;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ==========================
+   NAVBAR - SCROLL (CAMBIO A ROJO)
+========================== */
+
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.2);
+  }
+}
+
+/* ==========================
+   NAVBAR - HOVER (FONDO BLANCO)
+========================== */
+
+.navbar:hover {
+  background: #ffffff !important;
+  backdrop-filter: blur(0px) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+  box-shadow: 
+    0 8px 40px rgba(0, 0, 0, 0.06),
+    0 2px 10px rgba(0, 0, 0, 0.02) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Cuando está scrolled y en hover, se mantiene rojo pero más claro */
+.navbar.scrolled:hover {
+  background: rgba(200, 40, 40, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 
+    0 8px 40px rgba(180, 30, 30, 0.4),
+    0 2px 10px rgba(180, 30, 30, 0.2) !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ==========================
+   LÍNEA INFERIOR ANIMADA (HOVER)
+========================== */
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #215ba0, #40a335, #215ba0);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0;
+}
+
+.navbar:hover::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Cuando está scrolled, la línea inferior es roja */
+.navbar.scrolled::after {
+  background: linear-gradient(90deg, #ff6b6b, #ffd93d, #ff6b6b);
+}
+
+/* ==========================
+   CONTENEDOR
+========================== */
+
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================
+   LOGO
+========================== */
+
+.navbarLogo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logoImage {
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.navbar:hover .logoImage {
+  transform: scale(1.02);
+}
+
+/* Logo cuando está scrolled - filtro blanco para que se vea en fondo rojo */
+.logoScrolled {
+  filter: brightness(0) invert(1);
+  transform: scale(1.05);
+}
+
+.navbar.scrolled:hover .logoScrolled {
+  transform: scale(1.08);
+}
+
+/* ==========================
+   MENU
+========================== */
+
+.navMenu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ==========================
+   LINKS
+========================== */
+
+.navLink {
+  color: #215ba0;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  padding: 6px 0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  color: #40a335;
+}
+
+.navLink.active {
+  color: #40a335;
+  font-weight: 600;
+}
+
+/* Links cuando está scrolled - color blanco */
+.linkScrolled {
+  color: #ffffff !important;
+}
+
+.linkScrolled:hover {
+  color: #ffd93d !important;
+}
+
+.linkScrolled.active {
+  color: #ffd93d !important;
+  font-weight: 600;
+}
+
+/* ==========================
+   SUBRAYADO ANIMADO
+========================== */
+
+.linkText {
+  position: relative;
+}
+
+.linkText::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background: #40a335;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover .linkText::after {
+  width: 100%;
+}
+
+/* Subrayado cuando está scrolled - color amarillo */
+.linkScrolled .linkText::after {
+  background: #ffd93d !important;
+}
+
+/* ==========================
+   FLECHA DROPDOWN
+========================== */
+
+.arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+  color: inherit;
+}
+
+.arrowRotate {
+  transform: rotate(180deg);
+}
+
+/* ==========================
+   DROPDOWN - ESCRITORIO
+========================== */
+
+.navDropdown {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  min-width: 230px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 8px 0;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Dropdown cuando está scrolled - fondo rojo oscuro */
+.dropdownScrolled {
+  background: rgba(150, 25, 25, 0.98);
+  box-shadow: 0 10px 25px rgba(180, 30, 30, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.dropdownItem {
+  padding: 8px 18px;
+  color: #215ba0 !important;
+  text-decoration: none !important;
+  font-size: 13px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.dropdownItem:hover {
+  color: #ffffff !important;
+  background: #215ba0 !important;
+  text-decoration: none !important;
+}
+
+/* Dropdown items cuando está scrolled */
+.dropdownItemScrolled {
+  color: #ffffff !important;
+}
+
+.dropdownItemScrolled:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffd93d !important;
+}
+
+/* ==========================
+   HAMBURGUESA
+========================== */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  padding: 4px;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 2.5px;
+  background: #215ba0;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburgesa cuando está scrolled - color blanco */
+.navbar.scrolled .hamburger span {
+  background: #ffffff;
+}
+
+/* ==========================
+   HAMBURGUESA - ANIMACIÓN X
+========================== */
+
+.hamburgerOpen span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.hamburgerOpen span:nth-child(2) {
+  opacity: 0;
+}
+.hamburgerOpen span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ==========================
+   RESPONSIVE - TABLETS Y MÓVILES
+========================== */
+
+@media (max-width: 1024px) {
+  /* MÓVIL: fondo del navbar en blanco */
+  .navbar {
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* Asegurar contraste de enlaces en móvil (negro/brand) */
+  .navbar .navLink,
+  .navMenu.active .navLink,
+  .navMenu .dropdownItem {
+    color: #215ba0 !important;
+  }
+  .navbarContainer {
+    padding: 5px 20px;
+    height: 64px;
+  }
+
+  .logoImage {
+    width: 110px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .navMenu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 60%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .navMenu.active {
+    right: 0;
+  }
+
+  .navLink {
+    font-size: 16px;
+    width: 100%;
+    justify-content: center;
+    padding: 8px 0;
+  }
+
+  /* En móvil, los links siempre mantienen su color original cuando el menú está abierto */
+  .navMenu.active .linkScrolled {
+    color: #215ba0 !important;
+  }
+
+  .navMenu.active .linkScrolled.active {
+    color: #40a335 !important;
+  }
+
+  .linkText::after {
+    display: none;
+  }
+
+  .dropdownMenu {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    box-shadow: none;
+    background: rgba(248, 249, 251, 0.5);
+    width: 100%;
+    margin-top: 4px;
+    animation: none;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 0;
+  }
+
+  /* Dropdown en móvil - mantener estilo consistente */
+  .dropdownScrolled {
+    background: rgba(248, 249, 251, 0.5);
+  }
+
+  .dropdownItem {
+    text-align: center;
+    padding: 6px 12px !important;
+    font-size: 13px;
+  }
+
+  .dropdownItemScrolled {
+    color: #215ba0 !important;
+  }
+
+  .dropdownItemScrolled:hover {
+    background: #215ba0 !important;
+    color: #ffffff !important;
+  }
+
+  /* Hamburgesa en móvil cuando está scrolled pero el menú está abierto */
+  .navbar.scrolled .hamburgerOpen span {
+    background: #215ba0;
+  }
+}
+
+/* ==========================
+   PANTALLAS MUY PEQUEÑAS
+========================== */
+
+@media (max-width: 480px) {
+  .navbarContainer {
+    padding: 5px 12px;
+    height: 56px;
+  }
+
+  .logoImage {
+    width: 90px;
+  }
+
+  .navMenu {
+    width: 75%;
+  }
+
+  .navLink {
+    font-size: 14px;
+  }
+
+  .hamburger span {
+    width: 22px;
+    height: 2px;
+  }
+
+  .hamburgerOpen span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .hamburgerOpen span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+}
+
+/* ==========================
+   ESTADOS DE TRANSICIÓN MEJORADOS
+========================== */
+
+/* Efecto de brillo en hover cuando está scrolled */
+.navbar.scrolled:hover .navbarContainer {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0;
+}
+
+/* Mejora la visibilidad del logo en fondo rojo */
+.navbar.scrolled .navbarLogo {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Transición suave para todos los elementos al hacer scroll */
+.navbar,
+.navbar *,
+.navbar *::before,
+.navbar *::after {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}

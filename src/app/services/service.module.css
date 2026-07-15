@@ -1,0 +1,906 @@
+/* ==========================================================================
+   1. VARIABLES Y ESTILOS BASE (LAYOUT GLOBAL)
+   ========================================================================== */
+.servicePage {
+  font-family: "Montserrat", sans-serif;
+  margin-top: 80px; /* Espacio para el Navbar */
+}
+
+/* ==========================================================================
+   2. BANNERS Y HERO (TOP SECTION)
+   ========================================================================== */
+.bannerBox {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+
+.bannerImg {
+  object-fit: cover;
+}
+
+/* Desktop / Mobile switch for banner images */
+.bannerImgDesktop {
+  display: block;
+}
+.bannerImgMobile {
+  display: none;
+}
+
+/* Ensure fill images cover container and have sensible focal point */
+.bannerImgDesktop,
+.bannerImgMobile {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.bannerOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 35, 61, 0.25);
+  pointer-events: none;
+}
+
+.heroBanner {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 35, 61, 0.35);
+}
+
+.heroTitle {
+  position: relative;
+  z-index: 2;
+  color: white;
+  font-size: 56px;
+  font-weight: 800;
+  text-align: center;
+  padding: 0 20px;
+  letter-spacing: 0.5px;
+}
+
+/* Service page specific content container and title pill */
+.serviceContent {
+  max-width: 1100px;
+  margin: 18px auto 40px;
+  padding: 0 20px;
+}
+
+.serviceTitle {
+  display: block; /* make it centerable */
+  width: max-content;
+  margin: 6px auto 18px; /* center horizontally */
+  font-weight: 800;
+  font-size: 22px;
+  color: #ffffff;
+  padding: 8px 26px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #40a335 0%, #2f8a2b 100%);
+  box-shadow: 0 8px 20px rgba(47, 138, 43, 0.12);
+  text-align: center;
+}
+
+/* Prevent title pill from overflowing on small screens */
+.serviceTitle {
+  max-width: calc(100% - 32px);
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.serviceIntro {
+  color: #215ba0;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   3. CONTENIDO DE TEXTO (ESPACIOS REDUCIDOS)
+   ========================================================================== */
+.content {
+  max-width: 980px;
+  margin: 30px auto; /* más espacio vertical alrededor del contenido */
+  padding: 0 28px 34px; /* más padding horizontal y inferior para respiración */
+}
+
+.content h1 {
+  color: #215ba0;
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+/* Estilos para páginas que deban parecerse al detalle de proyecto (La Rubiela) */
+.scadaPage .content h1 {
+  display: inline-block;
+  margin: 8px auto 18px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 36px;
+  color: #ffffff;
+  padding: 2px 44px;
+  border-radius: 60px 10px 60px 10px;
+  background: linear-gradient(180deg, #40a335 0%, #2f8a2b 100%);
+  box-shadow: 0 10px 25px rgba(11, 44, 80, 0.18);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent scada page title overflow on small screens */
+.scadaPage .content h1 {
+  max-width: calc(100% - 32px);
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.scadaPage .content {
+  max-width: 1100px;
+  text-align: left; /* left-align the title to match design */
+}
+
+/* Responsive adjustments for the pill title */
+@media (max-width: 900px) {
+  .scadaPage .content h1 {
+    font-size: 28px;
+    padding: 10px 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .scadaPage .content h1 {
+    font-size: 22px;
+    padding: 8px 20px;
+    width: auto;
+  }
+}
+
+/* Title 'Incluye' for SCADA page - left aligned even if page centers content */
+.scadaIncludeTitle {
+  text-align: left;
+  color: #215ba0;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 18px 0 8px 0;
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+}
+
+@media (max-width: 900px) {
+  .scadaIncludeTitle {
+    font-size: 18px;
+    margin-left: 0;
+    padding: 0 12px;
+  }
+}
+
+.content p {
+  color: #215ba0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Justify text for better readability in service pages */
+.content p,
+.content li {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Increase spacing between list items */
+.content ul li,
+.infoList li {
+  margin-bottom: 0.75rem;
+}
+
+.content ul {
+  margin-top: 16px;
+  margin-left: 20px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-top: 15px;
+  color: #215ba0;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   4. VISTA GENERAL: GRILLA DE TARJETAS HORIZONTALES GRANDES (/services)
+   ========================================================================== */
+.servicesContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 20px 40px; /* Reducción drástica del espaciado superior */
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Separación limpia entre las tarjetas grandes */
+  align-items: center; /* CENTRADO CRÍTICO: Alinea las tarjetas al eje central */
+}
+
+.card {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  max-width: 850px; /* Limita el ancho máximo para una lectura cómoda */
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.cardContent {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(11, 44, 80, 0.08);
+  display: grid;
+  grid-template-columns: 320px 1fr; /* Relación de aspecto ideal de imagen/texto */
+  min-height: 180px;
+}
+
+.cardImageBox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+}
+
+.serviceImg {
+  object-fit: cover;
+}
+
+.cardTextWrapper {
+  padding: 25px 30px;
+  display: flex;
+  align-items: center;
+}
+
+.cardTitle {
+  color: #215ba0;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+}
+
+.cardDescription {
+  color: #215ba0;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   5. SECCIÓN INTERNA DE CARACTERÍSTICAS (PÁGINA DETALLE - FONDO GRIS)
+   ========================================================================== */
+.featuresSection {
+  background-color: #f3f4f5;
+  padding: 25px 20px 40px; /* REDUCIDO: Eliminados los 60px superiores y 120px inferiores */
+}
+
+.featuresSection,
+.featuresSection * {
+  color: #215ba0;
+}
+
+/* Centro de contenido reutilizable para bloques que deben compartir el mismo fondo */
+.centerBlock {
+  background-color:#fff;
+  width: 100%;
+  box-sizing: border-box;
+ 
+}
+
+.centerBlock p{
+  color: #215ba0;
+  font-size: 15px;
+  line-height: 1.6;
+  padding-bottom: 120px;
+}
+
+.featuresSection .ctaButton,
+.featuresSection .ctaGranjas {
+  color: #ffffff !important;
+}
+
+.featuresContainer {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px; /* REDUCIDO: Espacio más controlado entre tarjetas secundarias */
+  align-items: start;
+  justify-items: center; /* CENTRADO CRÍTICO: Centra las mini-cards si la fila no se llena */
+}
+
+/* Layout en línea para mostrar 4 cards en una sola fila en desktop */
+.featuresRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(260px, 1fr)); /* 4 columnas, una fila */
+  gap: 22px;
+  justify-items: stretch;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px 30px;
+}
+
+@media (max-width: 1024px) {
+  .featuresRow {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
+  }
+}
+
+@media (max-width: 640px) {
+  .featuresRow {
+    grid-template-columns: 1fr; /* 1 columna en móvil */
+  }
+}
+
+
+/* ==========================================================================
+   6. DISEÑO DE DOS COLUMNAS Y ETAPAS
+   ========================================================================== */
+.twoColumn {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* left column wider for text, right column narrower */
+  grid-auto-rows: 1fr; /* force row to match tallest column */
+  gap: 36px;
+  align-items: stretch;
+  padding: 20px;
+}
+
+/* Equal two-column layout (50% / 50%) */
+.twoColumnEqual {
+  grid-template-columns: 1fr 1fr !important;
+}
+
+.benefitsTitle {
+  text-align: center;
+  color: #215ba0;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 24px auto 8px;
+}
+
+.leftCol {
+  color: #215ba0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  min-height: 0; /* allow flex children to scroll/shrink inside grid */
+}
+
+/* List spacing specifically for SCADA left column */
+.twoColumn .leftCol ul {
+  margin-top: 12px;
+  margin-left: 20px;
+}
+
+.twoColumn .leftCol ul li {
+  margin-bottom: 1.2rem; /* increased spacing for readability */
+  line-height: 1.8;
+}
+
+.leftCol h3 {
+  color: #215ba0;
+  margin-top: 14px;
+}
+
+.rightCol {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* prevent the right column card from stretching vertically */
+  height: 100%;
+  min-height: 0;
+}
+
+.rightCol .offerBox {
+  width: 420px; /* fixed card width on desktop for consistent look */
+}
+
+.infoBox {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 20px 22px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(11, 44, 80, 0.06);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Right column white card used to list offered solutions */
+.offerBox {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 18px 22px; /* increased padding for clearer layout */
+  box-shadow: 0 10px 30px rgba(11, 44, 80, 0.06);
+  width: 100%;
+  box-sizing: border-box;
+  align-self: flex-start; /* avoid stretching to match left column height */
+}
+
+.offerBox h4 {
+  color: #215ba0;
+  font-weight: 800;
+  margin: 0 0 12px 0; /* increased gap under header for clarity */
+  font-size: 18px;
+}
+
+.offerList {
+  margin: 0;
+  padding-left: 0.8rem;
+  color: #215ba0;
+  list-style-type: disc; /* restore bullets */
+}
+
+.offerList li {
+  margin-bottom: 10px; /* more breathing room */
+ 
+  padding-left: 0;
+}
+
+/* Puntos alineados con el inicio del ítem usando ::marker (se aplican sólo dentro de las cards) */
+.offerList,
+.offerListTwoCol,
+.infoList,
+.offerBox ul,
+.infoBox ul,
+.benefitCard ul,
+.cardTextWrapper ul {
+  list-style-position: inside; /* coloca el marcador en la primera línea del item */
+  list-style-type: disc;
+  padding-left: 0;
+  margin: 0 0 0.9rem 0;
+}
+
+.offerList li,
+.offerListTwoCol li,
+.infoList li,
+.offerBox ul li,
+.infoBox ul li,
+.benefitCard ul li,
+.cardTextWrapper ul li {
+  margin-bottom: 0.9rem;
+ 
+}
+
+/* Estilizar el marcador nativo para que sea un punto verde más grande */
+.offerList li::marker,
+.offerListTwoCol li::marker,
+.infoList li::marker,
+.offerBox ul li::marker,
+.infoBox ul li::marker,
+.benefitCard ul li::marker,
+.cardTextWrapper ul li::marker {
+  color: #40a335;
+  font-size: 18px; /* tamaño del punto */
+  opacity: 1;
+}
+
+/* Two-column list layout for wide cards */
+.offerListTwoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 22px;
+  margin: 0;
+  padding-left: 0.8rem;
+  list-style-type: disc;
+}
+
+@media (max-width: 900px) {
+  .offerListTwoCol {
+    grid-template-columns: 1fr;
+    gap: 8px 0;
+  }
+}
+
+/* Make the features section span full viewport width on SCADA page */
+.scadaFeaturesFullWidth {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  box-sizing: border-box;
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+.scadaFeaturesFullWidth .twoColumn {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Compact info box variant with reduced bottom spacing (used on EPC page) */
+.infoBoxCompact {
+  padding-bottom: 12px;
+}
+
+.infoBoxCompact .infoList li {
+  margin-bottom: 0.4rem;
+}
+
+/* Benefits cards grid and card styles */
+.benefitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* Wrapper to make benefit area span full content width and center it */
+.benefitFullWidth {
+  max-width: 1100px;
+  margin: 0 auto 18px;
+  padding: 0 20px;
+}
+
+.benefitCard {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 16px;
+  box-shadow: 0 8px 20px rgba(11, 44, 80, 0.06);
+  color: #215ba0;
+}
+
+.benefitCard h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.benefitCard p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Center the last benefit card content (Acompañamiento experto) */
+.benefitCard:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.benefitCard:last-child h4 {
+  margin-bottom: 8px;
+}
+
+/* benefitLast for explicitly centered last card (when rendered separately) */
+.benefitLast {
+  width: 60%;
+  max-width: 640px;
+}
+
+@media (max-width: 900px) {
+  .benefitLast {
+    width: 100%;
+  }
+}
+
+.integramosTitle {
+  text-align: center;
+  color: #215ba0;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 6px 0 12px;
+}
+
+/* Plain centered container for 'Integramos' without background */
+.integramosPlain {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.integramosPlain .infoList {
+  display: inline-block;
+  text-align: center; /* center the list items as requested */
+  margin: 0;
+  padding-left: 0;
+}
+
+@media (max-width: 900px) {
+  .benefitGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.infoTitle {
+  color: #215ba0;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.infoList {
+  margin: 0;
+  padding-left: 0.8rem; /* restore default list padding */
+  list-style-type: disc; /* restore bullets */
+  color: #215ba0;
+}
+
+.infoList li {
+  margin-bottom: 0.9rem;
+}
+
+.infoHead {
+  font-weight: 800;
+  color: #215ba0;
+  margin-right: 8px;
+}
+
+.stagesGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 18px;
+  max-width: 1000px;
+  margin-top: 18px;
+}
+
+.stageCard {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 14px;
+  box-shadow: 0 8px 18px rgba(11, 44, 80, 0.06);
+  text-align: center;
+  color: #215ba0;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-column: span 2;
+}
+
+.stagesGrid > .stageCard:nth-child(5) {
+  grid-column: 2 / span 2;
+}
+.stagesGrid > .stageCard:nth-child(6) {
+  grid-column: 4 / span 2;
+}
+.stagesGrid > .stageCard:nth-child(7) {
+  grid-column: 6 / span 2;
+}
+
+.stageCard h4 {
+  font-size: 14px;
+  color: #215ba0;
+  margin: 0 0 8px 0;
+  font-weight: 800;
+  text-align: center;
+}
+
+.stageCard p {
+  margin: 0;
+  font-size: 13px;
+  color: #215ba0;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.stagesFullWidth {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  background: linear-gradient(180deg, #f6fbff 0%, #eef6fb 100%);
+  padding: 24px 0 28px; /* REDUCIDO para ajustar la banda de etapas */
+}
+
+.stagesSectionInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6px 18px;
+  box-sizing: border-box;
+}
+
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: #215ba0;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(64, 163, 53, 0.2);
+}
+
+.ctaGranjas {
+  background: linear-gradient(180deg, #40a335 0%, #2f8a2b 100%);
+  color: #ffffff;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(47, 138, 43, 0.12);
+  transition:
+    transform 0.12s ease,
+    filter 0.12s ease;
+}
+
+.ctaGranjas:hover {
+  transform: translateY(-3px);
+  filter: brightness(0.95);
+}
+
+.miniCarouselWrap {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  padding: 12px 18px 30px;
+}
+
+.beforeColon {
+  font-weight: 800;
+}
+
+.introCenter {
+  max-width: 820px;
+  margin: 20px auto 10px;
+  text-align: center;
+  color: #215ba0;
+}
+
+/* Right column plain content (no card background) */
+.rightColContent {
+  background: transparent;
+  box-shadow: none;
+  padding: 0; /* let content flow naturally */
+  width: 100%;
+}
+
+.componentsTitle {
+  color: #215ba0;
+  font-weight: 800;
+  font-size: 18px;
+  margin-top: 14px;
+}
+
+/* ==========================================================================
+   7. MEDIA QUERIES (ESTABILIDAD RESPONSIVA)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .stagesGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .stagesGrid > .stageCard {
+    grid-column: span 1;
+  }
+  .stagesGrid > .stageCard:nth-child(5),
+  .stagesGrid > .stageCard:nth-child(6),
+  .stagesGrid > .stageCard:nth-child(7) {
+    grid-column: auto;
+  }
+  .twoColumn {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    grid-auto-rows: auto; /* allow rows to size to their content on mobile */
+  }
+  .rightCol {
+    order: -1;
+    margin-bottom: 12px;
+  }
+  .infoBox {
+    width: 100%;
+    height: auto; /* don't force full height on mobile */
+  }
+
+  .rightCol .offerBox {
+    width: 100%;
+    padding: 14px 16px;
+  }
+
+  /* Adaptación de tarjetas horizontales en pantallas medianas */
+  .cardContent {
+    grid-template-columns: 1fr;
+  }
+  .cardImageBox {
+    height: 200px;
+  }
+  .cardTextWrapper {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .heroTitle {
+    font-size: 40px;
+  }
+  .featuresContainer {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    justify-items: center;
+  }
+  .featureImageBox,
+  .featureBottom {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .bannerBox {
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+  .bannerImgDesktop {
+    display: none !important;
+  }
+  .bannerImgMobile {
+    display: block !important;
+    object-position: 50% 25%;
+  }
+
+  .servicePage {
+    margin-top: 0;
+  }
+  .bannerBox {
+    margin-bottom: 8px;
+  }
+  .featuresSection {
+    padding-top: 15px;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stagesGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .stagesGrid > .stageCard {
+    grid-column: auto;
+  }
+  .bannerBox {
+    aspect-ratio: 1 / 1;
+  }
+  .heroTitle {
+    font-size: 36px;
+  }
+  .bannerImgMobile {
+    object-position: 50% 20%;
+  }
+
+  .servicePage {
+    margin-top: 0;
+  }
+  .bannerBox {
+    margin-bottom: 4px;
+  }
+  .featuresSection {
+    padding-top: 10px;
+    padding-bottom: 25px;
+  }
+}

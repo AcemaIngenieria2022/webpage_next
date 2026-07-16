@@ -120,9 +120,6 @@ const Navbar = () => {
                 <Link href="/services/construccion-de-granjas/construccion-de-granjas" className={`${styles.dropdownItem} ${isScrolled ? styles.dropdownItemScrolled : ''}`} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
                   Construcción de granjas
                 </Link>
-                {/* <Link href="/services/centros-de-transformacion" className={`${styles.dropdownItem} ${isScrolled ? styles.dropdownItemScrolled : ''}`} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
-                  Centros de transformación
-                </Link> */}
                 <Link href="/services/servicios-electricos" className={`${styles.dropdownItem} ${isScrolled ? styles.dropdownItemScrolled : ''}`} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
                   Servicios eléctricos
                 </Link>

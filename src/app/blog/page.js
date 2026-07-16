@@ -6,9 +6,10 @@ import BlogCard from '@/components/blog/BlogCard/BlogCard';
 import { blogPosts } from '@/data/blog-posts';
 
 export default function Blog() {
-  const featured = blogPosts.find((post) => post.variant === 'featured');
-  const sideCards = blogPosts.filter((post) => post.variant === 'compact');
-  const regularCards = blogPosts.filter((post) => post.variant === 'regular');
+  const visiblePosts = blogPosts.filter((post) => post.slug !== 'semillas-i-y-ii');
+  const featured = visiblePosts.find((post) => post.variant === 'featured');
+  const sideCards = visiblePosts.filter((post) => post.variant === 'compact');
+  const regularCards = visiblePosts.filter((post) => post.variant === 'regular');
 
   // Mismo efecto base de entrada de las tarjetas
   const cardAnimation = (index) => ({

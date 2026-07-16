@@ -17,7 +17,7 @@ const Projects = () => {
     {
       id: 2,
       name: "Granja solar",
-      location: "San Pelayo (0,09 MW)",
+      location: "San Pelayo (0,9 MW)",
       image: "/images/projects/featured/img-pelayo.webp",
       thumb: "/images/projects/featured/thumbs/img-pelayo-480.webp",
       url: "/projects/san-pelayo",

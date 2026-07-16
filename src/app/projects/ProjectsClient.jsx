@@ -10,6 +10,7 @@ import styles from './page.module.css';
 export default function ProjectsClient() {
   const searchParams = useSearchParams();
   const [filter, setFilter] = useState('finalizados');
+  const hiddenProjects = new Set(['semillas-i-y-ii', 'emperatriz-i-y-ii', 'coralito-y-golondrina']);
 
   useEffect(() => {
     const filterParam = searchParams.get('filter');
@@ -22,12 +23,14 @@ export default function ProjectsClient() {
     setFilter(newFilter);
   };
 
+  const visibleProjects = projectsData.filter((project) => !hiddenProjects.has(project.slug));
+
   return (
     <>
       <ProjectsToggle onFilterChange={handleFilterChange} />
       <section className={styles.pageWrapper}>
         <div className={styles.content}>
-          <ProjectsGrid projects={projectsData} activeFilter={filter} />
+          <ProjectsGrid projects={visibleProjects} activeFilter={filter} />
         </div>
       </section>
     </>

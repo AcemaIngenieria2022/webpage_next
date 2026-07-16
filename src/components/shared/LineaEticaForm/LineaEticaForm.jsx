@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import styles from './LineaEticaForm.module.css';
+import PopupAlert from '../PopupAlert/PopupAlert';
 
 const initialState = {
   tipoReporte: '',
@@ -10,10 +12,59 @@ const initialState = {
   adjuntos: [],
 };
 
+const reportOptions = [
+  'Acoso laboral',
+  'Acoso sexual',
+  'Discriminación',
+  'Fraude o corrupción',
+  'Conflicto de intereses',
+  'Incumplimiento de normas o políticas',
+  'Riesgos para la seguridad y salud en el trabajo',
+  'Maltrato o conductas inapropiadas',
+  'Uso indebido de recursos de la empresa',
+  'Otro',
+];
+
 export default function LineaEticaForm() {
   const [formData, setFormData] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [feedback, setFeedback] = useState({ status: '', message: '' });
+  const [popup, setPopup] = useState({ visible: false, status: 'success', message: '' });
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isHoverable, setIsHoverable] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const updateHoverState = () => setIsHoverable(!!mediaQuery.matches);
+
+    updateHoverState();
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', updateHoverState);
+      return () => mediaQuery.removeEventListener('change', updateHoverState);
+    }
+
+    mediaQuery.addListener(updateHoverState);
+    return () => mediaQuery.removeListener(updateHoverState);
+  }, []);
+
+  const selectedReportLabel = useMemo(() => {
+    return reportOptions.find((option) => option === formData.tipoReporte) || 'Seleccione una opción';
+  }, [formData.tipoReporte]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -29,17 +80,42 @@ export default function LineaEticaForm() {
     setFormData((prev) => ({ ...prev, adjuntos: files }));
   };
 
+  const handleSelectOption = (value) => {
+    setFormData((prev) => ({ ...prev, tipoReporte: value }));
+    setIsDropdownOpen(false);
+  };
+
+  const closePopup = () => {
+    setPopup((prev) => ({ ...prev, visible: false }));
+  };
+
+  const handleDropdownToggle = () => {
+    if (!isHoverable) {
+      setIsDropdownOpen((prev) => !prev);
+      return;
+    }
+
+    setIsDropdownOpen((prev) => !prev);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setFeedback({ status: '', message: '' });
 
     if (!formData.tipoReporte || !formData.descripcion.trim() || !formData.fechaOcurrencia || formData.tieneEvidencia === null) {
-      setFeedback({ status: 'error', message: 'Por favor completa todos los campos obligatorios y elige si tienes evidencia.' });
+      setPopup({
+        visible: true,
+        status: 'error',
+        message: 'Por favor completa todos los campos obligatorios y elige si tienes evidencia.',
+      });
       return;
     }
 
     if (formData.tieneEvidencia && formData.adjuntos.length === 0) {
-      setFeedback({ status: 'error', message: 'Selecciona al menos un archivo de evidencia.' });
+      setPopup({
+        visible: true,
+        status: 'error',
+        message: 'Selecciona al menos un archivo de evidencia.',
+      });
       return;
     }
 
@@ -67,86 +143,80 @@ export default function LineaEticaForm() {
         throw new Error(`${data.error || 'No se pudo enviar el reporte.'}${details}`);
       }
 
-      setFeedback({ status: 'success', message: 'Reporte enviado correctamente. Muchas gracias.' });
+      setPopup({
+        visible: true,
+        status: 'success',
+        message: 'Reporte enviado correctamente. Muchas gracias.',
+      });
       setFormData(initialState);
+      setIsDropdownOpen(false);
     } catch (error) {
       console.error('[LINEA ETICA] Error al enviar:', error);
-      setFeedback({ status: 'error', message: error.message || 'Error al enviar el reporte. Intenta de nuevo más tarde.' });
+      setPopup({
+        visible: true,
+        status: 'error',
+        message: error.message || 'Error al enviar el reporte. Intenta de nuevo más tarde.',
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div style={{
-      position: 'relative',
-      width: '100%',
-      maxWidth: '800px',
-      marginTop: '30px',
-    }}>
-      <div style={{
-        position: 'absolute',
-        top: '-22px',
-        left: '-10px',
-        backgroundColor: '#215ba0',
-        color: 'white',
-        padding: '3px 40px',
-        borderRadius: '40px 0 40px 0',
-        fontWeight: 800,
-        fontSize: '20px',
-        zIndex: 5,
-      }}>
-        Línea Ética
-      </div>
+    <div className={styles.wrapper}>
+      <div className={styles.badge}>Línea Ética</div>
 
-      <form onSubmit={handleSubmit} style={{
-        backgroundColor: 'white',
-        borderRadius: '30px',
-        padding: '45px 40px 30px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '12px',
-        overflow: 'hidden',
-        boxShadow: '0 10px 35px rgba(0,0,0,0.08)',
-      }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-          <div style={{ display: 'grid', gap: '8px' }}>
-            <label htmlFor="tipo-reporte" style={{ color: '#215ba0', fontSize: '13.5px', fontWeight: 700 }}>
-              Tipo de reporte <span style={{ color: '#b91c1c' }}>*</span>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.formGrid}>
+          <div className={styles.fieldGroup}>
+            <label htmlFor="tipo-reporte" className={styles.label}>
+              Tipo de reporte <span className={styles.required}>*</span>
             </label>
-            <select
+            <div
               id="tipo-reporte"
-              name="tipoReporte"
-              value={formData.tipoReporte}
-              onChange={handleChange}
-              required
-              style={{
-                backgroundColor: '#ecf1f6',
-                border: 'none',
-                borderRadius: '40px',
-                padding: '10px 20px',
-                fontSize: '13.5px',
-                color: '#1a365d',
-                outline: 'none',
+              ref={dropdownRef}
+              onMouseEnter={() => {
+                if (isHoverable) {
+                  setIsDropdownOpen(true);
+                }
               }}
+              onMouseLeave={() => {
+                if (isHoverable) {
+                  setIsDropdownOpen(false);
+                }
+              }}
+              onClick={handleDropdownToggle}
+              className={styles.dropdownContainer}
             >
-              <option value="">Seleccione una opción</option>
-              <option value="Acoso laboral">Acoso laboral</option>
-              <option value="Acoso sexual">Acoso sexual</option>
-              <option value="Discriminación">Discriminación</option>
-              <option value="Fraude o corrupción">Fraude o corrupción</option>
-              <option value="Conflicto de intereses">Conflicto de intereses</option>
-              <option value="Incumplimiento de normas o políticas">Incumplimiento de normas o políticas</option>
-              <option value="Riesgos para la seguridad y salud en el trabajo">Riesgos para la seguridad y salud en el trabajo</option>
-              <option value="Maltrato o conductas inapropiadas">Maltrato o conductas inapropiadas</option>
-              <option value="Uso indebido de recursos de la empresa">Uso indebido de recursos de la empresa</option>
-              <option value="Otro">Otro</option>
-            </select>
+              <button
+                type="button"
+                aria-label="Seleccionar tipo de reporte"
+                className={`${styles.requestButton} ${formData.tipoReporte ? styles.activeBtn : ''}`}
+              >
+                <span>{selectedReportLabel}</span>
+                <span aria-hidden="true" className={styles.icon}>{isDropdownOpen ? '−' : '+'}</span>
+              </button>
+
+              {isDropdownOpen && (
+                <ul className={styles.dropdownList}>
+                  {reportOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className={styles.dropdownItem}
+                      onClick={() => handleSelectOption(option)}
+                    >
+                      • {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <input type="hidden" name="tipoReporte" value={formData.tipoReporte} />
           </div>
 
-          <div style={{ display: 'grid', gap: '8px' }}>
-            <label htmlFor="fecha" style={{ color: '#215ba0', fontSize: '13.5px', fontWeight: 700 }}>
-              ¿Cuándo ocurrió? <span style={{ color: '#b91c1c' }}>*</span>
+          <div className={styles.fieldGroup}>
+            <label htmlFor="fecha" className={styles.label}>
+              ¿Cuándo ocurrió? <span className={styles.required}>*</span>
             </label>
             <input
               id="fecha"
@@ -155,31 +225,16 @@ export default function LineaEticaForm() {
               value={formData.fechaOcurrencia}
               onChange={handleChange}
               required
-              style={{
-                backgroundColor: '#ecf1f6',
-                border: 'none',
-                borderRadius: '40px',
-                padding: '10px 20px',
-                fontSize: '13.5px',
-                color: '#1a365d',
-                outline: 'none',
-              }}
+              className={styles.dateInput}
             />
           </div>
         </div>
 
-        <div style={{ display: 'grid', gap: '8px' }}>
-          <label htmlFor="descripcion" style={{ color: '#215ba0', fontSize: '13.5px', fontWeight: 700 }}>
-            Describe lo ocurrido <span style={{ color: '#b91c1c' }}>*</span>
+        <div className={styles.fieldGroup}>
+          <label htmlFor="descripcion" className={styles.label}>
+            Describe lo ocurrido <span className={styles.required}>*</span>
           </label>
-          <div style={{
-            backgroundColor: '#ecf1f6',
-            borderRadius: '15px',
-            padding: '15px 20px',
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-          }}>
+          <div className={styles.textareaWrap}>
             <textarea
               id="descripcion"
               name="descripcion"
@@ -188,27 +243,17 @@ export default function LineaEticaForm() {
               onChange={handleChange}
               required
               placeholder="Cuéntanos qué ocurre con el mayor detalle posible"
-              style={{
-                backgroundColor: 'transparent',
-                border: 'none',
-                resize: 'none',
-                height: '90px',
-                outline: 'none',
-                fontSize: '13.5px',
-                color: '#215ba0',
-                width: '100%',
-                fontFamily: 'inherit',
-              }}
+              className={styles.textarea}
             />
           </div>
         </div>
 
-        <div style={{ display: 'grid', gap: '8px' }}>
-          <label style={{ color: '#215ba0', fontSize: '13.5px', fontWeight: 700 }}>
+        <div className={styles.fieldGroup}>
+          <label className={styles.label}>
             ¿Cuentas con evidencia? (opcional)
           </label>
-          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#215ba0', fontWeight: 700, cursor: 'pointer' }}>
+          <div className={styles.radioGroup}>
+            <label className={styles.radioLabel}>
               <input
                 type="radio"
                 name="evidencia"
@@ -218,7 +263,7 @@ export default function LineaEticaForm() {
               />
               Sí
             </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#215ba0', fontWeight: 700, cursor: 'pointer' }}>
+            <label className={styles.radioLabel}>
               <input
                 type="radio"
                 name="evidencia"
@@ -232,67 +277,53 @@ export default function LineaEticaForm() {
         </div>
 
         {formData.tieneEvidencia && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label htmlFor="adjuntos" style={{ color: '#215ba0', fontWeight: 700, fontSize: '13px' }}>
+          <div className={styles.uploadContent}>
+            <label htmlFor="adjuntos" className={styles.label}>
               Adjuntar evidencias (PDF, JPG, JPEG, DOC, DOCX)
             </label>
-            <input
-              id="adjuntos"
-              name="adjuntos"
-              type="file"
-              multiple
-              accept=".pdf,.jpg,.jpeg,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg"
-              onChange={handleFileChange}
-              style={{ color: '#475569' }}
-            />
+
+            <div className={styles.uploadContent}>
+              <label htmlFor="adjuntos" className={styles.filePickerLabel}>
+                <span>Elegir archivos</span>
+              </label>
+              <input
+                id="adjuntos"
+                name="adjuntos"
+                type="file"
+                multiple
+                accept=".pdf,.jpg,.jpeg,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg"
+                onChange={handleFileChange}
+                className={styles.fileInput}
+              />
+              <small className={styles.helperText}>
+                Capacidad máxima de subida: 15 MB por archivo. Se permiten PDFs, JPG, JPEG, DOC y DOCX.
+              </small>
+            </div>
+
             {formData.adjuntos.length > 0 && (
-              <div style={{ color: '#475569', fontSize: '13px', marginTop: '8px' }}>
+              <div className={styles.selectedFiles}>
                 Archivos seleccionados:
-                <ul style={{ margin: '8px 0 0 16px', padding: 0, listStyleType: 'disc' }}>
+                <ul className={styles.selectedFilesList}>
                   {formData.adjuntos.map((file, index) => (
                     <li key={index}>{file.name}</li>
                   ))}
                 </ul>
               </div>
             )}
-            <small style={{ color: '#64748b', fontSize: '12px' }}>
-              Se permiten archivos PDF, JPG, JPEG, DOC y DOCX.
-            </small>
           </div>
         )}
 
-        {feedback.message && (
-          <div style={{
-            padding: '12px 18px',
-            borderRadius: '20px',
-            backgroundColor: feedback.status === 'success' ? '#d1fae5' : '#fee2e2',
-            color: feedback.status === 'success' ? '#065f46' : '#991b1b',
-            fontSize: '14px',
-          }}>
-            {feedback.message}
-          </div>
-        )}
-
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+        <div className={styles.submitRow}>
           <button
             type="submit"
             disabled={isSubmitting}
-            style={{
-              background: '#215ba0',
-              color: 'white',
-              border: 'none',
-              padding: '8px 45px',
-              borderRadius: '50px 10px 50px 10px',
-              fontWeight: 700,
-              fontSize: '16px',
-              cursor: isSubmitting ? 'wait' : 'pointer',
-              opacity: isSubmitting ? 0.75 : 1,
-            }}
+            className={`${styles.submitButton} ${isSubmitting ? styles.submitButtonDisabled : ''}`}
           >
             {isSubmitting ? 'Enviando...' : 'Enviar reporte'}
           </button>
         </div>
       </form>
+      <PopupAlert visible={popup.visible} status={popup.status} message={popup.message} onClose={closePopup} />
     </div>
   );
 }

@@ -1,0 +1,280 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 30px;
+  font-family: Arial, sans-serif;
+}
+
+.badge {
+  position: absolute;
+  top: -22px;
+  left: -10px;
+  background-color: #215ba0;
+  color: white;
+  padding: 3px 40px;
+  border-radius: 40px 0 40px 0;
+  font-weight: 800;
+  font-size: 20px;
+  z-index: 5;
+}
+
+.form {
+  background-color: white;
+  border-radius: 30px;
+  padding: 45px 40px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: visible;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fieldGroup {
+  display: grid;
+  gap: 8px;
+}
+
+.label {
+  color: #215ba0;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.required {
+  color: #b91c1c;
+}
+
+.input,
+.dateInput,
+.textarea {
+  background-color: #ecf1f6;
+  border: none;
+  border-radius: 40px;
+  padding: 10px 20px;
+  font-size: 13.5px;
+  color: #1a365d;
+  outline: none;
+}
+
+.textareaWrap {
+  background-color: #ecf1f6;
+  border-radius: 15px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.textarea {
+  border-radius: 0;
+  padding: 0;
+  resize: none;
+  height: 90px;
+  width: 100%;
+  font-family: inherit;
+  color: #215ba0;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #215ba0;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.uploadContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filePickerLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 5px 18px;
+  border-radius: 999px;
+  background:#215ba0;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(33, 91, 160, 0.22);
+}
+
+.filePickerLabel:hover {
+  background: linear-gradient(135deg, #215ba0, #3b82f6);
+}
+
+.fileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.helperText {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.selectedFiles {
+  color: #475569;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.selectedFilesList {
+  margin: 8px 0 0 16px;
+  padding: 0;
+  list-style-type: disc;
+}
+
+.dropdownContainer {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  z-index: 10;
+}
+
+.requestButton {
+  background-color: #ecf1f6;
+  border: none;
+  border-radius: 40px;
+  padding: 8px 18px;
+  font-size: 13.5px;
+  color: #215ba0;
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-width: 220px;
+  cursor: pointer;
+}
+
+.activeBtn {
+  background-color: #2b5d95;
+  color: white;
+}
+
+.icon {
+  font-size: 16px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.dropdownList {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  margin: 0;
+  background-color: #ecf1f6;
+  border-radius: 15px;
+  padding: 12px 18px;
+  list-style: none;
+  width: 100%;
+  min-width: 280px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  z-index: 20;
+}
+
+.dropdownItem {
+  padding: 6px 0;
+  font-size: 13px;
+  color: #3b6ba5;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  color: #40a335;
+}
+
+.feedback {
+  padding: 12px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.feedbackSuccess {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.feedbackError {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.submitRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.submitButton {
+  background: #215ba0;
+  color: white;
+  border: none;
+  padding: 8px 45px;
+  border-radius: 50px 10px 50px 10px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submitButtonDisabled {
+  opacity: 0.75;
+  cursor: wait;
+}
+
+@media (max-width: 640px) {
+  .form {
+    padding: 40px 18px 24px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .badge {
+    left: 0;
+    top: -18px;
+    padding: 3px 22px;
+    font-size: 18px;
+  }
+}

@@ -301,7 +301,19 @@ const ContactForm = () => {
                 style={{ overflow: 'hidden' }}
               >
                 <label className={styles.fileLabel}>Adjunta tu Hoja de Vida (PDF, DOC, DOCX, máx 5MB)</label>
-                <input type="file" accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={handleFile} />
+                <div className={styles.filePickerStack}>
+                  <label htmlFor="contact-attachment" className={styles.filePickerLabel}>
+                    Elegir archivo
+                  </label>
+                  <input
+                    id="contact-attachment"
+                    type="file"
+                    accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    onChange={handleFile}
+                    className={styles.fileInput}
+                  />
+                  <small className={styles.helperText}>Capacidad máxima de subida: 5 MB por archivo.</small>
+                </div>
                 
                 <AnimatePresence>
                   {attachmentError && (

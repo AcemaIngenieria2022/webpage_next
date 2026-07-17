@@ -28,10 +28,19 @@ const reportOptions = [
 export default function LineaEticaForm() {
   const [formData, setFormData] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [popup, setPopup] = useState({ visible: false, status: 'success', message: '' });
+  const [popup, setPopup] = useState({ visible: false, status: 'success', title: '', message: '' });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isHoverable, setIsHoverable] = useState(false);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    setPopup({
+      visible: true,
+      status: 'success',
+      title: 'Bienvenido a la línea ética',
+      message: 'Este canal está diseñado para reportar, de manera confidencial y anónima, situaciones que puedan afectar la ética, la transparencia, el cumplimiento de las políticas empresariales de la compañía o el bienestar de los trabajadores.',
+    });
+  }, []);
 
   useEffect(() => {
     const handlePointerDown = (event) => {
@@ -323,7 +332,7 @@ export default function LineaEticaForm() {
           </button>
         </div>
       </form>
-      <PopupAlert visible={popup.visible} status={popup.status} message={popup.message} onClose={closePopup} />
+      <PopupAlert visible={popup.visible} status={popup.status} title={popup.title} message={popup.message} onClose={closePopup} />
     </div>
   );
 }

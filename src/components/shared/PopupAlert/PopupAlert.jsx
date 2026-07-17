@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from './PopupAlert.module.css';
 
-const PopupAlert = ({ visible, status = 'success', message = '', onClose }) => {
+const PopupAlert = ({ visible, status = 'success', title = '', message = '', onClose }) => {
   if (!visible) return null;
+
+  const popupTitle = title || (status === 'success' ? '¡Enviado con éxito!' : 'Atención');
 
   return (
     <div className={styles.overlay}>
@@ -22,9 +24,7 @@ const PopupAlert = ({ visible, status = 'success', message = '', onClose }) => {
         </div>
 
         <div className={styles.content}>
-          <h2 className={styles.title}>
-            {status === 'success' ? '¡Enviado con éxito!' : 'Atención'}
-          </h2>
+          <h2 className={styles.title}>{popupTitle}</h2>
           <p className={styles.message}>{message}</p>
         </div>
 

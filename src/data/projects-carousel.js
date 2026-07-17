@@ -189,6 +189,34 @@ export const projectsCarouselData = {
       {
         src: '/images/projects/carousel/valledupar/valledupar3.webp',
         alt: 'Proyecto Valledupar - Vista 3'
+      },
+      {
+        src: '/images/projects/carousel/valledupar/valledupar4.webp',
+        alt: 'Proyecto Valledupar - Vista 4'
+      },
+      {
+        src: '/images/projects/carousel/valledupar/valledupar5.webp',
+        alt: 'Proyecto Valledupar - Vista 5'
+      },
+      {
+        src: '/images/projects/carousel/valledupar/valledupar6.webp',
+        alt: 'Proyecto Valledupar - Vista 6'
+      },
+      {
+        src: '/images/projects/carousel/valledupar/valledupar7.webp',
+        alt: 'Proyecto Valledupar - Vista 7'
+      },
+      {
+        src: '/images/projects/carousel/valledupar/valledupar8.webp',
+        alt: 'Proyecto Valledupar - Vista 8'
+      },
+      {
+        src: '/images/projects/carousel/valledupar/valledupar9.webp',
+        alt: 'Proyecto Valledupar - Vista 9'
+      },
+      {
+        src: '/images/projects/carousel/valledupar/valledupar10.webp',
+        alt: 'Proyecto Valledupar - Vista 10'
       }
     ]
   },

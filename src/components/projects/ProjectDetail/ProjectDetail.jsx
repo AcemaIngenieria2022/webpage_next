@@ -454,7 +454,6 @@ function ProjectHeroImage({ project }) {
   }, [project?.heroImage]);
 
   useEffect(() => {
-    // Mostrar la imagen original desde el inicio para evitar pixelado
     const initialSrc = project.heroImage || mapped;
     setSrc(initialSrc);
     requestAnimationFrame(() => setVisible(true));

@@ -19,7 +19,7 @@ const PqrForm = () => {
   const dropdownRef = useRef(null);
   const [isHoverable, setIsHoverable] = useState(false);
 
-  const options = ["Petición", "Queja", "Reclamo", "Sugerencia"];
+  const options = ["Caso social", "Petición", "Queja", "Reclamo", "Sugerencia"];
 
   // Animaciones compartidas con ContactForm para el dropdown
   const dropdownVariants = {

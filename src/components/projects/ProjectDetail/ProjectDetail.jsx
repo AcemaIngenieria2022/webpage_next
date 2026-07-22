@@ -478,11 +478,7 @@ function ProjectHeroImage({ project }) {
         onLoadingComplete={() => setLoaded(true)}
         onError={() => setLoaded(true)}
       />
-      {!loaded && (
-        <div className={styles.heroLoading}>
-          <span className={styles.spinner} aria-hidden="true" />
-        </div>
-      )}
+      {/* spinner removed: image will appear when loaded */}
     </>
   );
 }

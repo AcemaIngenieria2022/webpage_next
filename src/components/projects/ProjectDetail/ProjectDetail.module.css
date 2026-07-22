@@ -231,11 +231,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
 }
 
 .videoThumbButton:hover .videoThumb {
-  transform: scale(1.05);
+  transform: none;
 }
 
 .videoFallbackText {
@@ -263,7 +262,6 @@
   justify-content: center;
   z-index: 1000;
   padding: 20px;
-  animation: fadeIn 0.3s ease;
 }
 
 .fallbackModalContent {
@@ -273,7 +271,6 @@
   max-width: 500px;
   width: 100%;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease;
 }
 
 .fallbackModalContent h3 {
@@ -301,7 +298,6 @@
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
   text-align: center;
   text-decoration: none;
   border: none;
@@ -315,7 +311,6 @@
 
 .primaryButton:hover {
   background: #388e3c;
-  transform: translateY(-2px);
 }
 
 .secondaryButton {
@@ -352,7 +347,6 @@
   border-radius: 25px;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
 }
 
 .specLabel {
@@ -393,12 +387,10 @@
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
   margin-bottom: 40px;
 }
 
 .ctaButton:hover {
-  transform: translateY(-2px);
   background-color: #388e3c;
 }
 
@@ -410,25 +402,6 @@
 /* ============================================
    ANIMACIONES
    ============================================ */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 /* ============================================
    RESPONSIVIDAD

@@ -431,54 +431,62 @@ export default function ProjectDetail({ project }) {
 // Componente de imagen hero progresiva
 function ProjectHeroImage({ project }) {
   const mapped = thumbs[project.heroImage];
-  const [src, setSrc] = useState(null);
-  const [loaded, setLoaded] = useState(false);
+  const highRes = project.heroImage || mapped;
+  const lowRes = mapped && mapped !== project.heroImage ? mapped : null;
 
-  // Preload the hero image to speed up rendering in the browser
+  const [src, setSrc] = useState(lowRes || highRes);
+  const [highLoaded, setHighLoaded] = useState(!lowRes);
+
+  // Preload high-res progressively: show low-res thumb first (if available), then swap to high-res when loaded
   useEffect(() => {
     if (!project?.heroImage) return;
     const href = project.heroImage;
-    // Avoid adding duplicate preload links
     const existing = Array.from(document.querySelectorAll('link[rel="preload"][as="image"]')).find(l => l.href && l.href.endsWith(href));
-    if (existing) return;
-
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = href;
-    document.head.appendChild(link);
-
-    return () => {
-      try { if (link.parentNode) link.parentNode.removeChild(link); } catch (e) {}
-    };
+    if (!existing) {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = href;
+      document.head.appendChild(link);
+      return () => { try { if (link.parentNode) link.parentNode.removeChild(link); } catch (e) {} };
+    }
   }, [project?.heroImage]);
 
   useEffect(() => {
-    const initialSrc = project.heroImage || mapped;
-    setSrc(initialSrc);
-    setLoaded(false);
-  }, [mapped, project.heroImage]);
+    const initial = lowRes || highRes;
+    setSrc(initial);
+    setHighLoaded(!lowRes);
 
-  if (!src) {
-    return <div className={styles.heroPlaceholder} />;
-  }
+    if (lowRes && highRes && lowRes !== highRes) {
+      const img = new window.Image();
+      img.src = highRes;
+      img.onload = () => {
+        setSrc(highRes);
+        setHighLoaded(true);
+      };
+      img.onerror = () => {
+        setSrc(highRes);
+        setHighLoaded(true);
+      };
+      return () => {
+        img.onload = null;
+        img.onerror = null;
+      };
+    }
+  }, [lowRes, highRes]);
+
+  if (!src) return <div className={styles.heroPlaceholder} />;
 
   return (
-    <>
-      <Image
-        src={src}
-        alt={project.title}
-        fill
-        priority
-        loading="eager"
-        fetchPriority="high"
-        sizes="100vw"
-        quality={90}
-        className={`${styles.heroImage} ${loaded ? styles.heroImageVisible : ''}`}
-        onLoadingComplete={() => setLoaded(true)}
-        onError={() => setLoaded(true)}
-      />
-      {/* spinner removed: image will appear when loaded */}
-    </>
+    <Image
+      src={src}
+      alt={project.title}
+      fill
+      loading={highLoaded ? 'eager' : 'lazy'}
+      fetchPriority={highLoaded ? 'high' : 'low'}
+      sizes="100vw"
+      quality={highLoaded ? 90 : 40}
+      className={`${styles.heroImage} ${highLoaded ? styles.heroImageVisible : ''} ${!highLoaded ? styles.heroImageBlur : ''}`}
+    />
   );
 }

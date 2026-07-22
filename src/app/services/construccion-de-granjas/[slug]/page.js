@@ -29,12 +29,11 @@ export default async function FeaturePage({ params }) {
     <main className={`${styles.servicePage} ${isScada ? styles.scadaPage : ''}`}>
       <div className={styles.bannerBox} style={{ minHeight: 280 }}>
         <Image src="/images/services/banner/construccion-granjas.webp" alt="Construcción de granjas" fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} priority fetchPriority="high" loading="eager" decoding="async" />
-        <Image src="/images/services/banner/contruccion-movil.png" alt="Construcción de granjas" fill className={styles.bannerImgMobile} sizes="100vw" quality={70} priority fetchPriority="high" loading="eager" decoding="async" />
+        <Image src="/images/services/banner/construccion-movil.webp" alt="Construcción de granjas" fill className={styles.bannerImgMobile} sizes="100vw" quality={70} priority fetchPriority="high" loading="eager" decoding="async" />
       </div>
 
       <section className={styles.featuresSection}>
         <div className={styles.content}>
-          <h1>{feature.title}</h1>
           <p className={styles.lead}>{feature.description}</p>
           {/* Custom two-column content for SCADA/PPC page */}
           {slug === 'sistemas-scada-ppc' && (

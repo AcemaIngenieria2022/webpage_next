@@ -21,7 +21,7 @@ export const projectsDetailsData = {
     description:
       "En Montería (Córdoba) se levanta La Rubiela, una granja solar de 1,25MWp que impulsa la transición energética y el desarrollo sostenible en la región. Este proyecto fortalece la generación distribuida y la independencia energética de las comunidades.\n\nAcema Ingeniería participó en la construcción e interconexión, asegurando calidad, seguridad y eficiencia en cada etapa. La Rubiela es hoy una fuente constante de energía limpia y un ejemplo del aporte de la ingeniería colombiana al desarrollo sostenible.",
     heroImage: "/images/projects/finished/Rubiela.webp",
-    videoUrl: "https://youtu.be/0lVPaEloYVM",
+    videoUrl: "https://www.youtube.com/watch?v=CeG5zooiXqU",
     specs: [
       {
         label: "Ubicación",

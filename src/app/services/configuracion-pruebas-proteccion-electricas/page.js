@@ -24,7 +24,7 @@ export default function ProteccionesPage() {
           quality={80}
         />
         <Image
-          src="/images/services/banner/electricos-movil.png"
+          src="/images/services/banner/electrico-movil.webp"
           alt={feature.title}
           fill
           className={styles.bannerImgMobile}

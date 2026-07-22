@@ -7,7 +7,7 @@ import styles from "./Hero.module.css";
 const HERO_IMAGES = [
   { src: "/images/hero/hero-img1.webp", srcMobile: "/images/hero/movile-img1.webp", alt: "Proyecto ACEMA 1" },
   { src: "/images/hero/hero-img2.webp", srcMobile: "/images/hero/movile-img2.webp", alt: "Proyecto ACEMA 2" },
-  { src: "/images/hero/img3-hero.webp", srcMobile: "/images/hero/img3-hero.webp", alt: "Proyecto ACEMA 3" },
+  { src: "/images/hero/hero-img3.webp", srcMobile: "/images/hero/movile-img3.webp", alt: "Proyecto ACEMA 3" },
 ];
 
 const AUTOPLAY_DELAY = 7000;

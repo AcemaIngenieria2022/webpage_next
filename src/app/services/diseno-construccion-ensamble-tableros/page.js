@@ -17,7 +17,7 @@ export default function TablerosPage() {
     <main className={styles.servicePage}>
       <div className={styles.bannerBox} style={{ position: 'relative', height: 320 }}>
         <Image src={feature.banner || feature.image} alt={feature.title} fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
-        <Image src={feature.bannerMobile || feature.banner || feature.image} alt={feature.title} fill className={styles.bannerImgMobile} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
+        <Image src="/images/services/banner/electrico-movil.webp" alt={feature.title} fill className={styles.bannerImgMobile} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
       </div>
 
       

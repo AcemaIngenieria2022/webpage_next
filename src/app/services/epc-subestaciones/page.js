@@ -35,7 +35,7 @@ export default function EPCSubestacionesPage() {
           quality={80}
         />
         <Image
-          src={feature.bannerMobile || feature.banner || feature.image || '/images/services/banner/banner-estaciones/banner1.webp'}
+          src="/images/services/banner/electrico-movil.webp"
           alt={feature.title}
           fill
           className={styles.bannerImgMobile}

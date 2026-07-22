@@ -22,9 +22,15 @@ export default function ServiceSlugPage({ params }) {
     <main className={styles.servicePage}>
       <div className={styles.bannerBox} style={{ position: 'relative', height: 320 }}>
         {feature.banner ? (
-          <Image src={feature.banner} alt={feature.title} fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
+          <>
+            <Image src={feature.banner} alt={feature.title} fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
+            <Image src="/images/services/banner/electrico-movil.webp" alt={feature.title} fill className={styles.bannerImgMobile} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
+          </>
         ) : (
-          <Image src={feature.image} alt={feature.title} fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
+          <>
+            <Image src={feature.image} alt={feature.title} fill className={styles.bannerImgDesktop} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
+            <Image src="/images/services/banner/electrico-movil.webp" alt={feature.title} fill className={styles.bannerImgMobile} sizes="(max-width: 900px) 100vw, 1600px" quality={80} />
+          </>
         )}
       </div>
 

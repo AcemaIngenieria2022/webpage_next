@@ -107,10 +107,7 @@ const PrivacyPolicy = ({ onLearnMore }) => {
                 </span>
               </p>
 
-              <p>
-                <strong>Teléfono:</strong> 313 663 3929
-              </p>
-
+           
               <p>
                 <strong>Dirección:</strong> Calle 48A #81A-30, Barrio Calasanz,
                 Medellín, Antioquia, Colombia.

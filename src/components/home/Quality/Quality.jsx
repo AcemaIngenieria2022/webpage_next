@@ -57,19 +57,11 @@ export default function Quality() {
             
             <div className={styles.descriptionWrapper}>
               <p className={styles.description}>
-                Acema Ingeniería orienta su gestión hacia la calidad del servicio 
-                y la prevención de accidentes y enfermedades laborales, a través 
-                de la correcta identificación de riesgos, evaluación de peligros 
-                y establecimiento de controles asociados a la eliminación de los 
-                peligros y la reducción de los riesgos.
+               Acema Ingeniería orienta su gestión hacia la calidad del servicio y la prevención de accidentes de trabajo y enfermedades laborales, mediante la adecuada identificación de riesgos, la evaluación de peligros y la implementación de controles enfocados en la eliminación de los peligros y la reducción de los riesgos.
+
               </p>
               <p className={styles.description}>
-                Dirige sus esfuerzos en proveer condiciones de trabajo óptimas y 
-                seguras, fomentando una cultura de autocuidado, bienestar, 
-                comunicación y participación de sus colaboradores y sus 
-                representantes. Además, protege y cuida el medio ambiente, 
-                previniendo la contaminación y asegurando el cumplimiento de los 
-                requisitos legales y otros aplicables.
+               Asimismo, dirige sus esfuerzos a proporcionar condiciones de trabajo seguras y adecuadas, promoviendo una cultura de autocuidado, bienestar, comunicación y participación de sus colaboradores y sus representantes. De igual manera, protege el medio ambiente mediante la prevención de la contaminación y el cumplimiento de los requisitos legales y demás requisitos aplicables.
               </p>
             </div>
           </div>

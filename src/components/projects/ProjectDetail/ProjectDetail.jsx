@@ -432,7 +432,7 @@ export default function ProjectDetail({ project }) {
 function ProjectHeroImage({ project }) {
   const mapped = thumbs[project.heroImage];
   const [src, setSrc] = useState(null);
-  const [visible, setVisible] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   // Preload the hero image to speed up rendering in the browser
   useEffect(() => {
@@ -456,7 +456,7 @@ function ProjectHeroImage({ project }) {
   useEffect(() => {
     const initialSrc = project.heroImage || mapped;
     setSrc(initialSrc);
-    requestAnimationFrame(() => setVisible(true));
+    setLoaded(false);
   }, [mapped, project.heroImage]);
 
   if (!src) {
@@ -464,16 +464,25 @@ function ProjectHeroImage({ project }) {
   }
 
   return (
-    <Image
-      src={src}
-      alt={project.title}
-      fill
-      priority
-      loading="eager"
-      fetchPriority="high"
-      sizes="100vw"
-      quality={90}
-      className={`${styles.heroImage} ${visible ? styles.heroImageVisible : ''}`}
-    />
+    <>
+      <Image
+        src={src}
+        alt={project.title}
+        fill
+        priority
+        loading="eager"
+        fetchPriority="high"
+        sizes="100vw"
+        quality={90}
+        className={`${styles.heroImage} ${loaded ? styles.heroImageVisible : ''}`}
+        onLoadingComplete={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
+      />
+      {!loaded && (
+        <div className={styles.heroLoading}>
+          <span className={styles.spinner} aria-hidden="true" />
+        </div>
+      )}
+    </>
   );
 }

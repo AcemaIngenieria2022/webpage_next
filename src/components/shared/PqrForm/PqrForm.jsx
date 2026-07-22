@@ -263,7 +263,7 @@ const PqrForm = () => {
 
           <div className={styles.infoBoxSide}>
             <p className={styles.infoText}>
-              Nuestra atención al cliente está disponible de: <strong>lunes a viernes, de 7:00 a.m. a 5:00 p.m.</strong>
+              Nuestra atención al cliente está disponible de: <strong>lunes a viernes de 7:00 a.m a 4:20 p.m.</strong>
             </p>
           </div>
         </div>

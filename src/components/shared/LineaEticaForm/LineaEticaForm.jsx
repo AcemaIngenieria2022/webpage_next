@@ -33,14 +33,7 @@ export default function LineaEticaForm() {
   const [isHoverable, setIsHoverable] = useState(false);
   const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    setPopup({
-      visible: true,
-      status: 'success',
-      title: 'Bienvenido a la línea ética',
-      message: 'Este canal está diseñado para reportar, de manera confidencial y anónima, situaciones que puedan afectar la ética, la transparencia, el cumplimiento de las políticas empresariales de la compañía o el bienestar de los trabajadores.',
-    });
-  }, []);
+  const welcomeMessage = 'Este canal está diseñado para reportar, de manera confidencial y anónima, situaciones que puedan afectar la ética, la transparencia, el cumplimiento de las políticas empresariales de la compañía o el bienestar de los trabajadores.';
 
   useEffect(() => {
     const handlePointerDown = (event) => {
@@ -174,6 +167,10 @@ export default function LineaEticaForm() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.badge}>Línea Ética</div>
+      <div className={styles.welcomeBox}>
+        <h2 className={styles.welcomeTitle}>Bienvenido a la línea ética</h2>
+        <p className={styles.welcomeText}>{welcomeMessage}</p>
+      </div>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGrid}>

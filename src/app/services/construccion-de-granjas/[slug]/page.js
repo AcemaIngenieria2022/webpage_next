@@ -34,7 +34,7 @@ export default async function FeaturePage({ params }) {
 
       <section className={styles.featuresSection}>
         <div className={styles.content}>
-          <h1>{feature.title}</h1>
+          {slug !== 'construccion-de-granjas' && <h1>{feature.title}</h1>}
           <p className={styles.lead}>{feature.description}</p>
           {/* Custom two-column content for SCADA/PPC page */}
           {slug === 'sistemas-scada-ppc' && (

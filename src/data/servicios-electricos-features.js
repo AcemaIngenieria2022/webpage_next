@@ -40,7 +40,7 @@ export const serviciosElectricosFeatures = [
   },
   {
     title: 'Configuración y pruebas de protección eléctricas',
-    image: '/images/services/cards/estaciones.webp',
+    image: '/images/services/cards/proteccion.webp',
     slug: 'configuracion-pruebas-proteccion-electricas',
     banner: '/images/services/banner/banner-estaciones/banner3.webp',
     description: '',

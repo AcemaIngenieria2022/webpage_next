@@ -1,5 +1,6 @@
 export const projectsData = [
   // --- FINALIZADOS ---
+  { id: 12, title: 'San Onofre I, II y III', slug: 'granjas-solares-san-onofre-i-ii-y-iii', status: 'finalizados', image: '/images/projects/developing/sanonofre.webp' },
   { id: 1, title: 'La Rubiela', slug: 'la-rubiela', status: 'finalizados', image: '/images/projects/finished/foto-prueba1.png' },
   { id: 2, title: 'San Pelayo', slug: 'san-pelayo', status: 'finalizados', image: '/images/projects/finished/pelayo.webp' },
   { id: 3, title: 'Inti I y II', slug: 'inti-i-y-ii', status: 'finalizados', image: '/images/projects/finished/inti.webp' },
@@ -11,7 +12,6 @@ export const projectsData = [
   { id: 9, title: 'Sol y cielo', slug: 'sol-y-cielo', status: 'finalizados', image: '/images/projects/finished/solycielo.webp' },
   { id: 10, title: 'Emperatriz I y II', slug: 'emperatriz-i-y-ii', status: 'finalizados', image: '/images/projects/finished/emperatriz.webp' },
   { id: 11, title: 'Coralito y Golondrina', slug: 'coralito-y-golondrina', status: 'finalizados', image: '/images/projects/finished/coralito.webp' },
-  { id: 12, title: 'San Onofre I, II y III', slug: 'granjas-solares-san-onofre-i-ii-y-iii', status: 'finalizados', image: '/images/projects/developing/sanonofre.webp' },
   
   
 // --- EN DESARROLLO ---

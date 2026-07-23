@@ -168,6 +168,7 @@ export default function LineaEticaForm() {
     <div className={styles.wrapper}>
       <div className={styles.badge}>Línea Ética</div>
       <div className={styles.welcomeBox}>
+        <h2 className={styles.welcomeTitle}>Bienvenido</h2>
         <p className={styles.welcomeText}>{welcomeMessage}</p>
       </div>
 

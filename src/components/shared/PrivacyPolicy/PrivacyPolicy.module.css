@@ -1,13 +1,13 @@
 .container {
   min-height: 100vh;
-  background-color: #f1f1f1; /* Color de fondo suave de la imagen */
+  background-color: #f1f1f1;
   padding: 80px 20px;
   font-family: Arial, Helvetica, sans-serif;
   color: #215ba0;
 }
 
 .wrapper {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -19,13 +19,9 @@
   color: #215ba0;
   font-size: 26px;
   font-weight: 600;
-  padding: 50px 0;
+  padding: 50px 0 5px;
   line-height: 1.2;
- 
   display: inline-block;
-  /* border-bottom: 3.5px solid #40a335; */
-   /* Línea verde debajo del título */
-  padding-bottom: 5px;
 }
 
 .sectionTitle {
@@ -37,17 +33,21 @@
 
 .description {
   font-size: 14.5px;
-  line-height: 1.6;
+  line-height: 1.7;
   text-align: justify;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   color: #215ba0;
 }
 
-.subtitle {
-  display: block;
-  color: #215ba0;
-  font-weight: 700;
-  font-size: 14px;
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Tarjeta Blanca Central */
@@ -57,7 +57,6 @@
   padding: 45px 55px;
   margin: 30px 0;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
-  
 }
 
 .cardHeader {
@@ -76,9 +75,9 @@
 .listItem {
   position: relative;
   padding-left: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 13.5px;
-  line-height: 1.1;
+  line-height: 1.45;
 }
 
 .listItem::before {
@@ -93,8 +92,15 @@
 .detailsContainer {
   display: flex;
   flex-direction: column;
-  gap: 35px;
-  margin-top: 40px;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.infoBlock {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .blockTitle {
@@ -102,7 +108,14 @@
   font-size: 14px;
   font-weight: 800;
   margin-bottom: 12px;
- 
+}
+
+.contactCard {
+  margin-top: 20px;
+  background: #f7f9fc;
+  border: 1px solid #d7e3f3;
+  border-radius: 18px;
+  padding: 18px 20px;
 }
 
 .contactInfo {
@@ -114,8 +127,6 @@
 
 .contactInfo strong {
   color: #215ba0;
-  
-
 }
 
 .link {
@@ -123,13 +134,63 @@
   text-decoration: underline;
 }
 
+.requestAttention {
+  margin-top: 8px;
+  font-weight: 700;
+  color: #215ba0;
+}
+
+.textSmall {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #215ba0;
+  margin: 0 0 12px;
+}
+
+/* Tabla de conservación */
+.retentionTableWrapper {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.retentionTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border: 1px solid #215ba0;
+}
+
+.retentionHeaderCell,
+.retentionCell {
+  border: 1px solid #215ba0;
+  padding: 16px 18px;
+  vertical-align: top;
+  text-align: left;
+  color: #215ba0;
+}
+
+.retentionHeaderCell {
+  background: #215ba0;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.retentionCell {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.retentionRow:nth-child(even) {
+  background: #f7f9fc;
+}
+
 /* Footer y Botón */
 .actionFooter {
   display: flex;
   align-items: center;
   gap: 20px;
- 
-  
+  margin-top: 32px;
 }
 
 .ctaText {
@@ -147,6 +208,10 @@
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.2s;
 }
 
@@ -158,6 +223,7 @@
   .purposesCard {
     padding: 30px 25px;
   }
+
   .actionFooter {
     flex-direction: column;
     align-items: flex-start;

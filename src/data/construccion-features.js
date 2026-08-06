@@ -3,10 +3,10 @@ export const construccionFeatures = [
     title: "Construcción de granjas",
     image: "/images/services/cards/granjas.webp",
     slug: "construccion-de-granjas",
-    description: "Acompañamos el desarrollo completo de granjas solares de generación distribuida, integrando ingeniería, construcción y puesta en operación para entregar proyectos listos para generar energía desde el primer día.",
+   
     sections: [
       {
-        heading: "Un solo aliado en todo el proceso",
+       
         description: "Desarrollamos cada etapa del proyecto de manera integrada para garantizar una ejecución eficiente, minimizar riesgos y asegurar una transición fluida hacia la operación.",
         content: [
           "Estructuración del proyecto: evaluación técnica, energética y regulatoria para viabilizar la granja solar.",
@@ -20,7 +20,8 @@ export const construccionFeatures = [
         content: [
           "Control integral del proyecto",
           "Reducción de riesgos técnicos y regulatorios",
-          "Optimización de tiempos y costos"
+          "Optimización de tiempos y costos",
+     
         ]
       },
        {
@@ -36,11 +37,11 @@ export const construccionFeatures = [
         stages: [
           {
             title: "1. Preparación del terreno",
-            text: "Adecuación del predio, movimientos de tierra y obras preliminares necesarias para la instalación."
+            text: "Adecuación del predio, movimientos de tierra, cerramientos y obras preliminares necesarias para la instalación."
           },
           {
             title: "2. Obras civiles",
-            text: "Construcción de vías internas, cimentaciones, drenajes, bancos de ductos y cerramiento."
+            text: "Construcción de vías internas, cimentaciones, drenajes y bases estructurales del sistema fotovoltaico."
           },
           {
             title: "3. Montaje de estructuras y módulos",
@@ -48,11 +49,11 @@ export const construccionFeatures = [
           },
           {
             title: "4. Instalación eléctrica",
-            text: "Tendido y conexionado de redes DC y AC, instalación de inversores y sistema eléctricos asociados."
+            text: "Tendido de redes DC y AC, instalación de inversores, canalizaciones y sistemas eléctricos asociados."
           },
           {
             title: "5. Centros de transformación y media tensión",
-            text: "Montaje de subestaciones, centros de transformación y redes de distribución eléctrica."
+            text: "Montaje de subestaciones, centros de transformación y redes de evacuación de energía."
           },
           {
             title: "6. Pruebas y comisionamiento",

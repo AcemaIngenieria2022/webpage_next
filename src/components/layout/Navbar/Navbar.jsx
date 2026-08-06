@@ -133,9 +133,6 @@ const Navbar = () => {
           <Link href="/contact" className={`${styles.navLink} ${isScrolled ? styles.linkScrolled : ''} ${isActive('/contact') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Contáctanos</span>
           </Link>
-          <Link href="/blog" className={`${styles.navLink} ${isScrolled ? styles.linkScrolled : ''} ${isActive('/blog') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
-            <span className={styles.linkText}>Blog</span>
-          </Link>
         </div>
 
         <button 

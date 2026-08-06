@@ -40,24 +40,12 @@ export default function ScadaPage() {
 
         <div className={`${styles.featuresSection} ${styles.scadaFeaturesFullWidth}`}>
           <div className={styles.twoColumn}>
-            <div className={styles.leftCol}>
+            <div style={{ gridColumn: '1 / -1', width: '100%' }}>
               {feature.content && feature.content.map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i} style={{ textAlign: 'center', maxWidth: 820, margin: '0 auto' }}>{p}</p>
               ))}
             </div>
 
-            <div className={styles.rightCol}>
-              <div className={styles.offerBox}>
-                <h4 className={styles.infoTitle}>Nuestros servicios incluyen:</h4>
-                <ul className={styles.offerList}>
-                  {feature.offers ? (
-                    feature.offers.map((o, idx) => (
-                      <li key={idx}>{o}</li>
-                    ))
-                  ) : null}
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </section>

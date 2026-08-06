@@ -92,12 +92,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 40px;
+  padding: 5px 32px;
   max-width: 1400px;
   margin: 0 auto;
   height: 80px;
   position: relative;
   z-index: 1;
+}
+
+@media (min-width: 1400px) {
+  .navbarContainer {
+    padding: 5px 16px;
+    max-width: 1720px;
+  }
+
+  .navbarLogo {
+    margin-left: -24px;
+  }
+
+  .navMenu {
+    margin-right: -24px;
+  }
 }
 
 /* ==========================
@@ -108,10 +123,11 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  margin-left: -8px;
 }
 
 .logoImage {
-  width: 140px;
+  width: 180px;
   height: auto;
   object-fit: contain;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -454,10 +470,11 @@
   }
 
   .navLink {
-    font-size: 16px;
+    font-size: 20px;
     width: 100%;
     justify-content: center;
     padding: 8px 0;
+
   }
 
   /* En móvil, los links siempre mantienen su color original cuando el menú está abierto */
@@ -485,6 +502,7 @@
     animation: none;
     border: none;
     border-radius: 8px;
+    
     padding: 4px 0;
   }
 
@@ -496,7 +514,7 @@
   .dropdownItem {
     text-align: center;
     padding: 6px 12px !important;
-    font-size: 13px;
+    font-size: 20px;
   }
 
   .dropdownItemScrolled {
@@ -533,7 +551,11 @@
   }
 
   .navLink {
-    font-size: 14px;
+    font-size: 18px;
+  }
+
+  .dropdownItem {
+    font-size: 18px;
   }
 
   .hamburger span {

@@ -1,6 +1,6 @@
 .clientsSection {
   background-color: #f1f1f2;
-  padding: 50px 0;
+  padding: 5px 0;
   text-align: center;
   width: 100%;
   overflow: hidden;
@@ -8,9 +8,9 @@
 
 .clientsTitle {
   color: #215ba0;
-  font-size: 2.1rem;
+  font-size: 2.0rem;
   font-weight: 600;
-  margin-bottom: 30px;
+  margin-bottom:3px;
   font-family: var(--font-montserrat), sans-serif;
 }
 
@@ -22,12 +22,12 @@
   justify-items: center;
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 5px;
 }
 
 .logoItem {
-  width: 210px;
-  height: 100px;
+  width: 300px;
+  height: 150px;
   position: relative;
   display: flex;
   justify-content: center;

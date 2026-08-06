@@ -16,10 +16,10 @@ export default function EPCSubestacionesPage() {
   const benefits = [
     { title: 'Gestión integral del proyecto', text: 'un solo aliado se encarga del diseño, suministro, construcción y puesta en marcha.' },
     { title: 'Cumplimiento garantizado', text: 'control total de tiempos, costos y calidad.' },
-    { title: 'Eficiencia operativa', text: 'procesos optimizados que reducen retrabajos y demoras.' },
+    { title: 'Eficiencia operativa', text: 'procesos optimizados que evitan reprocesos y demoras.' },
     { title: 'Mayor seguridad y confiabilidad', text: 'soluciones construidas bajo normas técnicas y estándares internacionales.' },
-    { title: 'Flexibilidad técnica', text: 'diseños adaptados a las necesidades del cliente, ya sean encapsulados o tipo AIS.' },
-    { title: 'Optimización de recursos', text: 'coordinación directa entre ingeniería, obra y montaje.' },
+    { title: 'Flexibilidad técnica', text: 'diseños adaptados a las necesidades del cliente' },
+    { title: 'Optimización de recursos', text: 'coordinación directa entre ingeniería, suministro y montaje.' },
     { title: 'Acompañamiento experto', text: 'soporte especializado desde la planeación hasta la operación.' },
   ];
 
@@ -58,7 +58,7 @@ export default function EPCSubestacionesPage() {
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div className={styles.integramosPlain} style={{ maxWidth: 720 }}>
               <ul className={styles.infoList}>
-                <li>Renes de celdas de media tensión AIS y GIS.</li>
+                <li>Trenes de celdas de media tensión AIS y GIS.</li>
                 <li>Subestaciones convencionales.</li>
                 <li>Subestaciones con bahías reducidas (reconectadores).</li>
               </ul>
@@ -90,8 +90,8 @@ export default function EPCSubestacionesPage() {
           </div>
         </div>
 
-        {/* Carousel at the end */}
-        <div className={styles.miniCarouselWrap}>
+        {/* Carousel at the end - hidden for now */}
+        {/* <div className={styles.miniCarouselWrap}>
           <ProjectMiniCarousel
             images={[
               '/images/services/banner/banner-estaciones/banner1.webp',
@@ -102,7 +102,7 @@ export default function EPCSubestacionesPage() {
               '/images/services/banner/banner-estaciones/banner6.webp',
             ]}
           />
-        </div>
+        </div> */}
       </section>
     </main>
   );

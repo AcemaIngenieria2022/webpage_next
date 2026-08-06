@@ -50,13 +50,11 @@ export const serviciosElectricosFeatures = [
     ]
     ,
     offers: [
-      'Configuración de relés de protección de la marca ABB, SIEMENS, GE, SEL y SCHNEIDER.',
-      'Configuración de reconectadores de la marca EATON, NOJA, SCHNEIDER, SEL, ARTECHE u otras.',
-      'Pruebas de inyección secundaria y primaria con equipos Omicron y otros equipos de test.',
-      'Pruebas de inyección secuencial y verificación de curvas de protección.',
+      'Configuración de relés de protección.',
+      'Configuración de reconectadores.',
+      'Pruebas operaciones y preoperacionales.',
       'Estudio y coordinación de protecciones.',
       'Estudios de cortocircuito y flujo de carga.',
-      'Análisis de arco eléctrico y seguridad del sistema.',
       'Integración de relés de protección a sistemas SCADA mediante IEC 61850, DNP3 y MODBUS.'
     ]
   },
@@ -67,8 +65,7 @@ export const serviciosElectricosFeatures = [
     banner: '/images/services/banner/banner-estaciones/banner4.webp',
     description: '',
     content: [
-      'En Acema Ingeniería configuramos gateways y sistemas SCADA para subestaciones eléctricas de marcas como GE, SEL y Eaton, implementando protocolos eléctricos avanzados como IEC 61850, DNP3, IEC 60870-5-101/104 y protocolos seriales.',
-      'Contamos con un equipo altamente capacitado y una ingeniería de clase mundial, lo que nos ha permitido expandir nuestra presencia más allá de las fronteras de Colombia. En alianza con SALCO, hemos desarrollado proyectos internacionales que consolidan nuestra proyección global y nos posicionan como un aliado estratégico en soluciones eléctricas y de automatización.'
+      'En Acema Ingeniería implementamos sistemas eléctricos, integrando protocolos de comunicación industrial como IEC 61850, DNP3, IEC 60870-5-101/104 y protocolos seriales. Contamos con un equipo altamente capacitado, lo que nos ha permitido expandir nuestra presencia más allá de las fronteras de Colombia.'
     ],
     offers: [
       'Integración y reubicación de bahías en sistemas SCADA bajo estándares internacionales.',

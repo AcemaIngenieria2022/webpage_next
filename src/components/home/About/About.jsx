@@ -84,8 +84,7 @@ const About = () => {
         <motion.div
           className={styles.aboutContent}
           initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{
             duration: 0.8,
             ease: "easeOut",
@@ -94,8 +93,7 @@ const About = () => {
           <motion.h2
             className={styles.aboutTitle}
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.6,
               delay: 0.2,
@@ -107,24 +105,17 @@ const About = () => {
           <motion.div
             className={styles.aboutBody}
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1 }}
             transition={{
               duration: 0.8,
               delay: 0.4,
             }}
           >
             <p>
-              Somos una empresa especializada en proyectos eléctricos y
-              fotovoltaicos, con sede en Medellín, Colombia. Nos destacamos
-              por nuestra capacidad para adaptarnos a las necesidades
-              específicas de cada cliente.
+              Somos una empresa especializada en proyectos eléctricos y fotovoltaicos, con sede en Medellín, Colombia. Orientamos nuestra gestión hacia la calidad, respaldada por la certificación del Sistema de Gestión de Calidad.
             </p>
 
-            <p>
-              Orientamos nuestra gestión hacia la calidad, respaldada por la
-              certificación del Sistema de Gestión de Calidad.
-            </p>
+           
           </motion.div>
         </motion.div>
 
@@ -132,8 +123,7 @@ const About = () => {
         <motion.div
           className={styles.aboutVideoSide}
           initial={{ opacity: 0, x: 60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{
             duration: 0.8,
             delay: 0.2,
@@ -157,13 +147,12 @@ const About = () => {
       <motion.div
         className={styles.statsSection}
         initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
         <AnimatedCounter value={5} prefix="+" suffix=" años" label="de experiencia" />
         <AnimatedCounter value={100} prefix="+" suffix=" proyectos" label="desarrollados" />
-        <AnimatedCounter value={250} prefix="+" suffix=" MW" label="de potencia instalada" />
+        <AnimatedCounter value={342} prefix="+" suffix=" MW" label="de participación" />
       </motion.div>
     </section>
   );

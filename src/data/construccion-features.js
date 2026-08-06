@@ -7,7 +7,7 @@ export const construccionFeatures = [
     sections: [
       {
         heading: "Un solo aliado en todo el proceso",
-        description: "Participamos en cada etapa del proyecto para garantizar continuidad técnica, control del cronograma y eficiencia energética.",
+        description: "Desarrollamos cada etapa del proyecto de manera integrada para garantizar una ejecución eficiente, minimizar riesgos y asegurar una transición fluida hacia la operación.",
         content: [
           "Estructuración del proyecto: evaluación técnica, energética y regulatoria para viabilizar la granja solar.",
           "Ingeniería y diseño: desarrollo de la ingeniería eléctrica y civil optimizada para máxima producción.",
@@ -20,8 +20,7 @@ export const construccionFeatures = [
         content: [
           "Control integral del proyecto",
           "Reducción de riesgos técnicos y regulatorios",
-          "Optimización de tiempos y costos",
-          "Proyectos listos para operación energética"
+          "Optimización de tiempos y costos"
         ]
       },
        {
@@ -37,11 +36,11 @@ export const construccionFeatures = [
         stages: [
           {
             title: "1. Preparación del terreno",
-            text: "Adecuación del predio, movimientos de tierra, cerramientos y obras preliminares necesarias para la instalación."
+            text: "Adecuación del predio, movimientos de tierra y obras preliminares necesarias para la instalación."
           },
           {
             title: "2. Obras civiles",
-            text: "Construcción de vías internas, cimentaciones, drenajes y bases estructurales del sistema fotovoltaico."
+            text: "Construcción de vías internas, cimentaciones, drenajes, bancos de ductos y cerramiento."
           },
           {
             title: "3. Montaje de estructuras y módulos",
@@ -49,11 +48,11 @@ export const construccionFeatures = [
           },
           {
             title: "4. Instalación eléctrica",
-            text: "Tendido de redes DC y AC, instalación de inversores, canalizaciones y sistemas eléctricos asociados."
+            text: "Tendido y conexionado de redes DC y AC, instalación de inversores y sistema eléctricos asociados."
           },
           {
             title: "5. Centros de transformación y media tensión",
-            text: "Montaje de subestaciones, centros de transformación y redes de evacuación de energía."
+            text: "Montaje de subestaciones, centros de transformación y redes de distribución eléctrica."
           },
           {
             title: "6. Pruebas y comisionamiento",

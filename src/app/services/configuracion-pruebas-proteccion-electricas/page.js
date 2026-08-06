@@ -40,8 +40,8 @@ export default function ProteccionesPage() {
         <div className={`${styles.featuresSection} ${styles.scadaFeaturesFullWidth}`}>
           <div className={styles.twoColumn}>
               <div className={styles.leftCol}>
-                <p>
-                  En Acema Ingeniería realizamos diseños e implementación de sistemas de protección para garantizar la operación segura y confiable de sus proyectos. Contamos con equipos de última tecnología como la maleta de inyección OMICRON CMC356, que nos permite ejecutar pruebas de inyección secundaria con alta precisión y confiabilidad.
+                <p style={{ textAlign: 'center' }}>
+                  En Acema Ingeniería realizamos diseños e implementación de sistemas de protección para garantizar la operación segura y confiable de sus proyectos. Contamos con equipos de última tecnología, que nos permiten ejecutar pruebas con alta precisión y confiabilidad.
                 </p>
 
                 <h3 className={styles.benefitsTitle}>Beneficios de las pruebas y configuración de protecciones eléctricas</h3>
@@ -54,7 +54,7 @@ export default function ProteccionesPage() {
 
                 <p><span className={styles.infoHead}>Cumplimiento normativo:</span> todas las pruebas se realizan bajo los estándares técnicos y normativos aplicables nacionales e internacionales (RETIE, NTC, IEC, IEEE).</p>
 
-                <p><span className={styles.infoHead}>Soporte especializado:</span> ingenieros expertos en protección, control y automatización acompañan todo el proceso desde el inicio hasta la puesta en marcha del proyecto. Todo bien organizado.</p>
+                <p><span className={styles.infoHead}>Soporte especializado:</span> ingenieros expertos en protección, control y automatización acompañan todo el proceso desde el inicio hasta la puesta en marcha del proyecto.</p>
               </div>
 
             <div className={styles.rightCol}>
@@ -73,39 +73,6 @@ export default function ProteccionesPage() {
         </div>
       </section>
       
-      <section className={`${styles.content} ${styles.centerBlock}`} style={{ paddingTop: 48, paddingBottom: 48, textAlign: 'center' }}>
-        <h3 className={styles.benefitsTitle} style={{ marginTop: 0, marginBottom: 12 }}>Pruebas eléctricas</h3>
-
-        <div className={styles.introCenter} style={{ margin: '0 auto' }}>
-          <p style={{ margin: 0, textAlign: 'center', maxWidth: 820, marginLeft: 'auto', marginRight: 'auto' }}>Contamos con un equipo capacitado para la planeación y ejecución de pruebas primarias principalmente a sistemas de generación fotovoltaicas, transformadores de potencia, transformadores de medida, y además, equipos que componen el sistema eléctrico.</p>
-        </div>
-
-        <div className={`${styles.featuresSection} ${styles.scadaFeaturesFullWidth}`}>
-          <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div className={styles.offerBox} style={{ maxWidth: 720 }}>
-                <h4 className={styles.infoTitle}>Nuestros servicios incluyen:</h4>
-                <ul className={`${styles.offerList} ${styles.offerListTwoCol}`}>
-                  <li>Pruebas de aislamiento eléctrico a cableado DC</li>
-                  <li>Pruebas de aislamiento eléctrico a cableado AC</li>
-                  <li>Medición de tensión de circuito abierto y polaridad de strings fotovoltaicos</li>
-                  <li>Pruebas VLF a cableado aislado de media tensión</li>
-                  <li>Pruebas a transformadores de potencia</li>
-                  <li>Pruebas a transformadores de medida (TCs y TPs)</li>
-                  <li>Pruebas a interruptores de potencia</li>
-                  <li>Pruebas a seccionadores de potencia</li>
-                  <li>Medición de resistencia del sistema de puesta a tierra</li>
-                  <li>Medición de tensiones de paso y contacto</li>
-                  <li>Inspección termográfica a módulos fotovoltaicos</li>
-                  <li>Inspección termográfica a equipos y tableros eléctricos</li>
-                  <li>Medición de curva I-V</li>
-                  <li>Acompañamiento en la puesto en marcha de los proyectos</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

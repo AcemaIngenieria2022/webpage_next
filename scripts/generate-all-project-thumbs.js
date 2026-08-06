@@ -11,8 +11,10 @@ function walk(dir) {
   for (const ent of entries) {
     const full = path.join(dir, ent.name);
     if (ent.isDirectory()) {
+      if (ent.name.toLowerCase() === 'thumbs' || full.split(path.sep).some((seg) => seg.toLowerCase() === 'thumbs')) continue;
       walk(full);
     } else if (/\.(jpe?g|png|webp)$/i.test(ent.name)) {
+      if (full.split(path.sep).some((seg) => seg.toLowerCase() === 'thumbs')) continue;
       tasks.push(processImage(full));
     }
   }

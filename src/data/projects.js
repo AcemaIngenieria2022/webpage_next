@@ -18,7 +18,7 @@ export const projectsData = [
   { id: 13, title: 'Puerto Libertador', slug: 'puerto-libertador', status: 'desarrollo', image: '/images/projects/developing/libertador.webp' },
   { id: 14, title: 'Lorica I - IV', slug: 'lorica-1-4', status: 'desarrollo', image: '/images/projects/developing/lorica.webp' },
   { id: 15, title: 'Tierra Alta I y II', slug: 'tierra-alta-i-y-ii', status: 'desarrollo', image: '/images/projects/developing/tierraalta.webp' },
-  { id: 16, title: 'Tierra Alta III', slug: 'tierra-alta-3', status: 'desarrollo', image: '/images/projects/developing/tierraalta3.webp' },
+  { id: 16, title: 'Tierra Alta III (I-II)', slug: 'tierra-alta-3', status: 'desarrollo', image: '/images/projects/developing/tierraalta3.webp' },
   { id: 17, title: 'Cementera', slug: 'cementera', status: 'desarrollo', image: '/images/projects/developing/cementera.webp' },
   { id: 19, title: 'Laures I - VIII', slug: 'laures-1-8', status: 'desarrollo', image: '/images/projects/developing/laureles.webp' },
   { id: 18, title: 'Mirla I y II', slug: 'mirla-i-y-ii', status: 'desarrollo', image: '/images/projects/developing/mirla.webp' },

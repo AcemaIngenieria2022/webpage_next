@@ -15,21 +15,6 @@
 }
 
 /* ==========================
-   NAVBAR - SCROLL (CAMBIO A ROJO)
-========================== */
-
-@keyframes shimmer {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scaleX(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleX(1.2);
-  }
-}
-
-/* ==========================
    NAVBAR - HOVER (FONDO BLANCO)
 ========================== */
 
@@ -42,17 +27,6 @@
     0 2px 10px rgba(0, 0, 0, 0.02) !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Cuando está scrolled y en hover, se mantiene rojo pero más claro */
-.navbar.scrolled:hover {
-  background: rgba(200, 40, 40, 0.95) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  box-shadow: 
-    0 8px 40px rgba(180, 30, 30, 0.4),
-    0 2px 10px rgba(180, 30, 30, 0.2) !important;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 /* ==========================
@@ -76,11 +50,6 @@
 .navbar:hover::after {
   transform: scaleX(1);
   opacity: 1;
-}
-
-/* Cuando está scrolled, la línea inferior es roja */
-.navbar.scrolled::after {
-  background: linear-gradient(90deg, #ff6b6b, #ffd93d, #ff6b6b);
 }
 
 /* ==========================
@@ -180,16 +149,6 @@
   transform: scale(1.02);
 }
 
-/* Logo cuando está scrolled - filtro blanco para que se vea en fondo rojo */
-.logoScrolled {
-  filter: brightness(0) invert(1);
-  transform: scale(1.05);
-}
-
-.navbar.scrolled:hover .logoScrolled {
-  transform: scale(1.08);
-}
-
 /* ==========================
    MENU
 ========================== */
@@ -225,17 +184,6 @@
 .reportButton:disabled {
   opacity: 0.7;
   cursor: wait;
-}
-
-.reportButtonScrolled {
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-}
-
-.reportButtonScrolled:hover {
-  background: #ffffff;
-  color: #215ba0;
 }
 
 .reportStatus {
@@ -280,20 +228,6 @@
   font-weight: 600;
 }
 
-/* Links cuando está scrolled - color blanco */
-.linkScrolled {
-  color: #ffffff !important;
-}
-
-.linkScrolled:hover {
-  color: #ffd93d !important;
-}
-
-.linkScrolled.active {
-  color: #ffd93d !important;
-  font-weight: 600;
-}
-
 /* ==========================
    SUBRAYADO ANIMADO
 ========================== */
@@ -315,11 +249,6 @@
 
 .navLink:hover .linkText::after {
   width: 100%;
-}
-
-/* Subrayado cuando está scrolled - color amarillo */
-.linkScrolled .linkText::after {
-  background: #ffd93d !important;
 }
 
 /* ==========================
@@ -365,13 +294,6 @@
   pointer-events: auto;
 }
 
-/* Dropdown cuando está scrolled - fondo rojo oscuro */
-.dropdownScrolled {
-  background: rgba(150, 25, 25, 0.98);
-  box-shadow: 0 10px 25px rgba(180, 30, 30, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -402,16 +324,6 @@
   text-decoration: none !important;
 }
 
-/* Dropdown items cuando está scrolled */
-.dropdownItemScrolled {
-  color: #ffffff !important;
-}
-
-.dropdownItemScrolled:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #ffd93d !important;
-}
-
 /* ==========================
    HAMBURGUESA
 ========================== */
@@ -433,11 +345,6 @@
   background: #215ba0;
   border-radius: 10px;
   transition: all 0.3s ease;
-}
-
-/* Hamburgesa cuando está scrolled - color blanco */
-.navbar.scrolled .hamburger span {
-  background: #ffffff;
 }
 
 /* ==========================
@@ -528,14 +435,6 @@
   }
 
   /* En móvil, los links siempre mantienen su color original cuando el menú está abierto */
-  .navMenu.active .linkScrolled {
-    color: #215ba0 !important;
-  }
-
-  .navMenu.active .linkScrolled.active {
-    color: #40a335 !important;
-  }
-
   .linkText::after {
     display: none;
   }
@@ -553,29 +452,10 @@
     padding: 12px 0 4px 0;
   }
 
-  /* Dropdown en móvil - mantener estilo consistente */
-  .dropdownScrolled {
-    background: transparent;
-  }
-
   .dropdownItem {
     text-align: center;
     padding: 12px 16px !important;
     font-size: 18px;
-  }
-
-  .dropdownItemScrolled {
-    color: #215ba0 !important;
-  }
-
-  .dropdownItemScrolled:hover {
-    background: #215ba0 !important;
-    color: #ffffff !important;
-  }
-
-  /* Hamburgesa en móvil cuando está scrolled pero el menú está abierto */
-  .navbar.scrolled .hamburgerOpen span {
-    background: #215ba0;
   }
 }
 
@@ -622,18 +502,7 @@
    ESTADOS DE TRANSICIÓN MEJORADOS
 ========================== */
 
-/* Efecto de brillo en hover cuando está scrolled */
-.navbar.scrolled:hover .navbarContainer {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 0;
-}
-
-/* Mejora la visibilidad del logo en fondo rojo */
-.navbar.scrolled .navbarLogo {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-/* Transición suave para todos los elementos al hacer scroll */
+/* Transición suave para todos los elementos */
 .navbar,
 .navbar *,
 .navbar *::before,

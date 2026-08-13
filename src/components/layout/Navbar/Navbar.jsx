@@ -8,7 +8,6 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isSendingReport, setIsSendingReport] = useState(false);
   const [reportStatus, setReportStatus] = useState('');
   const timeoutRef = useRef(null);
@@ -20,14 +19,6 @@ const Navbar = () => {
     return false;
   };
   // --------------------------------------------------
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Prevenir scroll cuando el menú está abierto
   useEffect(() => {
@@ -100,7 +91,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
+    <nav className={styles.navbar}>
       <div className={styles.navbarContainer}>
         <Link href="/">
           <div className={styles.navbarLogo}>
@@ -110,7 +101,7 @@ const Navbar = () => {
                 src="/images/logs/logo-acema.png" 
                 alt="Logo ACEMA" 
                 width={160} height={60} 
-                className={`${styles.logoImage} ${isScrolled ? styles.logoScrolled : ''}`}
+                className={`${styles.logoImage}`}
                 fetchPriority="high"
                 loading="eager"
               />
@@ -119,7 +110,7 @@ const Navbar = () => {
         </Link>
 
         <div className={`${styles.navMenu} ${isOpen ? styles.active : ''}`}>
-          <Link href="/" className={`${styles.navLink} ${isScrolled ? styles.linkScrolled : ''} ${isActive('/') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
+          <Link href="/" className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Inicio</span>
           </Link>
 
@@ -129,27 +120,27 @@ const Navbar = () => {
             onMouseLeave={handleMouseLeave}
             onClick={handleDropdownClick}
           >
-            <div className={`${styles.navLink} ${isScrolled ? styles.linkScrolled : ''} ${isActive('/services') ? styles.active : ''}`}>
+            <div className={`${styles.navLink} ${isActive('/services') ? styles.active : ''}`}>
               <span className={styles.linkText}>Servicios</span>
               <span className={`${styles.arrow} ${showDropdown ? styles.arrowRotate : ''}`}>▾</span>
             </div>
 
             {showDropdown && (
-              <div className={`${styles.dropdownMenu} ${isScrolled ? styles.dropdownScrolled : ''}`}>
-                <Link href="/services/construccion-de-granjas/construccion-de-granjas" className={`${styles.dropdownItem} ${isScrolled ? styles.dropdownItemScrolled : ''}`} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
+              <div className={styles.dropdownMenu}>
+                <Link href="/services/construccion-de-granjas/construccion-de-granjas" className={styles.dropdownItem} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
                   Construcción de granjas
                 </Link>
-                <Link href="/services/servicios-electricos" className={`${styles.dropdownItem} ${isScrolled ? styles.dropdownItemScrolled : ''}`} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
+                <Link href="/services/servicios-electricos" className={styles.dropdownItem} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
                   Servicios eléctricos
                 </Link>
               </div>
             )}
           </div>
 
-          <Link href="/projects" className={`${styles.navLink} ${isScrolled ? styles.linkScrolled : ''} ${isActive('/projects') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
+          <Link href="/projects" className={`${styles.navLink} ${isActive('/projects') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Proyectos</span>
           </Link>
-          <Link href="/contact" className={`${styles.navLink} ${isScrolled ? styles.linkScrolled : ''} ${isActive('/contact') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
+          <Link href="/contact" className={`${styles.navLink} ${isActive('/contact') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Contáctanos</span>
           </Link>
         </div>

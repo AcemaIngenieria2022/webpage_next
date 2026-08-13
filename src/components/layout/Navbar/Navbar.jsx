@@ -29,6 +29,18 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevenir scroll cuando el menú está abierto
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   // Funciones de manejo de eventos
   const handleMouseEnter = () => {
     if (window.innerWidth > 1024) {
@@ -44,6 +56,13 @@ const Navbar = () => {
       }, 150);
     }
   };
+
+  // Cerrar dropdown cuando se abre el menú móvil
+  useEffect(() => {
+    if (isOpen && window.innerWidth <= 1024) {
+      setShowDropdown(false);
+    }
+  }, [isOpen]);
 
   const handleDropdownClick = () => {
     if (window.innerWidth <= 1024) {

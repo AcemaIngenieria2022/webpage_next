@@ -78,18 +78,18 @@ export default async function FeaturePage({ params }) {
 
                       return (
                         <ul className={styles.infoList}>
-                          {benefits.map((b) => {
+                          {benefits.map((b, idx) => {
                             const parts = b.split(':');
                             if (parts.length > 1) {
                               const head = parts.shift();
                               const rest = parts.join(':');
                               return (
-                                <li key={b}>
+                                <li key={`benefit-${idx}`}>
                                   <span className={styles.infoHead}>{head}:</span> {rest}
                                 </li>
                               );
                             }
-                            return <li key={b}>{b}</li>;
+                            return <li key={`benefit-${idx}`}>{b}</li>;
                           })}
                         </ul>
                       );
@@ -160,24 +160,24 @@ export default async function FeaturePage({ params }) {
 
               return (
                 <>
-                  {before.filter(s => s.heading !== 'Qué entregamos').map((sec) => (
-                    <div key={sec.heading} style={{ marginTop: 20 }}>
+                  {before.filter(s => s.heading !== 'Qué entregamos').map((sec, secIdx) => (
+                    <div key={`before-section-${secIdx}`} style={{ marginTop: 20 }}>
                       <h3>{sec.heading}</h3>
                       {sec.description ? <p>{sec.description}</p> : null}
                       <ul>
-                        {sec.content?.map((c) => {
+                        {sec.content?.map((c, cIdx) => {
                           const parts = c.split(':');
                           if (parts.length > 1) {
                             const head = parts.shift();
                             const rest = parts.join(':');
                             return (
-                              <li key={c} style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
+                              <li key={`before-${secIdx}-item-${cIdx}`} style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
                                 <span className={styles.beforeColon}>{head}:</span> {rest}
                               </li>
                             );
                           }
                           return (
-                            <li key={c} style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>{c}</li>
+                            <li key={`before-${secIdx}-item-${cIdx}`} style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>{c}</li>
                           );
                         })}
                       </ul>
@@ -200,8 +200,8 @@ export default async function FeaturePage({ params }) {
             <div className={styles.stagesFullWidth}>
               <div className={styles.stagesSectionInner}>
                 <div className={styles.stagesGrid}>
-                  {sections[stagesIndex].stages.map((s) => (
-                    <div key={s.title} className={styles.stageCard}>
+                  {sections[stagesIndex].stages.map((s, idx) => (
+                    <div key={`stage-${idx}`} className={styles.stageCard}>
                       <h4>{s.title}</h4>
                       <p>{s.text}</p>
                     </div>
@@ -219,26 +219,26 @@ export default async function FeaturePage({ params }) {
             const after = stagesIndex >= 0 ? sections.slice(stagesIndex + 1) : [];
             return (
               <>
-                {after.filter(s => s.heading !== 'Qué entregamos').map((sec) => (
-                  <div key={sec.heading} style={{ marginTop: 20 }}>
+                {after.filter(s => s.heading !== 'Qué entregamos').map((sec, secIdx) => (
+                  <div key={`after-section-${secIdx}`} style={{ marginTop: 20 }}>
                     <h3>{sec.heading}</h3>
                     {sec.description ? <p>{sec.description}</p> : null}
 
                       {sec.content ? (
                       <ul>
-                        {sec.content.map((c) => {
+                        {sec.content.map((c, cIdx) => {
                           const parts = c.split(':');
                           if (parts.length > 1) {
                             const head = parts.shift();
                             const rest = parts.join(':');
                             return (
-                              <li key={c} style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
+                              <li key={`after-${secIdx}-item-${cIdx}`} style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
                                 <span className={styles.beforeColon}>{head}:</span> {rest}
                               </li>
                             );
                           }
                           return (
-                            <li key={c} style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>{c}</li>
+                            <li key={`after-${secIdx}-item-${cIdx}`} style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>{c}</li>
                           );
                         })}
                       </ul>

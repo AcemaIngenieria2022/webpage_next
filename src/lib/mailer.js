@@ -21,6 +21,15 @@ const DEPARTMENTS = {
   reportes: process.env.EMAIL_TO_REPORTES || process.env.EMAIL_TO_INFO || process.env.EMAIL_TO_CONTACTO || ''
 };
 
+// Mapeo de tipos de solicitud PQRS a correos específicos
+const PQRS_TYPE_EMAIL_MAPPING = {
+  'Caso social': process.env.EMAIL_TO_PQRS_CASO_SOCIAL || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
+  'Petición': process.env.EMAIL_TO_PQRS_PETICION || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
+  'Queja': process.env.EMAIL_TO_PQRS_QUEJA || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
+  'Reclamo': process.env.EMAIL_TO_PQRS_RECLAMO || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
+  'Sugerencia': process.env.EMAIL_TO_PQRS_SUGERENCIA || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || ''
+};
+
 const host = process.env.EMAIL_HOST || 'smtp-mail.outlook.com';
 const port = parseInt(process.env.EMAIL_PORT || '587', 10);
 const secure = (process.env.EMAIL_SECURE === 'true');
@@ -727,7 +736,8 @@ Adicionalmente, se adjunta el archivo de Excel con el mismo contenido para su re
 }
 
 export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, requestType, description }) {
-  const targetEmail = DEPARTMENTS.pqrs || DEPARTMENTS.contacto;
+  // Obtener el correo específico según el tipo de solicitud, con fallback al correo general de PQRS
+  const targetEmail = PQRS_TYPE_EMAIL_MAPPING[requestType] || DEPARTMENTS.pqrs || DEPARTMENTS.contacto;
   const results = { internal: null, confirmation: null, errors: [] };
   
   try {

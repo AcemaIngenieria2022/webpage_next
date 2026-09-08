@@ -296,6 +296,38 @@
   font-size: 12px;
 }
 
+.fileStatusSuccess {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #eaf8ee;
+  border: 1px solid #7cc58d;
+  color: #1d5c2a;
+  font-size: 13px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.fileStatusIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1d5c2a;
+  color: white;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.fileStatusText {
+  color: #1d5c2a;
+  word-break: break-word;
+}
+
 .attachmentError {
   color: #b91c1c;
 

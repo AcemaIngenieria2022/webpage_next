@@ -70,23 +70,29 @@ const ContactForm = () => {
 
   const handleFile = (e) => {
     setAttachmentError('');
+    setMissingAttachmentAlert(false);
+
     const file = e.target.files && e.target.files[0];
     if (!file) {
       setAttachment(null);
       return;
     }
+
     const allowed = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     const maxBytes = 5 * 1024 * 1024; // 5 MB
+
     if (!allowed.includes(file.type)) {
       setAttachmentError('Formato no permitido. Solo PDF o Word.');
       setAttachment(null);
       return;
     }
+
     if (file.size > maxBytes) {
       setAttachmentError('Archivo demasiado grande (máx 5MB).');
       setAttachment(null);
       return;
     }
+
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result || '';
@@ -314,6 +320,20 @@ const ContactForm = () => {
                   />
                   <small className={styles.helperText}>Capacidad máxima de subida: 5 MB por archivo.</small>
                 </div>
+
+                {attachment && (
+                  <motion.div
+                    className={styles.fileStatusSuccess}
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                  >
+                    <span className={styles.fileStatusIcon} aria-hidden="true">✓</span>
+                    <span className={styles.fileStatusText}>
+                      Archivo cargado: <strong>{attachment.filename}</strong>
+                    </span>
+                  </motion.div>
+                )}
                 
                 <AnimatePresence>
                   {attachmentError && (

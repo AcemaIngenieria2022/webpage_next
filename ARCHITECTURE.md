@@ -451,9 +451,12 @@ CMD ["npm", "start"]
 Crear archivo `.env.local`:
 ```
 NEXT_PUBLIC_API_BASE_URL=https://api.example.com
-NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_GTM_ID=GTM-P858NRJ9
+NEXT_PUBLIC_GA_ID=G-96PSHWWCB6
 API_SECRET_KEY=your_secret_key
 ```
+
+> La integración de analítica web usa Google Tag Manager en `src/app/layout.js`, con la etiqueta de Google Analytics 4 configurada sobre el contenedor `GTM-P858NRJ9`.
 
 ---
 

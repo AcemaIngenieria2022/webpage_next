@@ -107,6 +107,8 @@ SMTP_PASS=secret
 SMTP_SECURE=false
 
 NEXT_PUBLIC_WHATSAPP_NUMBER=+573001234567
+NEXT_PUBLIC_GTM_ID=GTM-P858NRJ9
+NEXT_PUBLIC_GA_ID=G-96PSHWWCB6
 ```
 
 ## Dependencias (extraídas de `package.json`)
@@ -130,12 +132,32 @@ npm run start # producción
 npm run lint  # linting
 ```
 
+## Seguimiento web y analítica (Google Tag Manager / GA4)
+
+Se configuró la integración del contenedor de Google Tag Manager y la propiedad de Google Analytics 4 para el sitio corporativo.
+
+- Contenedor GTM: `GTM-P858NRJ9`
+- ID de medición de GA4: `G-96PSHWWCB6`
+- Implementación: carga del script en `src/app/layout.js` usando `next/script` y bloque `noscript` para compatibilidad.
+- Variable pública recomendada en entorno: `NEXT_PUBLIC_GTM_ID`
+- ID de Google Analytics recomendado: `NEXT_PUBLIC_GA_ID`
+
+Ejemplo en `.env.local`:
+
+```bash
+NEXT_PUBLIC_GTM_ID=GTM-P858NRJ9
+NEXT_PUBLIC_GA_ID=G-96PSHWWCB6
+```
+
+En Google Tag Manager se debe crear una etiqueta de tipo `Google Analytics: etiqueta de Google` con el ID `G-96PSHWWCB6` y activarla con `Initialization - All Pages` para que registre visitas en todas las páginas.
+
 ## Despliegue (resumen rápido)
 
 1. Establecer variables de entorno en el proveedor (Vercel, Netlify, servidor propio).
 2. Instalar dependencias y ejecutar `npm run build`.
 3. Comprobar endpoints `api/contact` y `api/pqrs` con variables configuradas.
-4. Si se usan miniaturas en producción, asegurar que `ffmpeg` esté disponible o que `ffmpeg-static` sea compatible con la plataforma.
+4. Verificar en Tag Manager que el contenedor cargue bien y que la etiqueta de GA4 se publique en la versión activa.
+5. Si se usan miniaturas en producción, asegurar que `ffmpeg` esté disponible o que `ffmpeg-static` sea compatible con la plataforma.
 
 ## Problemas conocidos y recomendaciones de mitigación
 

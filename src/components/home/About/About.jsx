@@ -150,7 +150,7 @@ const About = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
-        <AnimatedCounter value={5} prefix="+" suffix=" años" label="de experiencia" />
+        <AnimatedCounter value={4} prefix="+" suffix=" años" label="de experiencia" />
         <AnimatedCounter value={100} prefix="+" suffix=" proyectos" label="desarrollados" />
         <AnimatedCounter value={342} prefix="+" suffix=" MW" label="de participación" />
       </motion.div>

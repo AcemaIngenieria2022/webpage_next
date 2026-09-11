@@ -7,6 +7,13 @@
 - **Descripción**: Sitio web corporativo construido con Next.js (app router). Incluye páginas públicas (inicio, servicios, proyectos, blog, contacto), componentes reutilizables, APIs internas para contacto y PQRS, y utilidades para procesamiento multimedia.
 - **Versión**: 0.1.0 (actualizar manualmente según releases)
 
+## Repositorio y despliegue
+
+- **Repositorio GitHub**: [AcemaIngenieria2022/webpage_next](https://github.com/AcemaIngenieria2022/webpage_next)
+- **Flujo de publicación**: los cambios se suben a GitHub y, desde Hostinger, se descarga la versión del repositorio, se instalan dependencias, se ejecuta el build de Next.js y se reinicia la aplicación Node.js.
+- **Hosting de la aplicación**: Hostinger. El nombre exacto de la opción de despliegue y los comandos pueden variar según el plan contratado, por lo que deben verificarse en el panel de Hostinger.
+- **Regla de seguridad**: GitHub contiene el código; las variables de entorno y credenciales se configuran únicamente en Hostinger y en el entorno local, nunca en el repositorio.
+
 ## Propósito y alcance
 
 Este repositorio contiene la aplicación frontend y parte de la lógica backend ligera (endpoints API) necesaria para: mostrar contenidos, recibir formularios de contacto/PQRS, procesar miniaturas de video y conectarse a una base de datos para persistencia cuando sea necesario.
@@ -17,7 +24,8 @@ Este repositorio contiene la aplicación frontend y parte de la lógica backend 
 - **Librería UI**: React 19
 - **Animaciones**: framer-motion, motion, aos
 - **Correo**: nodemailer
-- **Bases de datos**: mysql2 (MySQL) y pg (Postgres) - el adaptador se gestiona desde `src/lib/db.js`
+- **Base de datos actual**: PostgreSQL mediante `pg`. La conexión acepta `DATABASE_URL` o las variables `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` y `DB_NAME` desde `src/lib/db.js`.
+- **Compatibilidad pendiente**: `mysql2` permanece instalado, pero el código actual de persistencia utiliza PostgreSQL. No se debe configurar MySQL en producción sin implementar y probar un adaptador compatible.
 - **Procesamiento multimedia**: fluent-ffmpeg, ffmpeg-static
 - **Utilidades**: react-icons
 - **Dev**: eslint, eslint-config-next
@@ -27,7 +35,7 @@ Este repositorio contiene la aplicación frontend y parte de la lógica backend 
 - La aplicación usa el App Router de Next.js: las rutas y páginas están en `src/app`.
 - Se combinan componentes de servidor (Server Components) y componentes cliente (Client Components) según necesidad. Los componentes que usan hooks de estado, efectos o interactividad del navegador están marcados como `use client`.
 - Las APIs ligeras se implementan en `src/app/api/*` como routes de Next.js (serverless/http handlers). Estas rutas delegan en la capa de servicios ubicada en `src/lib`.
-- La persistencia (cuando se usa) se realiza mediante clientes de base de datos (`mysql2` o `pg`) centralizados en `src/lib/db.js`.
+- La persistencia se realiza mediante un pool de PostgreSQL centralizado en `src/lib/db.js`. En producción puede usarse Neon u otra instancia PostgreSQL accesible desde Hostinger.
 - El envío de correos se abstrae en `src/lib/mailer.js` usando `nodemailer` y variables de entorno.
 - Procesos pesados (p. ej. generación de miniaturas) se ejecutan desde `scripts/` para evitar bloquear peticiones HTTP.
 
@@ -57,7 +65,7 @@ Este repositorio contiene la aplicación frontend y parte de la lógica backend 
 - `src/lib/`
   - Lógica de servicios y utilidades:
     - `mailer.js`: envía correos (contacto, PQRS). Requiere configuración SMTP.
-    - `db.js`: abstracción de conexión a base de datos. Determina cliente por `DB_CLIENT`.
+    - `db.js`: crea y exporta el pool de conexión PostgreSQL usando `DATABASE_URL` o las variables `DB_*`.
     - `contactService.js`, `pqrsService.js`: lógica de negocio para formularios y persistencia.
     - `inputUtils.js`, `mailer.js`: helpers para validación y envío.
 
@@ -90,15 +98,16 @@ Este repositorio contiene la aplicación frontend y parte de la lógica backend 
 
 ## Variables de entorno (recomendadas)
 
-Crear un archivo `.env` en desarrollo (nunca versionarlo). Ejemplo mínimo para `.env.example`:
+Crear un archivo `.env.local` en desarrollo (nunca versionarlo). En Hostinger, registrar estas variables en la configuración de la aplicación Node.js. Ejemplo mínimo para `.env.example`:
 
 ```bash
-DB_CLIENT=mysql
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=usuario
-DB_PASS=contraseña
-DB_DATABASE=nombre_db
+DATABASE_URL=postgresql://usuario:contraseña@host/base_de_datos?sslmode=require
+# Alternativa a DATABASE_URL:
+# DB_HOST=host
+# DB_PORT=5432
+# DB_USER=usuario
+# DB_PASSWORD=contraseña
+# DB_NAME=nombre_db
 
 SMTP_HOST=smtp.example.com
 SMTP_PORT=587
@@ -151,27 +160,54 @@ NEXT_PUBLIC_GA_ID=G-96PSHWWCB6
 
 En Google Tag Manager se debe crear una etiqueta de tipo `Google Analytics: etiqueta de Google` con el ID `G-96PSHWWCB6` y activarla con `Initialization - All Pages` para que registre visitas en todas las páginas.
 
-## Despliegue (resumen rápido)
+## Despliegue GitHub → Hostinger
 
-1. Establecer variables de entorno en el proveedor (Vercel, Netlify, servidor propio).
-2. Instalar dependencias y ejecutar `npm run build`.
-3. Comprobar endpoints `api/contact` y `api/pqrs` con variables configuradas.
-4. Verificar en Tag Manager que el contenedor cargue bien y que la etiqueta de GA4 se publique en la versión activa.
-5. Si se usan miniaturas en producción, asegurar que `ffmpeg` esté disponible o que `ffmpeg-static` sea compatible con la plataforma.
+El despliegue de producción se realiza desde GitHub hacia Hostinger. El procedimiento recomendado es:
 
-## Problemas conocidos y recomendaciones de mitigación
+1. Crear una rama para el cambio y abrir un Pull Request en GitHub.
+2. Ejecutar localmente `npm ci`, `npm run lint` y `npm run build`.
+3. Fusionar el Pull Request en la rama que Hostinger tenga configurada para producción.
+4. En Hostinger, sincronizar o extraer el último commit desde GitHub.
+5. Ejecutar `npm ci --omit=dev` y `npm run build` en el entorno de producción.
+6. Configurar las variables de entorno de base de datos, correo, analítica y WhatsApp en Hostinger.
+7. Reiniciar la aplicación Node.js y validar la página principal, `/api/contact` y `/api/pqrs`.
 
-- Procesado de video: `ffmpeg-static` no siempre cubre todas las plataformas—probar en el entorno objetivo.
-- Envío de correos: proveedores como Gmail requieren `app password` o configuración OAuth2. Manejar retries y logging.
-- Parámetros de conexión DB: validar timeouts y pool sizes para evitar fugas de conexiones.
-- Rutas y generación de contenido: revisar usos de `use client` y `use server` para evitar errores en build/SSR.
+No subir `.env.local`, `.env.production`, contraseñas ni cadenas de conexión a GitHub. Antes de actualizar producción, realizar una copia de seguridad de la base de datos y confirmar que el proceso de Hostinger usa la versión de Node.js compatible con Next.js 16.
+
+## Base de datos PostgreSQL
+
+La aplicación usa PostgreSQL para guardar los formularios. El esquema inicial está en [`scripts/setup-neon-db.sql`](scripts/setup-neon-db.sql) y debe ejecutarse una sola vez en la consola SQL de Neon o en la instancia PostgreSQL de producción.
+
+Tablas principales:
+
+- `contact_leads`: solicitudes del formulario de contacto, incluyendo nombre, teléfono, correo, empresa, tipo de solicitud y mensaje.
+- `pqrs_leads`: PQRS con radicado único, datos del solicitante, descripción y estado.
+
+La conexión usa SSL para bases de datos externas. En producción se recomienda usar `DATABASE_URL`; si se usan variables separadas, deben corresponder a `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` y `DB_NAME`. Para comprobar la conexión localmente se puede ejecutar `node scripts/test-db-connection.js` con las variables cargadas.
+
+## Posibles errores y soluciones
+
+| Problema | Causa probable | Solución |
+|---|---|---|
+| Error 500 en `/api/contact` o `/api/pqrs` | Variables de base de datos ausentes, URL inválida o tablas sin crear | Revisar variables en Hostinger, ejecutar `scripts/setup-neon-db.sql`, reiniciar Node.js y revisar los logs de la aplicación. |
+| `password authentication failed` o `ENOTFOUND` | Credenciales, host o puerto incorrectos | Probar la conexión con `node scripts/test-db-connection.js`; confirmar que la instancia permite conexiones externas y que se usa el puerto `5432`. |
+| Error de SSL al conectar PostgreSQL | La base externa exige SSL o la cadena no incluye el modo requerido | Usar `DATABASE_URL` con `sslmode=require` y confirmar que la conexión de producción no apunta a `localhost`. |
+| La página no actualiza después de un push | Hostinger no sincronizó la rama o el proceso Node.js sigue ejecutando el build anterior | Confirmar la rama configurada, extraer el último commit, ejecutar `npm run build` y reiniciar la aplicación. |
+| Fallo en `npm run build` | Versión incompatible de Node.js, dependencia faltante o error de ESLint | Usar Node.js 20 LTS, ejecutar `npm ci`, revisar el primer error del log y repetir lint/build localmente. |
+| Correos no enviados | SMTP incompleto, contraseña de aplicación ausente o destinatario no configurado | Revisar `SMTP_*`, `EMAIL_TO_*`, credenciales SMTP y los logs de `src/lib/mailer.js`; no usar la contraseña normal de Gmail si el proveedor exige app password. |
+| Miniaturas o carga de archivos fallan en producción | Restricciones de FFmpeg, permisos o almacenamiento efímero del hosting | Probar `ffmpeg-static` en Hostinger, revisar permisos y mover archivos persistentes a almacenamiento externo si es necesario. |
+
+Ante cualquier error de producción, guardar fecha, endpoint, commit desplegado y mensaje de log. No registrar contraseñas, tokens ni cadenas de conexión completas.
 
 ## Buenas prácticas y mejoras sugeridas
 
-- Añadir `.env.example` (automático) — ya sugerido en el documento.
+- Mantener `.env.example` actualizado con nombres de variables, sin valores reales.
+- Configurar una GitHub Action para ejecutar `npm ci`, `npm run lint` y `npm run build` antes de fusionar cambios.
+- Documentar en Hostinger la rama, versión de Node.js, directorio raíz, comando de build y comando de arranque.
 - Integrar tests automáticos: Jest + React Testing Library para componentes; Playwright para e2e.
-- Añadir CI (Github Actions) con pasos: install, lint, build, test.
-- Implementar sistema de migraciones (Prisma/Knex) si se usa DB relacional en producción.
+- Implementar migraciones versionadas para PostgreSQL en lugar de ejecutar cambios manuales sin registro.
+- Añadir backups programados y una política de retención para `contact_leads` y `pqrs_leads`.
+- Incorporar rate limiting, CAPTCHA o protección equivalente en los endpoints públicos de contacto y PQRS.
 - Externalizar assets pesados a un bucket (S3/Cloud Storage) y configurar CDN.
 - Implementar manejo de errores centralizado y tracking (Sentry).
 
@@ -738,22 +774,15 @@ Comportamiento: Mismo flujo que contacto, pero con persistencia obligatoria en B
 # ============================================
 # CONFIGURACIÓN DE BASE DE DATOS
 # ============================================
-# Opciones: 'mysql' o 'postgres'
-DB_CLIENT=mysql
+# Conexión recomendada para PostgreSQL/Neon/Hostinger
+DATABASE_URL=postgresql://usuario:contraseña@host/base_de_datos?sslmode=require
 
-# Configuración MySQL
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=webpage_user
-DB_PASS=SecurePassword123!
-DB_DATABASE=webpage_db
-
-# Configuración PostgreSQL (si DB_CLIENT=postgres)
-# DB_HOST=localhost
+# Alternativa si el proveedor no entrega DATABASE_URL
+# DB_HOST=host
 # DB_PORT=5432
-# DB_USER=webpage_user
-# DB_PASS=SecurePassword123!
-# DB_DATABASE=webpage_db
+# DB_USER=usuario
+# DB_PASSWORD=contraseña
+# DB_NAME=nombre_db
 
 # Pool de conexiones (opcional)
 DB_POOL_SIZE=10
@@ -792,8 +821,8 @@ RATE_LIMIT_MAX_REQUESTS=100      # por IP
 
 Variable | Requerida | Por defecto | Entorno
 :--- | :---: | :--- | :---
-DB_CLIENT | Sí | - | Todas
-DB_HOST | Sí | - | Producción
+DATABASE_URL o variables `DB_*` | Sí | - | Todas
+DB_HOST, DB_PORT, DB_USER, DB_PASSWORD y DB_NAME | Solo si no se usa `DATABASE_URL` | - | Todas
 SMTP_HOST | No | (correos deshabilitados) | -
 NEXT_PUBLIC_WHATSAPP_NUMBER | No | - | Todas
 
@@ -839,43 +868,22 @@ rm -rf .next
 10.1 Requisitos previos del entorno de producción
 
 - Node.js: 20.x LTS o superior
-- Base de datos: MySQL 8.0+ o PostgreSQL 14+
+- Base de datos: PostgreSQL 14+ (Neon u otro proveedor compatible)
 - Memoria RAM mínima: 512 MB (1 GB recomendado)
 - Espacio en disco: 1 GB + assets multimedia
 - FFmpeg: Disponible en $PATH o mediante ffmpeg-static
 
-10.2 Despliegue en Vercel (recomendado)
+10.2 Despliegue en Hostinger mediante GitHub
 
 Pasos:
 
-1. Conectar repositorio de GitHub/GitLab/Bitbucket a Vercel
-2. Configurar variables de entorno desde el panel de Vercel
-3. Definir comando de build: `npm run build`
-4. Definir directorio de salida: `.next`
+1. Configurar en Hostinger el repositorio `AcemaIngenieria2022/webpage_next` y la rama de producción.
+2. Seleccionar Node.js 20 LTS, definir el directorio raíz del proyecto y registrar las variables de entorno.
+3. Instalar dependencias con `npm ci` y definir `npm run build` como comando de construcción.
+4. Iniciar la aplicación con `npm run start` usando el puerto asignado por Hostinger.
+5. Después de cada actualización desde GitHub, repetir instalación/build si cambió `package-lock.json` o el código y reiniciar Node.js.
 
-Opcional: Configurar funciones serverless para rutas API con mayor timeout
-
-Configuración vercel.json (recomendada):
-
-```json
-{
-  "functions": {
-    "src/app/api/**/*.js": {
-      "maxDuration": 10,
-      "memory": 1024
-    }
-  },
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
-      ]
-    }
-  ]
-}
-```
+La aplicación necesita un proceso Node.js persistente para servir las rutas API; no debe publicarse únicamente como archivos estáticos.
 
 10.3 Despliegue en servidor propio (Node.js)
 

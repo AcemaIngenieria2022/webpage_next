@@ -796,7 +796,8 @@ SMTP_PORT=587
 SMTP_USER=no-reply@tudominio.com
 SMTP_PASS=tu_app_password_generated
 SMTP_SECURE=false       # true para puerto 465, false para 587
-SMTP_FROM="Webpage Corporativo <no-reply@tudominio.com>"
+EMAIL_FROM_NAME="Atención al Cliente ACEMA"
+EMAIL_FROM="no-reply@acemaingenieria.com"
 
 # ============================================
 # WHATSAPP BUSINESS (BOTÓN FLOTANTE)

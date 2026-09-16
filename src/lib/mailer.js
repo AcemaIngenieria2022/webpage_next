@@ -39,6 +39,8 @@ const auth = process.env.EMAIL_USER && process.env.EMAIL_PASS ? {
   pass: process.env.EMAIL_PASS,
 } : undefined;
 
+const confirmationFrom = `"${process.env.EMAIL_FROM_NAME || 'Atención al Cliente ACEMA'}" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`;
+
 const tlsOptions = {
   rejectUnauthorized: process.env.EMAIL_REJECT_UNAUTHORIZED === 'false' ? false : true,
   servername: process.env.EMAIL_SERVERNAME || host,
@@ -377,7 +379,7 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
     });
 
     const confirmationPromise = sendMailWithFallback({
-      from: `"Atención al Cliente ACEMA" <${process.env.EMAIL_USER}>`,
+      from: confirmationFrom,
       to: email,
       subject: `Confirmación de recepción - ${requestType}`,
       html: `
@@ -843,7 +845,7 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
     });
 
     const confirmationPromise = sendMailWithFallback({
-      from: `"Atención al Cliente ACEMA" <${process.env.EMAIL_USER}>`,
+      from: confirmationFrom,
       to: email,
       subject: `Confirmación de Recepción - Radicado N° ${radicado}`,
       html: `

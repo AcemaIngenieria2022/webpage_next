@@ -15,7 +15,6 @@ const scheduleWeeklyReport = () => {
       try {
         const result = await sendWeeklyDatabaseReportEmail({
           to: process.env.EMAIL_TO_INFO || process.env.EMAIL_TO_REPORTES || process.env.EMAIL_TO_CONTACTO,
-          cc: process.env.EMAIL_CC_REPORTS || 'OperacionesTI@acemaingenieria.com',
           days: 7,
         });
 

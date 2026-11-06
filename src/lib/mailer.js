@@ -47,8 +47,8 @@ const tlsOptions = {
 };
 
 // Logo paths for embedding in emails (prefer WEBP when available)
-const logoPngPath = path.join(process.cwd(), 'public', 'images', 'logs', 'logo-acema.webp');
-const logoWebpPath = path.join(process.cwd(), 'public', 'images', 'logs', 'logo-acema.webp');
+const logoPngPath = path.join(/*turbopackIgnore: true*/ process.cwd(), 'public', 'images', 'logs', 'logo-acema.webp');
+const logoWebpPath = path.join(/*turbopackIgnore: true*/ process.cwd(), 'public', 'images', 'logs', 'logo-acema.webp');
 const logoWebpExists = fs.existsSync(logoWebpPath);
 
 // Reusable header logo HTML: prefer WEBP when available, otherwise PNG
@@ -464,7 +464,7 @@ export async function sendEticaEmail({ tipoReporte, descripcion, fechaOcurrencia
             if (!file || !file.storedPath) return null;
             return {
               filename: file.originalName || file.storedName || 'evidencia',
-              path: path.join(process.cwd(), file.storedPath),
+              path: path.join(/*turbopackIgnore: true*/ process.cwd(), file.storedPath),
               contentType: file.mimeType || undefined,
             };
           })

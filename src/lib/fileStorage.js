@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { randomUUID } from 'crypto';
 
-const eticaUploadDir = path.join(process.cwd(), 'uploads', 'etica');
+const eticaUploadDir = path.join(/*turbopackIgnore: true*/ process.cwd(), 'uploads', 'etica');
 const allowedMimeTypes = new Set([
   'application/pdf',
   'image/jpeg',

@@ -1,9 +1,7 @@
-:root {
+.featureCard {
+  /* Variables locales de la tarjeta (antes en :root; webpack no admite :root en CSS modules) */
   --accent-color: #215ba0;
   --accent-hover: #40a335;
-}
-
-.featureCard {
   background: transparent;
   border-radius: 16px;
   overflow: visible;

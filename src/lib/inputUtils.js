@@ -58,15 +58,47 @@ export function isValidAttachment(attachment, maxBytes = 5 * 1024 * 1024) {
   return { ok: true };
 }
 
-export function validatePqrsPayload({ name, idNumber, email, phone, requestType, description }) {
+export const PQRS_USER_TYPES = ['Cliente', 'Proveedor', 'Otros'];
+// El formulario /pqrs solo radica PQRS. Los demás canales usan /api/canales.
+// "Atención a la comunidad" no se radica: se redirige a WhatsApp.
+export const PQRS_REQUEST_TYPES = ['PQRS'];
+export const CHANNEL_REQUEST_TYPES = ['Acoso laboral', 'Acoso sexual', 'Requerimiento legal'];
+export const PQRS_SUBTYPES = ['Petición', 'Queja', 'Reclamo', 'Sugerencia', 'Felicitaciones'];
+
+export function validatePqrsPayload({ name, userType, idNumber, email, phone, requestType, pqrsSubtype, description }) {
   const errors = [];
   if (!name || String(name).trim().length < 2) errors.push('Nombre inválido');
+  if (!PQRS_USER_TYPES.includes(userType)) errors.push('Tipo de usuario inválido');
+  if (!PQRS_REQUEST_TYPES.includes(requestType)) errors.push('Tipo de solicitud inválido');
+  if (requestType === 'PQRS' && !PQRS_SUBTYPES.includes(pqrsSubtype)) errors.push('Tipo de PQRS inválido');
   if (!idNumber || String(idNumber).trim().length < 5) errors.push('Documento inválido');
   if (!isValidEmail(email)) errors.push('Email inválido');
   if (!isValidPhone(phone)) errors.push('Teléfono inválido');
   if (!requestType || String(requestType).trim().length < 2) errors.push('Tipo de solicitud inválido');
   if (!description || String(description).trim().length < 5) errors.push('Descripción demasiado corta');
   if (String(description).length > 8000) errors.push('Descripción demasiado larga');
+  return { ok: errors.length === 0, errors };
+}
+
+export function validateChannelPayload({ requestType, name, userType, phone, idNumber, email, city, department, position, description, adjuntos }) {
+  const isLegal = requestType === 'Requerimiento legal';
+  const errors = [];
+  if (!CHANNEL_REQUEST_TYPES.includes(requestType)) errors.push('Tipo de solicitud inválido');
+  if (!name || String(name).trim().length < 2) errors.push('Nombre inválido');
+  if (!isValidPhone(phone)) errors.push('Teléfono inválido');
+  if (!idNumber || String(idNumber).trim().length < 5) errors.push('Documento inválido');
+  if (!isValidEmail(email)) errors.push('Email inválido');
+  if (isLegal) {
+    if (!PQRS_USER_TYPES.includes(userType)) errors.push('Tipo de usuario inválido');
+  } else {
+    if (!city || String(city).trim().length < 2) errors.push('Ciudad inválida');
+    if (!department || String(department).trim().length < 2) errors.push('Departamento inválido');
+    if (!position || String(position).trim().length < 2) errors.push('Cargo inválido');
+  }
+  if (!description || String(description).trim().length < 5) errors.push('Descripción demasiado corta');
+  if (String(description || '').length > 8000) errors.push('Descripción demasiado larga');
+  [name, city, department, position].forEach((v) => { if (String(v || '').length > 150) errors.push('Campo demasiado largo'); });
+  if (Array.isArray(adjuntos) && adjuntos.length > 20) errors.push('Se permiten hasta 20 evidencias como máximo');
   return { ok: errors.length === 0, errors };
 }
 

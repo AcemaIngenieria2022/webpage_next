@@ -12,10 +12,8 @@ const initialState = {
   adjuntos: [],
 };
 
+// Acoso laboral, acoso sexual y discriminación ahora tienen su propio canal de atención
 const reportOptions = [
-  'Acoso laboral',
-  'Acoso sexual',
-  'Discriminación',
   'Fraude o corrupción',
   'Conflicto de intereses',
   'Incumplimiento de normas o políticas',
@@ -211,7 +209,7 @@ export default function LineaEticaForm() {
                       className={styles.dropdownItem}
                       onClick={() => handleSelectOption(option)}
                     >
-                      • {option}
+                      ○ {option}
                     </li>
                   ))}
                 </ul>

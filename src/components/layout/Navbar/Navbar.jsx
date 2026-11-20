@@ -4,10 +4,25 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
+const SERVICES_LINKS = [
+  { href: '/services/construccion-de-granjas/construccion-de-granjas', label: 'Construcción de granjas' },
+  { href: '/services/servicios-electricos', label: 'Servicios eléctricos' },
+];
+
+const CHANNEL_LINKS = [
+  { href: '/pqrs', label: 'PQRS' },
+  { href: '/linea-etica', label: 'Línea Ética' },
+  { href: '/acoso-laboral', label: 'Acoso laboral y discriminación' },
+  { href: '/acoso-sexual', label: 'Acoso sexual' },
+  { href: '/requerimiento-legal', label: 'Requerimientos legales' },
+  { href: '/atencion-comunidad', label: 'Atención a la comunidad' },
+];
+
 const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
+  // 'services' | 'channels' | null
+  const [openDropdown, setOpenDropdown] = useState(null);
   const [isSendingReport, setIsSendingReport] = useState(false);
   const [reportStatus, setReportStatus] = useState('');
   const timeoutRef = useRef(null);
@@ -33,17 +48,17 @@ const Navbar = () => {
   }, [isOpen]);
 
   // Funciones de manejo de eventos
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (key) => {
     if (window.innerWidth > 1024) {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      setShowDropdown(true);
+      setOpenDropdown(key);
     }
   };
 
   const handleMouseLeave = () => {
     if (window.innerWidth > 1024) {
       timeoutRef.current = setTimeout(() => {
-        setShowDropdown(false);
+        setOpenDropdown(null);
       }, 150);
     }
   };
@@ -51,14 +66,47 @@ const Navbar = () => {
   // Cerrar dropdown cuando se abre el menú móvil
   useEffect(() => {
     if (isOpen && window.innerWidth <= 1024) {
-      setShowDropdown(false);
+      setOpenDropdown(null);
     }
   }, [isOpen]);
 
-  const handleDropdownClick = () => {
+  const handleDropdownClick = (key) => {
     if (window.innerWidth <= 1024) {
-      setShowDropdown(!showDropdown);
+      setOpenDropdown((prev) => (prev === key ? null : key));
     }
+  };
+
+  const closeMenus = () => {
+    setIsOpen(false);
+    setOpenDropdown(null);
+  };
+
+  const renderDropdown = (key, label, links, activePaths) => {
+    const isShown = openDropdown === key;
+    const active = activePaths.some((path) => isActive(path));
+    return (
+      <div
+        className={styles.navDropdown}
+        onMouseEnter={() => handleMouseEnter(key)}
+        onMouseLeave={handleMouseLeave}
+        onClick={() => handleDropdownClick(key)}
+      >
+        <div className={`${styles.navLink} ${active ? styles.active : ''}`}>
+          <span className={styles.linkText}>{label}</span>
+          <span className={`${styles.arrow} ${isShown ? styles.arrowRotate : ''}`}>▾</span>
+        </div>
+
+        {isShown && (
+          <div className={styles.dropdownMenu}>
+            {links.map((link) => (
+              <Link key={link.href} href={link.href} className={styles.dropdownItem} onClick={closeMenus}>
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   };
 
   const handleSendWeeklyReport = async () => {
@@ -114,28 +162,7 @@ const Navbar = () => {
             <span className={styles.linkText}>Inicio</span>
           </Link>
 
-          <div 
-            className={styles.navDropdown}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            onClick={handleDropdownClick}
-          >
-            <div className={`${styles.navLink} ${isActive('/services') ? styles.active : ''}`}>
-              <span className={styles.linkText}>Servicios</span>
-              <span className={`${styles.arrow} ${showDropdown ? styles.arrowRotate : ''}`}>▾</span>
-            </div>
-
-            {showDropdown && (
-              <div className={styles.dropdownMenu}>
-                <Link href="/services/construccion-de-granjas/construccion-de-granjas" className={styles.dropdownItem} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
-                  Construcción de granjas
-                </Link>
-                <Link href="/services/servicios-electricos" className={styles.dropdownItem} onClick={() => { setIsOpen(false); setShowDropdown(false); }}>
-                  Servicios eléctricos
-                </Link>
-              </div>
-            )}
-          </div>
+          {renderDropdown('services', 'Servicios', SERVICES_LINKS, ['/services'])}
 
           <Link href="/projects" className={`${styles.navLink} ${isActive('/projects') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Proyectos</span>
@@ -143,6 +170,8 @@ const Navbar = () => {
           <Link href="/contact" className={`${styles.navLink} ${isActive('/contact') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Contáctanos</span>
           </Link>
+
+          {renderDropdown('channels', 'Canales de atención', CHANNEL_LINKS, CHANNEL_LINKS.map((link) => link.href))}
         </div>
 
         <button 

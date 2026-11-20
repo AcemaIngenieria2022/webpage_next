@@ -12,7 +12,7 @@ export default function PqrsPage() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: '#fff',
+      background: '#f1f1f1',
     }}>
       <PqrForm />
     </main>

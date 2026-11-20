@@ -5,38 +5,104 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './PqrForm.module.css';
 import PopupAlert from '../PopupAlert/PopupAlert';
 
-const PqrForm = () => {
+const USER_TYPE_OPTIONS = ['Cliente', 'Proveedor', 'Otros'];
+const PQRS_SUBTYPE_OPTIONS = ['Petición', 'Queja', 'Reclamo', 'Sugerencia', 'Felicitaciones'];
+
+const EMPTY_FORM = {
+  name: '',
+  userType: '',
+  idNumber: '',
+  email: '',
+  phone: '',
+  // Los demás canales (acoso, requerimiento legal, comunidad) tienen su propia página
+  requestType: 'PQRS',
+  pqrsSubtype: '',
+  description: '',
+};
+
+// Animaciones compartidas con ContactForm para el dropdown
+const dropdownVariants = {
+  hidden: { opacity: 0, y: -15, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2, ease: "easeOut" } },
+  exit: { opacity: 0, y: -10, scale: 0.95, transition: { duration: 0.15, ease: "easeIn" } }
+};
+
+export const Dropdown = ({ placeholder, value, options, onSelect, isHoverable, fullWidth = false, zIndex = 10 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [popup, setPopup] = useState({ visible: false, status: 'success', message: '' });
-  const [formData, setFormData] = useState({
-    name: '',
-    idNumber: '',
-    email: '',
-    phone: '',
-    requestType: '',
-    description: '',
-  });
-  const dropdownRef = useRef(null);
-  const [isHoverable, setIsHoverable] = useState(false);
-
-  const options = ["Caso social", "Petición", "Queja", "Reclamo", "Sugerencia"];
-
-  // Animaciones compartidas con ContactForm para el dropdown
-  const dropdownVariants = {
-    hidden: { opacity: 0, y: -15, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2, ease: "easeOut" } },
-    exit: { opacity: 0, y: -10, scale: 0.95, transition: { duration: 0.15, ease: "easeIn" } }
-  };
+  const ref = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (ref.current && !ref.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  return (
+    <div
+      className={`${styles.dropdownContainer} ${fullWidth ? styles.dropdownFullWidth : ''}`}
+      style={{ zIndex }}
+      ref={ref}
+      {...(isHoverable
+        ? { onMouseEnter: () => setIsOpen(true), onMouseLeave: () => setIsOpen(false) }
+        : {})}
+    >
+      <button
+        type="button"
+        className={`${styles.requestButtonSelect} ${fullWidth ? styles.selectFullWidth : ''} ${value ? styles.activeBtn : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        {value || placeholder}
+        <motion.span
+          className={styles.icon}
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {isOpen ? '−' : '+'}
+        </motion.span>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.ul
+            className={`${styles.dropdownList} ${fullWidth ? styles.dropdownListFullWidth : ''}`}
+            variants={dropdownVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            role="listbox"
+          >
+            {options.map((option) => (
+              <li
+                key={option}
+                role="option"
+                aria-selected={value === option}
+                className={styles.dropdownItem}
+                onClick={() => {
+                  onSelect(option);
+                  setIsOpen(false);
+                }}
+              >
+                ○ {option}
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const PqrForm = () => {
+  const [popup, setPopup] = useState({ visible: false, status: 'success', message: '' });
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [isHoverable, setIsHoverable] = useState(false);
+
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return;
@@ -59,6 +125,10 @@ const PqrForm = () => {
       return;
     }
 
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const setField = (name) => (value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -86,16 +156,17 @@ const PqrForm = () => {
 
     if (
       !formData.name.trim() ||
+      !formData.userType.trim() ||
       !formData.idNumber.trim() ||
       !formData.email.trim() ||
       !formData.phone.trim() ||
-      !formData.requestType.trim() ||
+      !formData.pqrsSubtype.trim() ||
       !formData.description.trim()
     ) {
       setPopup({
         visible: true,
         status: 'error',
-        message: 'Por favor completa todos los campos antes de enviar tu PQR.',
+        message: 'Por favor completa todos los campos antes de enviar tu solicitud.',
       });
       return;
     }
@@ -117,15 +188,15 @@ const PqrForm = () => {
       setPopup({
         visible: true,
         status: 'success',
-        message: `Tu PQRS ha sido radicado con éxito. Número asignado: ${data.radicado}. Se envió una copia de confirmación a tu correo.`,
+        message: `Tu solicitud ha sido radicada con éxito. Número asignado: ${data.radicado}. Se envió una copia de confirmación a tu correo.`,
       });
 
-      setFormData({ name: '', idNumber: '', email: '', phone: '', requestType: '', description: '' });
+      setFormData(EMPTY_FORM);
     } catch (error) {
       setPopup({
         visible: true,
         status: 'error',
-        message: 'No pudimos registrar tu PQRS. Inténtalo de nuevo más tarde.',
+        message: 'No pudimos registrar tu solicitud. Inténtalo de nuevo más tarde.',
       });
     }
   };
@@ -139,7 +210,7 @@ const PqrForm = () => {
         <div className={styles.formContentWrapper}>
           <form className={styles.formCard} onSubmit={handleSubmit}>
             <h3 className={styles.subtitle}>¿Tienes algo que decirnos?</h3>
-            
+
             <div className={styles.gridInputs}>
               <input
                 type="text"
@@ -148,6 +219,15 @@ const PqrForm = () => {
                 onChange={handleChange}
                 placeholder="Nombre completo"
                 className={styles.inputField}
+              />
+              <Dropdown
+                placeholder="Tipo de usuario"
+                value={formData.userType}
+                options={USER_TYPE_OPTIONS}
+                onSelect={setField('userType')}
+                isHoverable={isHoverable}
+                fullWidth
+                zIndex={30}
               />
               <input
                 type="text"
@@ -161,15 +241,6 @@ const PqrForm = () => {
                 required
               />
               <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Correo"
-                className={styles.inputField}
-                required
-              />
-              <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
@@ -180,84 +251,57 @@ const PqrForm = () => {
                 pattern="\d*"
                 required
               />
-            </div>
-
-            <div
-              className={styles.dropdownContainer}
-              ref={dropdownRef}
-              {...(isHoverable
-                ? { onMouseEnter: () => setIsOpen(true), onMouseLeave: () => setIsOpen(false) }
-                : {})}
-            >
-                <button
-                  type="button"
-                  className={`${styles.requestButtonSelect} ${formData.requestType ? styles.activeBtn : ''}`}
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  {formData.requestType || 'Tipo de solicitud'}
-                  <motion.span
-                    className={styles.icon}
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {isOpen ? '−' : '+'}
-                  </motion.span>
-                </button>
-
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.ul
-                      className={styles.dropdownList}
-                      variants={dropdownVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                    >
-                      {options.map((option, index) => (
-                        <li
-                          key={index}
-                          className={styles.dropdownItem}
-                          onClick={() => {
-                            setFormData((prev) => ({ ...prev, requestType: option }));
-                            setIsOpen(false);
-                          }}
-                        >
-                          • {option}
-                        </li>
-                      ))}
-                    </motion.ul>
-                  )}
-                </AnimatePresence>
-            </div>
-
-            <div className={styles.textareaWrapper}>
-              <label htmlFor="description" className={styles.textareaLabel}>Descripción detallada</label>
-              <textarea
-                id="description"
-                className={styles.textArea}
-                name="description"
-                value={formData.description}
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
+                placeholder="Correo"
+                className={`${styles.inputField} ${styles.fullRow}`}
                 required
               />
             </div>
 
-            <div className={styles.footerRow}>
-              <button
-                type="submit"
-                className={`${styles.submitButton} ${(popup.visible || isSubmitting) ? styles.submitButtonDisabled : ''} ${buttonAnimating ? styles.animateBlock : ''}`}
-                disabled={popup.visible || isSubmitting}
-              >
-                {(isSubmitting) ? (
-                  <>
-                    <span className={styles.spinner} aria-hidden="true"></span>
-                    Enviando...
-                  </>
-                ) : (
-                  'Enviar'
-                )}
-              </button>
+            <div className={styles.dropdownRow}>
+              <Dropdown
+                placeholder="Tipo de solicitud"
+                value={formData.pqrsSubtype}
+                options={PQRS_SUBTYPE_OPTIONS}
+                onSelect={setField('pqrsSubtype')}
+                isHoverable={isHoverable}
+                zIndex={20}
+              />
             </div>
+
+
+                <div className={styles.textareaWrapper}>
+                  <label htmlFor="description" className={styles.textareaLabel}>Descripción detallada</label>
+                  <textarea
+                    id="description"
+                    className={styles.textArea}
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className={styles.footerRow}>
+                  <button
+                    type="submit"
+                    className={`${styles.submitButton} ${(popup.visible || isSubmitting) ? styles.submitButtonDisabled : ''} ${buttonAnimating ? styles.animateBlock : ''}`}
+                    disabled={popup.visible || isSubmitting}
+                  >
+                    {(isSubmitting) ? (
+                      <>
+                        <span className={styles.spinner} aria-hidden="true"></span>
+                        Enviando...
+                      </>
+                    ) : (
+                      'Enviar'
+                    )}
+                  </button>
+                </div>
           </form>
           <PopupAlert visible={popup.visible} status={popup.status} message={popup.message} onClose={closePopup} />
 

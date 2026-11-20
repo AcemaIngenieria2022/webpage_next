@@ -21,7 +21,13 @@ export async function ensureEticaUploadDir() {
 }
 
 export async function saveEticaFiles(files) {
-  await ensureEticaUploadDir();
+  return saveUploadedFiles(files, 'etica');
+}
+
+// Guarda evidencias en uploads/<subdir> (p. ej. 'etica' o 'canales')
+export async function saveUploadedFiles(files, subdir = 'etica') {
+  const uploadDir = path.join(/*turbopackIgnore: true*/ process.cwd(), 'uploads', subdir);
+  await fs.mkdir(uploadDir, { recursive: true });
 
   const saved = [];
   for (const file of files) {
@@ -38,7 +44,7 @@ export async function saveEticaFiles(files) {
     const extension = path.extname(file.name).toLowerCase();
     const baseName = path.basename(file.name, extension).replace(/[^a-zA-Z0-9-_\.]/g, '_').slice(0, 60);
     const storedName = `${Date.now()}-${randomUUID()}-${baseName}${extension}`;
-    const storedPath = path.join(eticaUploadDir, storedName);
+    const storedPath = path.join(uploadDir, storedName);
 
     await fs.writeFile(storedPath, buffer);
 
@@ -47,7 +53,7 @@ export async function saveEticaFiles(files) {
       storedName,
       mimeType: file.type,
       size: buffer.length,
-      storedPath: path.posix.join('uploads', 'etica', storedName),
+      storedPath: path.posix.join('uploads', subdir, storedName),
     });
   }
 

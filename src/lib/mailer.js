@@ -21,14 +21,18 @@ const DEPARTMENTS = {
   reportes: process.env.EMAIL_TO_REPORTES || process.env.EMAIL_TO_INFO || process.env.EMAIL_TO_CONTACTO || ''
 };
 
-// Mapeo de tipos de solicitud PQRS a correos específicos
+// Mapeo de tipos de solicitud del formulario PQRS a su buzón de destino.
+// Cada buzón se puede sobrescribir con su variable de entorno.
 const PQRS_TYPE_EMAIL_MAPPING = {
-  'Caso social': process.env.EMAIL_TO_PQRS_CASO_SOCIAL || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
-  'Petición': process.env.EMAIL_TO_PQRS_PETICION || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
-  'Queja': process.env.EMAIL_TO_PQRS_QUEJA || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
-  'Reclamo': process.env.EMAIL_TO_PQRS_RECLAMO || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || '',
-  'Sugerencia': process.env.EMAIL_TO_PQRS_SUGERENCIA || process.env.EMAIL_TO_PQRS || process.env.EMAIL_TO_CONTACTO || ''
+  'PQRS': process.env.EMAIL_TO_PQRS || 'pqrs@grupovanta.com.co',
+  'Acoso laboral': process.env.EMAIL_TO_ACOSO_LABORAL || 'comite.convivencia@grupovanta.com.co',
+  'Acoso sexual': process.env.EMAIL_TO_ACOSO_SEXUAL || 'sistemaintegrado@acemaingenieria.com',
+  'Requerimiento legal': process.env.EMAIL_TO_REQUERIMIENTO_LEGAL || 'notificaciones.judiciales@grupovanta.com.co',
 };
+
+// Línea Ética: reportes que se envían al Oficial de Cumplimiento
+const ETICA_COMPLIANCE_TYPES = ['Fraude o corrupción', 'Conflicto de intereses', 'Incumplimiento de normas o políticas'];
+const ETICA_COMPLIANCE_EMAIL = process.env.EMAIL_TO_OFICIAL_CUMPLIMIENTO || 'oficialdecumplimiento@grupovanta.com.co';
 
 const host = process.env.EMAIL_HOST || 'smtp-mail.outlook.com';
 const port = parseInt(process.env.EMAIL_PORT || '587', 10);
@@ -159,7 +163,9 @@ function buildExcelWorkbook({ contactRows, pqrsRows, eticaRows }) {
     'Número de identificación': row.id_number || '—',
     'Correo electrónico': row.email || '—',
     'Teléfono': row.phone || '—',
+    'Tipo de usuario': row.user_type || '—',
     'Tipo de solicitud': row.request_type || '—',
+    'Tipo de PQRS': row.pqrs_subtype || '—',
     'Descripción': row.description || '—',
     'Fecha de registro': formatDateForReport(row.created_at),
   }));
@@ -450,7 +456,11 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
 }
 
 export async function sendEticaEmail({ tipoReporte, descripcion, fechaOcurrencia, tieneEvidencia, adjuntos = [], observaciones, ipOrigen, userAgent }) {
-  const targetEmail = DEPARTMENTS.etica;
+  // Fraude, conflicto de intereses e incumplimiento van al Oficial de Cumplimiento; el resto al buzón general de ética
+  const targetEmail = ETICA_COMPLIANCE_TYPES.includes(tipoReporte)
+    ? ETICA_COMPLIANCE_EMAIL
+    : DEPARTMENTS.etica;
+  console.log(`[ETICA EMAIL ROUTING] Tipo: "${tipoReporte}" -> Destino: "${targetEmail}"`);
   const results = { internal: null, errors: [] };
 
   try {
@@ -588,7 +598,7 @@ export async function sendWeeklyDatabaseReportEmail({ to, cc = [], days = 7 }) {
       ),
       pool.query(
         `
-          SELECT id, radicado, name, id_number, email, phone, request_type, description, created_at
+          SELECT id, radicado, name, user_type, id_number, email, phone, request_type, pqrs_subtype, description, created_at
           FROM pqrs_leads
           WHERE created_at >= $1
           ORDER BY created_at DESC
@@ -621,7 +631,9 @@ export async function sendWeeklyDatabaseReportEmail({ to, cc = [], days = 7 }) {
       { key: 'id_number', label: 'Número de identificación' },
       { key: 'email', label: 'Correo electrónico' },
       { key: 'phone', label: 'Teléfono' },
+      { key: 'user_type', label: 'Tipo de usuario' },
       { key: 'request_type', label: 'Tipo de solicitud' },
+      { key: 'pqrs_subtype', label: 'Tipo de PQRS' },
       { key: 'description', label: 'Descripción' },
       { key: 'created_at', label: 'Fecha de registro' },
     ];
@@ -737,12 +749,44 @@ Adicionalmente, se adjunta el archivo de Excel con el mismo contenido para su re
   }
 }
 
-export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, requestType, description }) {
+export async function sendPqrsEmail({
+  radicado, name, userType, idNumber, email, phone, requestType, pqrsSubtype, description,
+  city, department, position, adjuntos = [],
+}) {
   // Obtener el correo específico según el tipo de solicitud, con fallback al correo general de PQRS
   const targetEmail = PQRS_TYPE_EMAIL_MAPPING[requestType] || DEPARTMENTS.pqrs || DEPARTMENTS.contacto;
+  const requestLabel = pqrsSubtype ? `${requestType} - ${pqrsSubtype}` : requestType;
+  console.log(`[PQRS EMAIL ROUTING] Tipo: "${requestLabel}" -> Destino: "${targetEmail}"`);
   const results = { internal: null, confirmation: null, errors: [] };
   
   try {
+    const evidenceAttachments = Array.isArray(adjuntos)
+      ? adjuntos
+          .filter((file) => file && file.storedPath)
+          .map((file) => ({
+            filename: file.originalName || file.storedName || 'evidencia',
+            path: path.join(/*turbopackIgnore: true*/ process.cwd(), file.storedPath),
+            contentType: file.mimeType || undefined,
+          }))
+      : [];
+
+    const optionalCard = (label, value) => value ? `
+                      <tr>
+                        <td>
+                          <div class="data-card">
+                            <div class="data-label">${label}</div>
+                            <div class="data-value">${sanitizeForEmail(value)}</div>
+                          </div>
+                        </td>
+                      </tr>` : '';
+
+    const extraCards = [
+      optionalCard('Ciudad o municipio', city),
+      optionalCard('Departamento', department),
+      optionalCard('Cargo', position),
+      optionalCard('Evidencias adjuntas', evidenceAttachments.length > 0 ? evidenceAttachments.map((f) => f.filename).join(', ') : ''),
+    ].join('');
+
     const pqrsAttachments = [
       {
         filename: 'logo-acema.webp',
@@ -756,8 +800,8 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
       from: `"Sistema PQRS ACEMA" <${process.env.EMAIL_USER}>`,
       to: targetEmail,
       replyTo: email,
-      subject: `[${requestType.toUpperCase()}] Radicado N° ${radicado}`,
-      attachments: pqrsAttachments,
+      subject: `[${requestLabel.toUpperCase()}] Radicado N° ${radicado}`,
+      attachments: [...evidenceAttachments, ...pqrsAttachments],
       html: `
         <!DOCTYPE html>
         <html>
@@ -786,10 +830,10 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
                       <div class="radicado-num">${sanitizeForEmail(radicado)}</div>
                     </div>
 
-                    <div class="badge">${sanitizeForEmail(requestType)}</div>
-                    
+                    <div class="badge">${sanitizeForEmail(requestLabel)}</div>
+
                     <div class="section-title">Información del Solicitante</div>
-                    
+
                     <table class="data-table">
                       <tr>
                         <td>
@@ -799,6 +843,7 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
                           </div>
                         </td>
                       </tr>
+${optionalCard('Tipo de Usuario', userType)}
                       <tr>
                         <td>
                           <div class="data-card">
@@ -823,6 +868,7 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
                           </div>
                         </td>
                       </tr>
+${extraCards}
                     </table>
 
                     <div class="msg-box">
@@ -878,7 +924,7 @@ export async function sendPqrsEmail({ radicado, name, idNumber, email, phone, re
                     </p>
                     
                     <p style="color: #475569; font-size: 14px; line-height: 1.6; text-align: center; margin-bottom: 30px;">
-                      Hemos recibido de forma satisfactoria tu solicitud de <strong>${sanitizeForEmail(String(requestType).toLowerCase())}</strong>. Nuestro equipo de atención al cliente ya se encuentra evaluando los datos provistos.
+                      Hemos recibido de forma satisfactoria tu solicitud de <strong>${sanitizeForEmail(requestLabel)}</strong>. Nuestro equipo ya se encuentra evaluando los datos provistos.
                     </p>
 
                     <div class="radicado-banner">

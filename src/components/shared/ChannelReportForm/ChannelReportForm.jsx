@@ -110,6 +110,21 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
     }
   };
 
+  const submitButton = (
+    <button
+      type="submit"
+      className={`${styles.submitButton} ${(popup.visible || isSubmitting) ? styles.submitButtonDisabled : ''}`}
+      disabled={popup.visible || isSubmitting}
+    >
+      {isSubmitting ? (
+        <>
+          <span className={styles.spinner} aria-hidden="true"></span>
+          Enviando...
+        </>
+      ) : 'Enviar'}
+    </button>
+  );
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.formWrapper}>
@@ -170,18 +185,7 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className={`${styles.submitButton} ${(popup.visible || isSubmitting) ? styles.submitButtonDisabled : ''}`}
-                disabled={popup.visible || isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <span className={styles.spinner} aria-hidden="true"></span>
-                    Enviando...
-                  </>
-                ) : 'Enviar'}
-              </button>
+              {!formData.tieneEvidencia && submitButton}
             </div>
 
             {formData.tieneEvidencia && (
@@ -203,6 +207,9 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
                 )}
               </div>
             )}
+
+            {/* Como en Línea Ética: con evidencia, el botón baja debajo de los adjuntos */}
+            {formData.tieneEvidencia && <div className={styles.footerRow}>{submitButton}</div>}
           </form>
           <PopupAlert visible={popup.visible} status={popup.status} message={popup.message} onClose={closePopup} />
 

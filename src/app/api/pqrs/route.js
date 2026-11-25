@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { savePqrsLead } from '@/lib/pqrsService';
 import { sendPqrsEmail } from '@/lib/mailer';
+import { radicarSolicitud } from '@/lib/radicadoService';
 import { validatePqrsPayload, checkRateLimit } from '@/lib/inputUtils';
 
 export async function POST(request) {
@@ -24,12 +25,11 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: 'Validación fallida.', details: validation.errors }, { status: 400 });
     }
 
-    const currentYear = new Date().getFullYear();
-    const randomNumber = Math.floor(1000 + Math.random() * 9000);
-    const radicado = `PQRS-${currentYear}-${randomNumber}`;
-
-    // 1. Guardamos en la base de datos
-    await savePqrsLead({ radicado, ...payload });
+    // 1. Radicado único (compartido con el chatbot) + detalle en pqrs_leads, en una sola transacción
+    const radicado = await radicarSolicitud(
+      { tipo: requestType, subtipo: pqrsSubtype, nombre: name, documento: idNumber, email, telefono: phone },
+      (numero, db) => savePqrsLead({ radicado: numero, ...payload }, db),
+    );
 
     // 2. Disparamos el envío de correos en segundo plano (no bloqueante)
     sendPqrsEmail({ radicado, ...payload })

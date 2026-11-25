@@ -3,14 +3,11 @@ import { savePqrsLead } from '@/lib/pqrsService';
 import { sendPqrsEmail } from '@/lib/mailer';
 import { validateChannelPayload, checkRateLimit } from '@/lib/inputUtils';
 import { saveUploadedFiles } from '@/lib/fileStorage';
+import { radicarSolicitud } from '@/lib/radicadoService';
 
 // Canales de atención con formulario propio: Acoso laboral, Acoso sexual, Requerimiento legal.
 // Se guardan en la misma tabla de PQRS y se enrutan al buzón de cada canal (ver mailer.js).
-const RADICADO_PREFIX = {
-  'Acoso laboral': 'AL',
-  'Acoso sexual': 'AS',
-  'Requerimiento legal': 'RL',
-};
+// El radicado es el único compartido con el chatbot (ACEMA-AAAA-NNNNN); el tipo va como campo aparte.
 
 export async function POST(request) {
   try {
@@ -53,11 +50,10 @@ export async function POST(request) {
       }
     }
 
-    const currentYear = new Date().getFullYear();
-    const randomNumber = Math.floor(1000 + Math.random() * 9000);
-    const radicado = `${RADICADO_PREFIX[payload.requestType]}-${currentYear}-${randomNumber}`;
-
-    await savePqrsLead({ radicado, ...payload, tieneEvidencia, adjuntos: savedFiles });
+    const radicado = await radicarSolicitud(
+      { tipo: payload.requestType, nombre: payload.name, documento: payload.idNumber, email: payload.email, telefono: payload.phone },
+      (numero, db) => savePqrsLead({ radicado: numero, ...payload, tieneEvidencia, adjuntos: savedFiles }, db),
+    );
 
     sendPqrsEmail({ radicado, ...payload, adjuntos: savedFiles })
       .then((res) => {

@@ -239,20 +239,20 @@ const emailStyles = `
   .header { background: #215ba0; background: linear-gradient(135deg, #215ba0 0%, #40a335 100%); padding: 35px 40px; text-align: center; }
   .header { background: #ffffff; padding: 28px 40px; text-align: center; border-bottom: 2px solid #215ba0; }
   .header-logo { color: #215ba0; font-size: 26px; font-weight: 800; letter-spacing: 1.5px; margin: 0; text-transform: uppercase; }
-  .header-subtitle { color: #215ba0; font-size: 13px; margin-top: 8px; letter-spacing: 1px; opacity: 0.95; font-weight: 600; }
+  .header-subtitle { color: #215ba0; font-size: 13px; margin-top: 8px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.95; font-weight: 600; }
   .content { padding: 40px; background-color: #ffffff; }
-  .badge { display: inline-block; background-color: #e8f5e9; color: #40a335; padding: 6px 16px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; margin-bottom: 25px; border: 1px solid #c8e6c9; }
-  .section-title { color: #215ba0; font-size: 14px; font-weight: 700; letter-spacing: 0.8px; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+  .badge { display: inline-block; background-color: #e8f5e9; color: #40a335; padding: 6px 16px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 25px; border: 1px solid #c8e6c9; }
+  .section-title { color: #215ba0; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
   .data-table { width: 100%; margin-bottom: 25px; border-spacing: 0 10px; }
   .data-card { background-color: #f8fafc; border-left: 4px solid #215ba0; padding: 14px 18px; border-radius: 0 6px 6px 0; border-top: 1px solid #edf2f7; border-right: 1px solid #edf2f7; border-bottom: 1px solid #edf2f7; }
-  .data-label { color: #64748b; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .data-label { color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
   .data-value { color: #1e293b; font-size: 14px; font-weight: 600; }
   .data-link { color: #215ba0; text-decoration: none; font-weight: 600; }
   .msg-box { background-color: #f8fafc; border-radius: 6px; padding: 22px 25px; border: 1px dashed #cbd5e1; border-left: 4px solid #40a335; }
-  .msg-title { color: #40a335; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .msg-title { color: #40a335; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
   .msg-text { color: #334155; font-size: 14px; line-height: 1.6; white-space: pre-wrap; margin: 0; }
   .radicado-banner { background: #f0fdf4; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 6px; padding: 25px; text-align: center; margin-bottom: 25px; border: 1px solid #bbf7d0; }
-  .radicado-label { color: #166534; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .radicado-label { color: #166534; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
   .radicado-num { color: #215ba0; font-size: 32px; font-weight: 800; font-family: 'Courier New', monospace; letter-spacing: 2px; margin: 0; }
   .footer { background-color: #f8fafc; padding: 30px 40px; text-align: center; border-top: 1px solid #e2e8f0; }
   .footer-text { color: #94a3b8; font-size: 11px; line-height: 1.6; margin: 4px 0; }
@@ -800,7 +800,7 @@ export async function sendPqrsEmail({
       from: `"Sistema PQRS ACEMA" <${process.env.EMAIL_USER}>`,
       to: targetEmail,
       replyTo: email,
-      subject: `[${requestLabel}] Radicado N° ${radicado}`,
+      subject: `[${requestLabel.toUpperCase()}] Radicado N° ${radicado}`,
       attachments: [...evidenceAttachments, ...pqrsAttachments],
       html: `
         <!DOCTYPE html>

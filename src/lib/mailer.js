@@ -26,7 +26,7 @@ const DEPARTMENTS = {
 const PQRS_TYPE_EMAIL_MAPPING = {
   'PQRS': process.env.EMAIL_TO_PQRS || 'pqrs@grupovanta.com.co',
   'Acoso laboral': process.env.EMAIL_TO_ACOSO_LABORAL || 'comite.convivencia@grupovanta.com.co',
-  'Acoso sexual': process.env.EMAIL_TO_ACOSO_SEXUAL || 'sistemaintegrado@acemaingenieria.com',
+  'Acoso sexual': process.env.EMAIL_TO_ACOSO_SEXUAL || 'req.acososexual@grupovanta.com.co',
   'Requerimiento legal': process.env.EMAIL_TO_REQUERIMIENTO_LEGAL || 'notificaciones.judiciales@grupovanta.com.co',
 };
 

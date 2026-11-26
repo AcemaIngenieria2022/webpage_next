@@ -100,7 +100,10 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
       setPopup({
         visible: true,
         status: 'success',
-        message: `Tu solicitud ha sido radicada con éxito. Número asignado: ${data.radicado}. Se envió una copia de confirmación a tu correo.`,
+        title: '¡Tu solicitud fue radicada!',
+        message: 'Guarda este número para hacer seguimiento a tu solicitud.',
+        radicado: data.radicado,
+        footnote: 'También te enviamos este número a tu correo electrónico.',
       });
       setFormData(EMPTY_FORM);
     } catch (error) {
@@ -211,7 +214,7 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
             {/* Como en Línea Ética: con evidencia, el botón baja debajo de los adjuntos */}
             {formData.tieneEvidencia && <div className={styles.footerRow}>{submitButton}</div>}
           </form>
-          <PopupAlert visible={popup.visible} status={popup.status} message={popup.message} onClose={closePopup} />
+          <PopupAlert visible={popup.visible} status={popup.status} title={popup.title} message={popup.message} radicado={popup.radicado} footnote={popup.footnote} onClose={closePopup} />
 
           <div className={styles.infoBoxSide}>
             <p className={styles.infoText}>

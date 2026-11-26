@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './PopupAlert.module.css';
 
-const PopupAlert = ({ visible, status = 'success', title = '', message = '', onClose }) => {
+const PopupAlert = ({ visible, status = 'success', title = '', message = '', radicado = '', footnote = '', onClose }) => {
   if (!visible) return null;
 
   const popupTitle = title || (status === 'success' ? '¡Enviado con éxito!' : 'Atención');
@@ -25,7 +25,14 @@ const PopupAlert = ({ visible, status = 'success', title = '', message = '', onC
 
         <div className={styles.content}>
           <h2 className={styles.title}>{popupTitle}</h2>
-          <p className={styles.message}>{message}</p>
+          {message && <p className={styles.message}>{message}</p>}
+          {radicado && (
+            <div className={styles.radicadoBox}>
+              <span className={styles.radicadoLabel}>Número de radicado</span>
+              <strong className={styles.radicadoNumber}>{radicado}</strong>
+            </div>
+          )}
+          {footnote && <p className={styles.footnote}>{footnote}</p>}
         </div>
 
         <button

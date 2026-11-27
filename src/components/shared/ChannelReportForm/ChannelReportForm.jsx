@@ -81,6 +81,13 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
       return;
     }
 
+    const MAX_FILE_BYTES = 15 * 1024 * 1024;
+    const tooBig = formData.adjuntos.find((file) => file.size > MAX_FILE_BYTES);
+    if (tooBig) {
+      setPopup({ visible: true, status: 'error', message: `El archivo "${tooBig.name}" pesa más de 15 MB. Reduce su tamaño o adjunta otro archivo.` });
+      return;
+    }
+
     const payload = new FormData();
     payload.append('requestType', channel);
     ['name', 'userType', 'phone', 'idNumber', 'email', 'city', 'department', 'position', 'description'].forEach((field) => {
@@ -107,7 +114,7 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
       });
       setFormData(EMPTY_FORM);
     } catch (error) {
-      setPopup({ visible: true, status: 'error', message: 'No pudimos registrar tu solicitud. Inténtalo de nuevo más tarde.' });
+      setPopup({ visible: true, status: 'error', message: error.message && error.message !== 'Fallo del servidor' && error.message !== 'Error interno al radicar.' ? error.message : 'No pudimos registrar tu solicitud. Inténtalo de nuevo más tarde.' });
     } finally {
       setIsSubmitting(false);
     }

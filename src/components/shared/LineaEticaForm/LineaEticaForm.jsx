@@ -119,6 +119,17 @@ export default function LineaEticaForm() {
       return;
     }
 
+    const MAX_FILE_BYTES = 15 * 1024 * 1024;
+    const tooBig = formData.adjuntos.find((file) => file.size > MAX_FILE_BYTES);
+    if (tooBig) {
+      setPopup({
+        visible: true,
+        status: 'error',
+        message: `El archivo "${tooBig.name}" pesa más de 15 MB. Reduce su tamaño o adjunta otro archivo.`,
+      });
+      return;
+    }
+
     const formPayload = new FormData();
     formPayload.append('tipoReporte', formData.tipoReporte);
     formPayload.append('descripcion', formData.descripcion);

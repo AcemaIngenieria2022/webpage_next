@@ -26,7 +26,7 @@ const DEPARTMENTS = {
 const PQRS_TYPE_EMAIL_MAPPING = {
   'PQRS': process.env.EMAIL_TO_PQRS || 'pqrs@grupovanta.com.co',
   'Acoso laboral': process.env.EMAIL_TO_ACOSO_LABORAL || 'comite.convivencia@grupovanta.com.co',
-  'Acoso sexual': process.env.EMAIL_TO_ACOSO_SEXUAL || 'sistemaintegrado@acemaingenieria.com',
+  'Acoso sexual': process.env.EMAIL_TO_ACOSO_SEXUAL || 'req.acososexual@grupovanta.com.co',
   'Requerimiento legal': process.env.EMAIL_TO_REQUERIMIENTO_LEGAL || 'notificaciones.judiciales@grupovanta.com.co',
 };
 
@@ -373,7 +373,7 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
                 <tr>
                   <td class="footer">
                     <p class="footer-text">Este correo se generó de forma automática desde acemaingenieria.com</p>
-                    <p class="footer-text">© 2026 ACEMA Ingeniería. Todos los derechos reservados.</p>
+                    <p class="footer-text">© 2026 Acema Ingeniería. Todos los derechos reservados.</p>
                   </td>
                 </tr>
               </table>
@@ -426,8 +426,8 @@ export async function sendDepartmentEmail({ name, phone, email, company, request
                 </tr>
                 <tr>
                   <td class="footer">
-                    <p class="footer-text">Este correo es automático y confirma que tu mensaje fue recibido por ACEMA Ingeniería.</p>
-                    <p class="footer-text">© 2026 ACEMA Ingeniería. Todos los derechos reservados.</p>
+                    <p class="footer-text">Este correo es automático y confirma que tu mensaje fue recibido por Acema Ingeniería.</p>
+                    <p class="footer-text">© 2026 Acema Ingeniería. Todos los derechos reservados.</p>
                   </td>
                 </tr>
               </table>
@@ -553,7 +553,7 @@ export async function sendEticaEmail({ tipoReporte, descripcion, fechaOcurrencia
                 <tr>
                   <td class="footer">
                     <p class="footer-text">Este correo fue generado automáticamente desde acemaingenieria.com</p>
-                    <p class="footer-text">© 2026 ACEMA Ingeniería. Todos los derechos reservados.</p>
+                    <p class="footer-text">© 2026 Acema Ingeniería. Todos los derechos reservados.</p>
                   </td>
                 </tr>
               </table>
@@ -717,7 +717,7 @@ Adicionalmente, se adjunta el archivo de Excel con el mismo contenido para su re
                 <tr>
                   <td class="footer">
                     <p class="footer-text">Este correo fue generado automáticamente desde acemaingenieria.com</p>
-                    <p class="footer-text">© 2026 ACEMA Ingeniería. Todos los derechos reservados.</p>
+                    <p class="footer-text">© 2026 Acema Ingeniería. Todos los derechos reservados.</p>
                   </td>
                 </tr>
               </table>
@@ -880,7 +880,7 @@ ${extraCards}
                 <tr>
                   <td class="footer">
                     <p class="footer-text">Mensaje del sistema de gestión interna de requerimientos web.</p>
-                    <p class="footer-text">© 2026 ACEMA Ingeniería. Todos los derechos reservados.</p>
+                    <p class="footer-text">© 2026 Acema Ingeniería. Todos los derechos reservados.</p>
                   </td>
                 </tr>
               </table>
@@ -936,14 +936,14 @@ ${extraCards}
                     <p style="color: #64748b; font-size: 13px; line-height: 1.6; margin-top: 30px; text-align: center;">
                       Atentamente,<br>
                       <strong style="color: #215ba0;">Área de Atención al Cliente y PQRS</strong><br>
-                      ACEMA Ingeniería S.A.S
+                      Acema Ingeniería S.A.S
                     </p>
                   </td>
                 </tr>
                 <tr>
                   <td class="footer">
                     <p class="footer-text">Por favor no respondas a este correo corporativo automático de control.</p>
-                    <p class="footer-text">© 2026 ACEMA Ingeniería. Todos los derechos reservados.</p>
+                    <p class="footer-text">© 2026 Acema Ingeniería. Todos los derechos reservados.</p>
                   </td>
                 </tr>
               </table>

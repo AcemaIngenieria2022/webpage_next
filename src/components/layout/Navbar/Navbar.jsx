@@ -167,6 +167,9 @@ const Navbar = () => {
           <Link href="/projects" className={`${styles.navLink} ${isActive('/projects') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Proyectos</span>
           </Link>
+          <Link href="/en-medios" className={`${styles.navLink} ${isActive('/en-medios') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
+            <span className={styles.linkText}>En medios</span>
+          </Link>
           <Link href="/contact" className={`${styles.navLink} ${isActive('/contact') ? styles.active : ''}`} onClick={() => setIsOpen(false)}>
             <span className={styles.linkText}>Contáctanos</span>
           </Link>

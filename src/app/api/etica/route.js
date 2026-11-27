@@ -31,7 +31,11 @@ export async function POST(request) {
 
     let savedFiles = [];
     if (tieneEvidencia && rawAdjuntos.length > 0) {
-      savedFiles = await saveEticaFiles(rawAdjuntos);
+      try {
+        savedFiles = await saveEticaFiles(rawAdjuntos);
+      } catch (fileError) {
+        return NextResponse.json({ success: false, error: fileError.message }, { status: 400 });
+      }
     }
 
     await saveEticaLead({

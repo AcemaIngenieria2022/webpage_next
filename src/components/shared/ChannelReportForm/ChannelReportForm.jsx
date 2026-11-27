@@ -81,6 +81,13 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
       return;
     }
 
+    const MAX_FILE_BYTES = 15 * 1024 * 1024;
+    const tooBig = formData.adjuntos.find((file) => file.size > MAX_FILE_BYTES);
+    if (tooBig) {
+      setPopup({ visible: true, status: 'error', message: `El archivo "${tooBig.name}" pesa más de 15 MB. Reduce su tamaño o adjunta otro archivo.` });
+      return;
+    }
+
     const payload = new FormData();
     payload.append('requestType', channel);
     ['name', 'userType', 'phone', 'idNumber', 'email', 'city', 'department', 'position', 'description'].forEach((field) => {
@@ -100,11 +107,14 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
       setPopup({
         visible: true,
         status: 'success',
-        message: `Tu solicitud ha sido radicada con éxito. Número asignado: ${data.radicado}. Se envió una copia de confirmación a tu correo.`,
+        title: '¡Tu solicitud fue radicada!',
+        message: 'Guarda este número para hacer seguimiento a tu solicitud.',
+        radicado: data.radicado,
+        footnote: 'También te enviamos este número a tu correo electrónico.',
       });
       setFormData(EMPTY_FORM);
     } catch (error) {
-      setPopup({ visible: true, status: 'error', message: 'No pudimos registrar tu solicitud. Inténtalo de nuevo más tarde.' });
+      setPopup({ visible: true, status: 'error', message: error.message && error.message !== 'Fallo del servidor' && error.message !== 'Error interno al radicar.' ? error.message : 'No pudimos registrar tu solicitud. Inténtalo de nuevo más tarde.' });
     } finally {
       setIsSubmitting(false);
     }
@@ -211,7 +221,7 @@ const ChannelReportForm = ({ title, channel, intro, variant = 'acoso' }) => {
             {/* Como en Línea Ética: con evidencia, el botón baja debajo de los adjuntos */}
             {formData.tieneEvidencia && <div className={styles.footerRow}>{submitButton}</div>}
           </form>
-          <PopupAlert visible={popup.visible} status={popup.status} message={popup.message} onClose={closePopup} />
+          <PopupAlert visible={popup.visible} status={popup.status} title={popup.title} message={popup.message} radicado={popup.radicado} footnote={popup.footnote} onClose={closePopup} />
 
           <div className={styles.infoBoxSide}>
             <p className={styles.infoText}>

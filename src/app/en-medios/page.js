@@ -15,14 +15,7 @@ export default function EnMediosPage() {
       <ul className={styles.grid}>
         {mediosData.map((nota) => (
           <li key={nota.slug} className={styles.card}>
-            <a
-              href={`/medios/${nota.slug}.pdf`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.imageWrapper}
-              tabIndex={-1}
-              aria-hidden="true"
-            >
+            <div className={styles.imageWrapper}>
               <Image
                 src={`/images/medios/${nota.slug}.webp`}
                 alt={`${nota.titulo} (${nota.medio}, ${nota.fecha})`}
@@ -30,7 +23,7 @@ export default function EnMediosPage() {
                 sizes="(max-width: 600px) 90vw, (max-width: 1024px) 45vw, 260px"
                 className={styles.image}
               />
-            </a>
+            </div>
             <a
               href={`/medios/${nota.slug}.pdf`}
               target="_blank"
